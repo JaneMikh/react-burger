@@ -1,0 +1,61 @@
+.content {
+  max-width: 600px;
+  max-height: 912px;
+  overflow: hidden;
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+}
+
+.list {
+   height: 656px;
+   display: flex;
+   flex-direction: column;
+   align-items: center;
+   list-style-type: none;
+   padding: 0;
+   margin-top: 0;
+   margin-bottom: 0;
+   overflow: auto; 
+   position: relative;
+}
+
+/*цвет дорожки scrollbar*/
+.list::-webkit-scrollbar-track {
+    background-color: #2F2F37;
+}
+
+/*ползунок скроллбара*/
+.list::-webkit-scrollbar-thumb {
+    background-color: #8585AD;
+}
+
+/*ширина scrollbar*/
+.list::-webkit-scrollbar {
+    width: 8px;
+    background-color: #F9F9FD;  
+}
+
+.list_element {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.image {
+   width: 33px;
+   height: 33px; 
+}
+
+.price {
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    box-sizing: border-box;
+    /*align-self: flex-end;*/
+}
+.price_item {
+    max-width: 119.5px;
+    display: flex;
+    justify-content: space-between;
+}

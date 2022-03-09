@@ -1,0 +1,13 @@
+.page {
+  width: 2000px;
+  background-color: #000;
+  margin: auto;
+  box-sizing: border-box;
+}
+
+.main {
+  max-width: 1240px;
+  display: flex;
+  justify-content: space-between;
+  margin: 0 auto;
+}

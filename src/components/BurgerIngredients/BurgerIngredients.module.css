@@ -1,0 +1,89 @@
+.ingredients {
+    max-width: 600px;
+    max-height: 912px;
+    
+    overflow: hidden;
+    
+}
+
+.menu {
+    max-height: 716px;
+    overflow: auto; 
+    position: relative;
+}
+
+/*цвет дорожки scrollbar*/
+.menu::-webkit-scrollbar-track {
+    background-color: #2F2F37;
+    
+}
+
+/*ползунок скроллбара*/
+.menu::-webkit-scrollbar-thumb {
+    background-color: #8585AD;
+}
+
+/*ширина scrollbar*/
+.menu::-webkit-scrollbar {
+    width: 8px;
+    background-color: #F9F9FD;  
+}
+
+/*
+.menu::-webkit-scrollbar-track-piece:start {
+    margin-top: 40px; 
+}
+
+.menu::-webkit-scrollbar-track-piece:end {
+  margin-bottom: 52px; 
+}
+*/
+.list {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-gap: 24px;
+    list-style-type: none;
+    padding: 0;
+    margin-top: 0;
+    margin-bottom: 0;
+    width: 272px;
+    
+  }
+  
+  .list_item {
+    box-sizing: border-box;
+    cursor: pointer;
+    position: relative;
+    flex-wrap: nowrap;
+  }
+  
+  .image {
+    width:240px;
+    height: 120px;
+  }
+  
+  .price {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  
+  .price_counter {
+    
+  
+  }
+  
+  .name {
+    text-align: center;
+  }
+
+  .counter {
+    position: absolute;
+    top: 0;
+    right: 0;
+
+  }
+
+  .tab {
+    display: flex;
+  }

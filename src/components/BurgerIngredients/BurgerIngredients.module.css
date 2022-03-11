@@ -1,15 +1,13 @@
 .ingredients {
-    max-width: 600px;
-    max-height: 912px;
-    
-    overflow: hidden;
-    
+  max-width: 600px;
+  max-height: 912px;
+  overflow: hidden;
 }
 
 .menu {
-    max-height: 716px;
-    overflow: auto; 
-    position: relative;
+  max-height: 716px;
+  overflow: auto; 
+  position: relative;
 }
 
 /*цвет дорожки scrollbar*/

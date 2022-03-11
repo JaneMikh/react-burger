@@ -40,6 +40,8 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
+    width: 100%;
+    box-sizing: border-box; /*под вопросом*/
 }
 
 .image {
@@ -52,8 +54,9 @@
     justify-content: flex-end;
     align-items: center;
     box-sizing: border-box;
-    /*align-self: flex-end;*/
+    padding-bottom: 52px;
 }
+
 .price_item {
     max-width: 119.5px;
     display: flex;

@@ -1,0 +1,28 @@
+
+.element {
+    box-sizing: border-box;
+    cursor: pointer;
+    position: relative;
+    flex-wrap: nowrap;
+}
+    
+.image {
+    width:240px;
+    height: 120px;
+}
+    
+.price {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+  
+.name {
+    text-align: center;
+}
+  
+.counter {
+    position: absolute;
+    top: 0;
+    right: 0;
+}

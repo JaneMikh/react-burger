@@ -1,4 +1,4 @@
-.content {
+.container {
   max-width: 600px;
   max-height: 912px;
   overflow: hidden;
@@ -36,12 +36,16 @@
     background-color: #F9F9FD;  
 }
 
-.list_element {
+.list__element {
     display: flex;
     justify-content: space-between;
     align-items: center;
     width: 100%;
     box-sizing: border-box; /*под вопросом*/
+}
+
+.list__element:last-child {
+    margin-bottom: 0;
 }
 
 .image {
@@ -57,7 +61,7 @@
     padding-bottom: 52px;
 }
 
-.price_item {
+.price__item {
     max-width: 119.5px;
     display: flex;
     justify-content: space-between;

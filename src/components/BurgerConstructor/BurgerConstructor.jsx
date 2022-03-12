@@ -5,7 +5,6 @@ import subtract from '../../images/subtract.svg';
 import { IngredientsList } from '../../utils/data';
 
 
-
 const [bun] = IngredientsList.filter(item => item._id === "60666c42cc7b410027a1a9b2");
 
 function BurgerElement(props) {
@@ -20,14 +19,13 @@ function BurgerElement(props) {
     )
 }
 
-
 export default function BurgerConctructor () {
     return (
-        <section className={`${stylesConstructor.content} mt-25 mb-10`}>
+        <section className={`${stylesConstructor.container} mt-25 mb-10`}>
             <ul className={stylesConstructor.list}>
                 {bun && (
                     <>
-                        <li className={`${stylesConstructor.list_element} pl-4 pr-4`}>
+                        <li className={`${stylesConstructor.list__element} pl-4 pr-4 mb-4`}>
                             <DragIcon type="primary" />
                             <BurgerElement  
                                 type="top"
@@ -43,7 +41,7 @@ export default function BurgerConctructor () {
                     if (item._type !== "bun") {
                         return (
                             <>
-                            <li key={item._id} className={`${stylesConstructor.list_element} pl-4 pr-4`}>
+                            <li key={item._id} className={`${stylesConstructor.list__element} pl-4 pr-4 mb-4`}>
                                 <DragIcon type="primary" />
                                 <BurgerElement  
                                     isLocked={false}
@@ -53,14 +51,14 @@ export default function BurgerConctructor () {
                                 />
                             </li>  
                         </>  
-                        )}
+                    )}
                 })
 
                 }
 
                  {bun && (
                     <>
-                        <li className={`${stylesConstructor.list_element} pl-4 pr-4`}>
+                        <li className={`${stylesConstructor.list__element} pl-4 pr-4 mb-4`}>
                             <DragIcon type="primary" />
                             <BurgerElement  
                                 type="bottom"
@@ -75,7 +73,7 @@ export default function BurgerConctructor () {
             </ul>
             
             <div className={`${stylesConstructor.price} pt-10 pr-4`}>
-                <div className={`${stylesConstructor.price_item} mr-10`}>
+                <div className={`${stylesConstructor.price__item} mr-10`}>
                     <p className="mr-2 text text_type_digits-medium">610</p>
                     <img src={subtract} alt="icon" className={stylesConstructor.image} />
                 </div>

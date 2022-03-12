@@ -3,6 +3,8 @@ import stylesMain from './App.module.css';
 import AppHeader from '../AppHeader/AppHeader';
 import BurgerIngredients from '../BurgerIngredients/BurgerIngredients';
 import BurgerConctructor from '../BurgerConstructor/BurgerConstructor';
+import OrderInfo from '../Modal/ModalOrderInfo/ModalOrderInfo';
+import CardInfo from '../Modal/ModalCardInfo/ModalCardInfo';
 
 function App () {
     return (
@@ -12,6 +14,8 @@ function App () {
                 <BurgerIngredients />
                 <BurgerConctructor />
             </main>
+            <OrderInfo />
+            <CardInfo />
         </section>
     );
 }

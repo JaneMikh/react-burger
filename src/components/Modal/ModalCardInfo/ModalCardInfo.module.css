@@ -5,10 +5,12 @@
     position: fixed;
     top: 0;
     left: 0;
-    background-color:rgba(229, 229, 229, 0.5);
+    background-color:rgba(229, 229, 229, .5);
     justify-content: center;
     align-items: center;
-    /*visibility: hidden; /*переключение видимости попапа*/
+    transition: visibility 0.5s, opacity 0.5s linear;
+    visibility: hidden; /*переключение видимости попапа*/
+
 }
 
 .popup__container {
@@ -36,3 +38,25 @@
 .popup__closeButton:hover {
     opacity: .6;
 }
+
+.popup__image {
+    width: 480px;
+    height: 240px;
+    align-self: center;
+}
+.popup__aligner {
+    text-align: center;
+}
+
+.popup__list {
+    list-style-type:  none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    justify-content: center;
+}
+
+.popup__element:last-child {
+    margin-right: 0;
+}
+

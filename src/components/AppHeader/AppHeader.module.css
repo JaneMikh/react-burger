@@ -33,12 +33,12 @@
   padding: 0;
 }
 
-.list_element {
+.list__element {
   box-sizing: border-box;
 } 
 
 .logo {
   width: 290px;
   height: 48px;
-  margin: 0 289px 0 112px; /*118px было*/
+  margin: 0 289px 0 112px;
 }

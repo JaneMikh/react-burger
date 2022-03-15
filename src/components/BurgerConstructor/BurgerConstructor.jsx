@@ -1,6 +1,6 @@
 import React from 'react';
 import stylesConstructor from './BurgerConstructor.module.css';
-import { Button } from '@ya.praktikum/react-developer-burger-ui-components';
+import { Button, DragIcon } from '@ya.praktikum/react-developer-burger-ui-components';
 import subtract from '../../images/subtract.svg';
 import PropTypes from 'prop-types';
 import { ingredientPropTypes } from '../../utils/data';
@@ -9,42 +9,47 @@ import BurgerElement from '../BurgerConstructor/BurgerElement/BurgerElement';
 export default function BurgerConctructor ( {bun, data} ) {
     return (
         <section className={`${stylesConstructor.container} mt-25 mb-10`}>
-            <ul className={stylesConstructor.list}>
+            <ul className={`${stylesConstructor.list} ${stylesConstructor.list_locked} ${stylesConstructor.list_top} mb-4`}>
                 {data.map((item, index) => {
                   if (item.type === "bun" && index === 0) {
                     return (
-                        <li key={item._id} className={`${stylesConstructor.list__element} pl-4 pr-4 mb-4`}>
-                        <BurgerElement
-                            type="top"
-                            isLocked={true}
-                            card={{...bun, name: `${item.name} (верх)`, price: item.price, image: item.image}}
-                        />
-                    </li>   
+                        <li key={item._id} className={`${stylesConstructor.list__element} pr-6 pl-8`}>
+                            <BurgerElement
+                                type="top"
+                                isLocked={true}
+                                card={{...bun, name: `${item.name} (верх)`, price: item.price, image: item.image}}
+                            />
+                        </li>   
                     )
                   }  
                 })}
+            </ul>
+            <ul className={`${stylesConstructor.list} ${stylesConstructor.list_unLocked} `}>
                 {data.map(item => {
                   if (item.type !== "bun") {
                     return (
                         <li key={item._id} className={`${stylesConstructor.list__element} pl-4 pr-4 mb-4`}>
-                        <BurgerElement 
-                        type="undefuned"
-                        isLocked={false}
-                        card={{...item, name: item.name, price: item.price, image: item.image}}
-                        />
+                            <DragIcon type="primary" />
+                            <BurgerElement 
+                                type="undefuned"
+                                isLocked={false}
+                                card={{...item, name: item.name, price: item.price, image: item.image}}
+                            />
                      </li>  
                     )}  
                 })}
+            </ul>
+            <ul className={`${stylesConstructor.list} ${stylesConstructor.list_locked} ${stylesConstructor.list_bottom} mt-4`}>
                 {data.map((item, index) => {
                   if (item.type === "bun" && index === 0) {
                     return (
-                        <li key={item._id} className={`${stylesConstructor.list__element} pl-4 pr-4 mb-4`}>
-                        <BurgerElement
-                            type="bottom"
-                            isLocked={true}
-                            card={{...bun, name: `${item.name} (низ)`, price: item.price, image: item.image}}
-                        />
-                    </li>   
+                        <li key={item._id} className={`${stylesConstructor.list__element} pr-6 pl-8`}>
+                            <BurgerElement
+                                type="bottom"
+                                isLocked={true}
+                                card={{...bun, name: `${item.name} (низ)`, price: item.price, image: item.image}}
+                            />
+                        </li>   
                     )
                   }  
                 })}     

@@ -1,12 +1,11 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { ingredientPropTypes } from '../../../utils/data';
-import { ConstructorElement, DragIcon } from '@ya.praktikum/react-developer-burger-ui-components';
+import { ConstructorElement } from '@ya.praktikum/react-developer-burger-ui-components';
 
 export default function BurgerElement (props) {
     return (
         <>
-            <DragIcon type="primary" />
             <ConstructorElement
                 type={props.type}
                 isLocked={props.isLocked}

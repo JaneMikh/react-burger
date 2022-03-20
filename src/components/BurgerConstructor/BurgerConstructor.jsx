@@ -5,8 +5,24 @@ import subtract from '../../images/subtract.svg';
 import PropTypes from 'prop-types';
 import { ingredientPropTypes } from '../../utils/data';
 import BurgerElement from '../BurgerConstructor/BurgerElement/BurgerElement';
+import Modal from '../Modal/Modal';
+import OrderDetails from '../Modal/OrderDetails/OrderDetails';
+import {useState} from 'react';
+
 
 export default function BurgerConctructor ( {bun, data} ) {
+
+    //Состояние открытия/закрытия
+    const [isVisible, setModalVisible] = useState(false);
+
+    function closeModal() {
+        setModalVisible(false);
+    }
+    
+    function openModal() {
+        setModalVisible(true);
+    }
+
     return (
         <section className={`${stylesConstructor.container} mt-25 mb-10`}>
             <ul className={`${stylesConstructor.list} ${stylesConstructor.list_locked} ${stylesConstructor.list_top} mb-4`}>
@@ -59,8 +75,11 @@ export default function BurgerConctructor ( {bun, data} ) {
                     <p className="mr-2 text text_type_digits-medium">610</p>
                     <img src={subtract} alt="icon" className={stylesConstructor.image} />
                 </div>
-                <Button type="primary" size="large">Оформить заказ</Button>    
+                <Button onClick={openModal} type="primary" size="large">Оформить заказ</Button>    
             </div>
+            <Modal isPopupOpen={isVisible} title='' onClose={closeModal} >
+                <OrderDetails />
+            </Modal>
         </section>
     );
 }

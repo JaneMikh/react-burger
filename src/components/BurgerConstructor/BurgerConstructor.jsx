@@ -10,8 +10,8 @@ import OrderDetails from '../Modal/OrderDetails/OrderDetails';
 import {useState} from 'react';
 
 
-export default function BurgerConctructor ( {bun, data} ) {
-
+export default function BurgerConctructor ( {data} ) {
+    const bun = data.filter(element => element.type === 'bun');
     //Состояние открытия/закрытия
     const [isVisible, setModalVisible] = useState(false);
 
@@ -85,6 +85,6 @@ export default function BurgerConctructor ( {bun, data} ) {
 }
 
 BurgerConctructor.propTypes = {
-    bun: PropTypes.arrayOf(ingredientPropTypes).isRequired,
+   /* bun: PropTypes.arrayOf(ingredientPropTypes).isRequired,*/
     data: PropTypes.arrayOf(ingredientPropTypes).isRequired,
 }

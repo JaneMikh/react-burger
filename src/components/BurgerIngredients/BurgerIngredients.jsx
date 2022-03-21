@@ -10,7 +10,12 @@ import { useState } from 'react';
 import IngredientList from './IngredientList/IngredientList';
 
 
-export default function BurgerIngredients ({ bun, sauce, main }) {
+export default function BurgerIngredients ({ data }) {
+
+    const bun = data.filter(element => element.type === 'bun');
+    const sauce = data.filter(element => element.type === 'sauce');
+    const main = data.filter(element => element.type === 'main');
+
   //Состояния открытия/закрытия
   const [isCardDetailsVisible, setCardDetailsVisible] = useState(false);
   
@@ -58,8 +63,11 @@ export default function BurgerIngredients ({ bun, sauce, main }) {
   );
 }
 
+//Переписать
+/*
 BurgerIngredients.propTypes = {
   bun: PropTypes.arrayOf(ingredientPropTypes).isRequired,
   sauce: PropTypes.arrayOf(ingredientPropTypes).isRequired,
   main: PropTypes.arrayOf(ingredientPropTypes).isRequired,
 }
+*/

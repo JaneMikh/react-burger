@@ -4,7 +4,7 @@ import Ingredient from '../IngredientCard/IngredientCard';
 import stylesList from './IngredientList.module.css';
 import { ingredientPropTypes } from '../../../utils/data';
 
-export default function IngredientList ({ data, title }) {
+export default function IngredientList ({ data, title, onCardClick }) {
   return (
     <>
       <h2 className="text text_type_main-medium mt-10 mb-6">{title}</h2>
@@ -12,6 +12,7 @@ export default function IngredientList ({ data, title }) {
         {data.map(item => (
           <Ingredient
             card={item}
+            onCardClick={onCardClick}
             key={item._id}
             image={item.image}
             price={item.price}
@@ -27,4 +28,5 @@ export default function IngredientList ({ data, title }) {
 IngredientList.propTypes = {
   title: PropTypes.string.isRequired,
   data: PropTypes.arrayOf(ingredientPropTypes).isRequired,
+  onCardClick: PropTypes.func.isRequired,
 }

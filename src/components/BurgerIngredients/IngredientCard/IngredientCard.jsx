@@ -2,10 +2,15 @@ import React from 'react';
 import { Counter, CurrencyIcon } from '@ya.praktikum/react-developer-burger-ui-components';
 import stylesCard from './IngredientCard.module.css';
 import { ingredientPropTypes } from '../../../utils/data';
+import PropTypes from 'prop-types';
 
-export default function Ingredient ({ card }) {
+export default function Ingredient ({ card, onCardClick }) {
   return (
-    <li className={stylesCard.element}>
+    <li 
+      key={card._id}
+      className={stylesCard.element}
+      onClick={onCardClick}
+    >
       <img 
         src={card.image} 
         alt="image" 
@@ -25,4 +30,5 @@ export default function Ingredient ({ card }) {
 
 Ingredient.propTypes = {
   card: ingredientPropTypes.isRequired,
+  onCardClick: PropTypes.func.isRequired,
 };

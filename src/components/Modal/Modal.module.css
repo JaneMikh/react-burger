@@ -9,6 +9,14 @@
     visibility: visible;
 }
 
+.modal__text {
+    max-width: 640px;
+    height: 64px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
 .modal__container {
     position: fixed;
     top: 50%;
@@ -17,6 +25,7 @@
     max-width: 720px;
     display: flex;
     flex-direction: column;
+        justify-content: center;
     border-radius: 32px;
     box-sizing: border-box;
     background-color: #1C1C21;
@@ -26,9 +35,9 @@
 .modal__button {
     width: 24px;
     height: 24px;
-    position: absolute;
+   /* position: absolute;
     top: 60px; 
-    right: 40px;
+    right: 40px;*/
     border: none;
     padding: 0;
     opacity: 1;
@@ -48,9 +57,6 @@
     align-self: center;
 }
 
-.modal__aligner {
-    text-align: center;
-}
 
 /*
 .modal {

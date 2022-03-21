@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 
 
-export const IngredientsList = [
+export const data = [
     {
      "_id":"60666c42cc7b410027a1a9b1",
      "name":"Краторная булка N-200i",

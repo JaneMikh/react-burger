@@ -38,6 +38,12 @@
     height: 120px;
     align-self: center;
 }
+
+.popup__aligner {
+    text-align: center;
+}
+
+
 /*
 .popup__closeButton {
     width: 18px;

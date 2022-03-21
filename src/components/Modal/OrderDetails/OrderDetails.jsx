@@ -4,7 +4,8 @@ import readyIcon from '../../../images/done-icon.svg';
 
 export default function OrderDetails () {
     return (
-        <div className={stylesOrder.popup__container}>
+        <div className={`${stylesOrder.popup__container} pt-4 pr-25 pb-30 pl-25`}>
+            <p className={`${stylesOrder.popup__aligner} text text_type_digits-large mb-8`}>123456</p>
             <p className={`${stylesOrder.popup__text} text text_type_main-medium`}>Идентификатор заказа</p>
             <img src={readyIcon} alt="Готово" className={`${stylesOrder.popup__image} mt-15 mb-15`} />
             <p className={`${stylesOrder.popup__aligner} text text_type_main-small mb-2`}>Ваш заказ начали готовить</p>

@@ -1,19 +1,14 @@
 import React from 'react';
 import stylesCardInfo from './IngredientDetails.module.css';
-import closeButton from '../../../images/close-button.svg';
-import {IngredientsList} from '../../../utils/data';
 
-
-export default function CardInfo () {
-    const {image_large, name, calories, proteins, fat, carbohydrates} = IngredientsList[2];
+export default function IngredientDetails ({ingredient}) {
+    const {image_large, name, calories, proteins, fat, carbohydrates} = ingredient;
     
     return (
-        <div className={`${stylesCardInfo.popup__container} pt-10 pr-10 pb-15 pl-10`}>
-            <img src={closeButton} alt="Закрыть" className={stylesCardInfo.popup__closeButton} />
-            <h1 className="text text_type_main-large">Детали ингредиента</h1>
+        <div className={`${stylesCardInfo.popup__container} pr-25 pb-15 pl-25`}>
             <img src={image_large} alt="Ингредиент" className={stylesCardInfo.popup__image}/>
             <p className={`${stylesCardInfo.popup__aligner} text text_type_main-medium mt-4 mb-8`}>
-                    {name}
+                {name}
             </p>
             <ul className={stylesCardInfo.popup__list}>
                 <li className={`${stylesCardInfo.popup__element} mr-5`}>

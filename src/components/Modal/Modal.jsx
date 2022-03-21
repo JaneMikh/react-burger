@@ -9,13 +9,6 @@ import PropTypes from 'prop-types';
 export default function Modal ({ isPopupOpen, onClose, children, title }) {
     const modalRoot = document.getElementById("react-modals");
 
-    /*function handleCloseOverlay(evt) {
-        if (evt.target.className.includes('container')) {
-            onClose();
-        }
-    }
-    document.addEventListener('mousedown', handleCloseOverlay);*/
-
     //Побочные эффекты
     useEffect(() => {
         const handleEscClose = (evt) => {
@@ -31,7 +24,6 @@ export default function Modal ({ isPopupOpen, onClose, children, title }) {
     }, [onClose, isPopupOpen]);
 
     
-//onClick={handleCloseOverlay}
 
     return  createPortal(
         (
@@ -40,11 +32,13 @@ export default function Modal ({ isPopupOpen, onClose, children, title }) {
                 ${isPopupOpen && stylesModal.modal_visible}
                 `}>
                     <ModalOverlay onCloseOverlay={onClose} />
-                        <div className={`${stylesModal.modal__container} pt-30 pr-25 pb-30 pl-25`}>
-                            <p className={`${stylesModal.modal__aligner} text text_type_digits-large mb-8`}>{title}</p>
-                            <button onClick={onClose} className={stylesModal.modal__button}>
-                                <CloseIcon type="primary" />
-                            </button>
+                        <div className={stylesModal.modal__container}>
+                            <div className={`${stylesModal.modal__text} pt-10 pr-10 pl-10`}>
+                                <h1 className="text text_type_main-large">{title}</h1>
+                                <button onClick={onClose} className={stylesModal.modal__button}>
+                                    <CloseIcon type="primary" />
+                                </button>
+                            </div>
                             {children}
                         </div>
                 </section>
@@ -59,3 +53,11 @@ Modal.propTypes = {
     onClose: PropTypes.func.isRequired,
     isPopupOpen: PropTypes.bool.isRequired,
 }
+
+
+/*function handleCloseOverlay(evt) {
+        if (evt.target.className.includes('container')) {
+            onClose();
+        }
+    }
+    document.addEventListener('mousedown', handleCloseOverlay);*/

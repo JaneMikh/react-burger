@@ -1,27 +1,12 @@
 .popup__container {
-    position: relative;
+   /* position: relative;
     width: 720px;
+    box-sizing: border-box;
+    background-color: #1C1C21;*/
+    border-radius: 32px;
+    align-items: center;
     display: flex;
     flex-direction: column;
-    border-radius: 32px;
-    box-sizing: border-box;
-    background-color: #1C1C21;
-}
-
-.popup__closeButton {
-    width: 18px;
-    height: 18px;
-    position: absolute;
-    top: 53px; /*по макету 63рх*/
-    right: 40px;
-    border: none;
-    transition: opacity 0.3s ease-in;
-    cursor: pointer;
-}
-
-/*Добавлено для красоты*/
-.popup__closeButton:hover {
-    opacity: .6;
 }
 
 .popup__image {
@@ -45,3 +30,20 @@
     margin-right: 0;
 }
 
+/*
+.popup__closeButton {
+    width: 18px;
+    height: 18px;
+    position: absolute;
+    top: 53px; 
+    right: 40px;
+    border: none;
+    transition: opacity 0.3s ease-in;
+    cursor: pointer;
+}
+
+/*Добавлено для красоты*
+.popup__closeButton:hover {
+    opacity: .6;
+}
+*/

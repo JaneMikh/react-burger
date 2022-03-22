@@ -1,8 +1,9 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
+export const ingredientURL = 'https://norma.nomoreparties.space/api/ingredients';
 
-export const data = [
+const data = [
     {
      "_id":"60666c42cc7b410027a1a9b1",
      "name":"Краторная булка N-200i",
@@ -230,4 +231,3 @@ export const ingredientPropTypes = PropTypes.shape({
     image_large: PropTypes.string,
     __v: PropTypes.number, 
 });
-

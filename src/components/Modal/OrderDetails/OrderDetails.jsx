@@ -11,5 +11,5 @@ export default function OrderDetails () {
             <p className={`${stylesOrder.popup__aligner} text text_type_main-small mb-2`}>Ваш заказ начали готовить</p>
             <p className={`${stylesOrder.popup__aligner} text text_type_main-default text_color_inactive`}>Дождитесь готовности на орбитальной станции</p>
         </div>
-    )
+    );
 }

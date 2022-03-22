@@ -1,8 +1,8 @@
 import React from 'react';
+import PropTypes from 'prop-types';
+import { ingredientPropTypes } from '../../../utils/constants';
 import { Counter, CurrencyIcon } from '@ya.praktikum/react-developer-burger-ui-components';
 import stylesCard from './IngredientCard.module.css';
-import { ingredientPropTypes } from '../../../utils/data';
-import PropTypes from 'prop-types';
 
 export default function Ingredient ({ card, onCardClick }) {
   return (

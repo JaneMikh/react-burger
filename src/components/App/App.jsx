@@ -4,8 +4,11 @@ import AppHeader from '../AppHeader/AppHeader';
 import BurgerIngredients from '../BurgerIngredients/BurgerIngredients';
 import BurgerConctructor from '../BurgerConstructor/BurgerConstructor';
 import {useEffect, useState} from 'react';
+import {ingredientURL} from '../../utils/constants';
 
-const ingredientURL = 'https://norma.nomoreparties.space/api/ingredients';
+import Modal from '../Modal/Modal';
+import OrderDetails from '../Modal/OrderDetails/OrderDetails';
+import IngredientDetails from '../Modal/IngredientDetails/IngredientDetails';
 
 function App () {
 
@@ -30,14 +33,55 @@ function App () {
     }, []);
 
     
+    //Состояние открытия/закрытия попапов
+    const [isOrderDetailsVisible, setOrderDetailsVisible] = useState(false);
+    const [isCardDetailsVisible, setCardDetailsVisible] = useState(false);
+    
+    //Состояние выбора определенного ингредиента из списка
+    const [currentCard, setCardIngredient] = useState({});
+
+
+    function closeAllModals() {
+        setOrderDetailsVisible(false);
+
+        setCardDetailsVisible(false);
+        setCardIngredient({});
+    }
+
+    function openOrderModal() {
+        setOrderDetailsVisible(true);
+    }
+    
+    function handleCardElement (item) {
+        if (item) {
+          setCardIngredient(item);
+        }
+        setCardDetailsVisible(true);
+    }
+    
+    
     return (
         <section className={stylesMain.page}>
             <AppHeader />
             <main className={stylesMain.main}>
-                <BurgerIngredients data={state.cardData}/>
-                <BurgerConctructor data={state.cardData}/>
+                <BurgerIngredients data={state.cardData} handleCardElement={handleCardElement}/>
+                <BurgerConctructor data={state.cardData} openModal={openOrderModal}/>
             </main>
-           
+            <Modal 
+                isPopupOpen={isOrderDetailsVisible} 
+                onClose={closeAllModals}
+                title='' 
+            >
+                <OrderDetails />
+            </Modal>
+            <Modal 
+                isPopupOpen={isCardDetailsVisible} 
+                onClose={closeAllModals}
+                title="Детали ингредиента"
+            >
+                {isCardDetailsVisible && (
+                <IngredientDetails ingredient={currentCard}/>)}
+            </Modal>
         </section>
     );
 }

@@ -1,31 +1,27 @@
 import React from 'react';
-import {useEffect} from 'react';
-import ModalOverlay from '../Modal/ModalOverlay/ModalOverlay';
-import { createPortal } from 'react-dom';
-import stylesModal from './Modal.module.css';
-import { CloseIcon } from '@ya.praktikum/react-developer-burger-ui-components';
 import PropTypes from 'prop-types';
+import { useEffect } from 'react';
+import { createPortal } from 'react-dom';
+import { CloseIcon } from '@ya.praktikum/react-developer-burger-ui-components';
+import ModalOverlay from '../Modal/ModalOverlay/ModalOverlay';
+import stylesModal from './Modal.module.css';
 
 export default function Modal ({ isPopupOpen, onClose, children, title }) {
     const modalRoot = document.getElementById("react-modals");
 
-    //Побочные эффекты
+    //Побочный эффект c deps
     useEffect(() => {
         const handleEscClose = (evt) => {
             if (evt.key === 'Escape' && isPopupOpen) {
                 onClose();
             }
         }
-        document.addEventListener('keydown', handleEscClose);
-
         return () => {
             document.addEventListener('keydown', handleEscClose);  
         }
     }, [onClose, isPopupOpen]);
 
-    
-
-    return  createPortal(
+    return createPortal(
         (
             <>
                 <section className={`${stylesModal.container}
@@ -52,12 +48,4 @@ Modal.propTypes = {
     title: PropTypes.string.isRequired,
     onClose: PropTypes.func.isRequired,
     isPopupOpen: PropTypes.bool.isRequired,
-}
-
-
-/*function handleCloseOverlay(evt) {
-        if (evt.target.className.includes('container')) {
-            onClose();
-        }
-    }
-    document.addEventListener('mousedown', handleCloseOverlay);*/
+};

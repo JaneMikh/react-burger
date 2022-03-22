@@ -1,28 +1,14 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import stylesConstructor from './BurgerConstructor.module.css';
 import { Button, DragIcon } from '@ya.praktikum/react-developer-burger-ui-components';
 import subtract from '../../images/subtract.svg';
-import PropTypes from 'prop-types';
-import { ingredientPropTypes } from '../../utils/data';
+import { ingredientPropTypes } from '../../utils/constants';
 import BurgerElement from '../BurgerConstructor/BurgerElement/BurgerElement';
-import Modal from '../Modal/Modal';
-import OrderDetails from '../Modal/OrderDetails/OrderDetails';
-import {useState} from 'react';
 
-
-export default function BurgerConctructor ( {data} ) {
+export default function BurgerConctructor ({ data, openModal }) {
     const bun = data.filter(element => element.type === 'bun');
-    //Состояние открытия/закрытия
-    const [isVisible, setModalVisible] = useState(false);
-
-    function closeModal() {
-        setModalVisible(false);
-    }
     
-    function openModal() {
-        setModalVisible(true);
-    }
-
     return (
         <section className={`${stylesConstructor.container} mt-25 mb-10`}>
             <ul className={`${stylesConstructor.list} ${stylesConstructor.list_locked} ${stylesConstructor.list_top} mb-4`}>
@@ -77,14 +63,11 @@ export default function BurgerConctructor ( {data} ) {
                 </div>
                 <Button onClick={openModal} type="primary" size="large">Оформить заказ</Button>    
             </div>
-            <Modal isPopupOpen={isVisible} title='' onClose={closeModal} >
-                <OrderDetails />
-            </Modal>
         </section>
     );
 }
 
 BurgerConctructor.propTypes = {
-   /* bun: PropTypes.arrayOf(ingredientPropTypes).isRequired,*/
     data: PropTypes.arrayOf(ingredientPropTypes).isRequired,
+    openModal: PropTypes.func.isRequired,
 }

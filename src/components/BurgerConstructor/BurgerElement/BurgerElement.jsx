@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { ingredientPropTypes } from '../../../utils/data';
+import { ingredientPropTypes } from '../../../utils/constants';
 import { ConstructorElement } from '@ya.praktikum/react-developer-burger-ui-components';
 
 export default function BurgerElement (props) {

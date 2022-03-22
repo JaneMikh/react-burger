@@ -1,8 +1,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import { ingredientPropTypes } from '../../../utils/constants';
 import Ingredient from '../IngredientCard/IngredientCard';
 import stylesList from './IngredientList.module.css';
-import { ingredientPropTypes } from '../../../utils/data';
 
 export default function IngredientList ({ data, title, onCardClick }) {
   return (
@@ -22,7 +22,7 @@ export default function IngredientList ({ data, title, onCardClick }) {
         }
       </ul>
     </>
-  )
+  );
 }
   
 IngredientList.propTypes = {

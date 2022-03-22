@@ -1,7 +1,9 @@
 import React from 'react';
 import stylesCardInfo from './IngredientDetails.module.css';
+import { ingredientPropTypes } from '../../../utils/constants';
 
-export default function IngredientDetails ({ingredient}) {
+
+export default function IngredientDetails ({ ingredient }) {
     const {image_large, name, calories, proteins, fat, carbohydrates} = ingredient;
     
     return (
@@ -48,3 +50,6 @@ export default function IngredientDetails ({ingredient}) {
     );
 }
 
+IngredientDetails.propTypes = {
+    ingredient: ingredientPropTypes.isRequired,
+};

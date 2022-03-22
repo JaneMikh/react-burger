@@ -25,7 +25,7 @@
     max-width: 720px;
     display: flex;
     flex-direction: column;
-        justify-content: center;
+    justify-content: center;
     border-radius: 32px;
     box-sizing: border-box;
     background-color: #1C1C21;
@@ -35,9 +35,6 @@
 .modal__button {
     width: 24px;
     height: 24px;
-   /* position: absolute;
-    top: 60px; 
-    right: 40px;*/
     border: none;
     padding: 0;
     opacity: 1;
@@ -46,7 +43,6 @@
     background: none;
 }
 
-/*Добавлено для красоты*/
 .modal__button:hover {
     opacity: .6;
 }
@@ -56,18 +52,3 @@
     height: 240px;
     align-self: center;
 }
-
-
-/*
-.modal {
-    display: flex;
-    /*width: 100%;
-    height: 100%;
-    position: fixed;
-    top: 0;
-    left: 0;
-    justify-content: center;
-    align-items: center;
-    
-}
-*/

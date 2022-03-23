@@ -11,9 +11,8 @@ export default function IngredientList ({ data, title, onCardClick }) {
       <ul className={`${stylesList.list} ml-4`}>
         {data.map(item => (
           <Ingredient
-            card={item}
-            onCardClick={onCardClick}
             key={item._id}
+            onCardClick={onCardClick}
             image={item.image}
             price={item.price}
             name={item.name}

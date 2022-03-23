@@ -5,7 +5,6 @@ import BurgerIngredients from '../BurgerIngredients/BurgerIngredients';
 import BurgerConctructor from '../BurgerConstructor/BurgerConstructor';
 import {useEffect, useState} from 'react';
 import {ingredientURL} from '../../utils/constants';
-
 import Modal from '../Modal/Modal';
 import OrderDetails from '../Modal/OrderDetails/OrderDetails';
 import IngredientDetails from '../Modal/IngredientDetails/IngredientDetails';
@@ -20,30 +19,28 @@ function App () {
 
     useEffect(() => {
         const getCardData = async () => {
-            setState({...state, isloding: true, hasError: false});
-            const res = await fetch(`${ingredientURL}`);
-            const data = await res.json();
-            setState({...state, cardData: data.data, isLoading: false});
-        } 
-        getCardData()
-        .catch((err) => {
-            console.log("Oшибка при загрузке данных", err.message)
-            setState({...state, isLoading: false, hasError: true})
-        });
+            try {
+                setState({...state, isloding: true, hasError: false});
+                const res = await fetch(`${ingredientURL}/ingredients`);
+                const data = await res.json();
+                setState({...state, cardData: data.data, isLoading: false});
+            } catch(err) {
+                console.log("Oшибка при загрузке данных", err.message)
+                setState({...state, isloading: false, hasError: true})
+            }
+        }
+        getCardData();
     }, []);
 
-    
     //Состояние открытия/закрытия попапов
     const [isOrderDetailsVisible, setOrderDetailsVisible] = useState(false);
     const [isCardDetailsVisible, setCardDetailsVisible] = useState(false);
     
     //Состояние выбора определенного ингредиента из списка
-    const [currentCard, setCardIngredient] = useState({});
-
+    const [currentCard, setCardIngredient] = useState(null);
 
     function closeAllModals() {
         setOrderDetailsVisible(false);
-
         setCardDetailsVisible(false);
         setCardIngredient({});
     }
@@ -56,7 +53,7 @@ function App () {
         if (item) {
           setCardIngredient(item);
         }
-        setCardDetailsVisible(true);
+        setCardDetailsVisible(true); //пока не понятно, как исправить
     }
     
     
@@ -74,14 +71,15 @@ function App () {
             >
                 <OrderDetails />
             </Modal>
+            {currentCard && (
             <Modal 
                 isPopupOpen={isCardDetailsVisible} 
                 onClose={closeAllModals}
                 title="Детали ингредиента"
             >
-                {isCardDetailsVisible && (
-                <IngredientDetails ingredient={currentCard}/>)}
-            </Modal>
+                <IngredientDetails ingredient={currentCard}/>
+            </Modal>)}
+            
         </section>
     );
 }

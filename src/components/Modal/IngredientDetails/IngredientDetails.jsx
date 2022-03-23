@@ -1,6 +1,6 @@
 import React from 'react';
 import stylesCardInfo from './IngredientDetails.module.css';
-import { ingredientPropTypes } from '../../../utils/constants';
+import PropTypes from 'prop-types';
 
 
 export default function IngredientDetails ({ ingredient }) {
@@ -8,7 +8,7 @@ export default function IngredientDetails ({ ingredient }) {
     
     return (
         <div className={`${stylesCardInfo.popup__container} pr-25 pb-15 pl-25`}>
-            <img src={image_large} alt="Ингредиент" className={stylesCardInfo.popup__image}/>
+            <img src={image_large} alt={name} className={stylesCardInfo.popup__image}/>
             <p className={`${stylesCardInfo.popup__aligner} text text_type_main-medium mt-4 mb-8`}>
                 {name}
             </p>
@@ -51,5 +51,5 @@ export default function IngredientDetails ({ ingredient }) {
 }
 
 IngredientDetails.propTypes = {
-    ingredient: ingredientPropTypes.isRequired,
+    ingredient: PropTypes.object.isRequired,
 };

@@ -18,7 +18,7 @@ export default function BurgerElement (props) {
 }
 
 BurgerElement.propTypes = {
-    type: PropTypes.string.isRequired,
+    type: PropTypes.string,
     isLocked: PropTypes.bool.isRequired,
     card: ingredientPropTypes.isRequired,
 }

@@ -9,7 +9,6 @@ import stylesModal from './Modal.module.css';
 export default function Modal ({ isPopupOpen, onClose, children, title }) {
     const modalRoot = document.getElementById("react-modals");
 
-    //Побочный эффект c deps
     useEffect(() => {
         const handleEscClose = (evt) => {
             if (evt.key === 'Escape' && isPopupOpen) {
@@ -48,4 +47,5 @@ Modal.propTypes = {
     title: PropTypes.string.isRequired,
     onClose: PropTypes.func.isRequired,
     isPopupOpen: PropTypes.bool.isRequired,
+    children: PropTypes.element.isRequired,
 };

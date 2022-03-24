@@ -13,20 +13,20 @@ function App () {
 
     const [state, setState] = useState({
        cardData: [],
-       isloading: false,
+       isLoading: false,
        hasError: false,
     });
 
     useEffect(() => {
         const getCardData = async () => {
             try {
-                setState({...state, isloding: true, hasError: false});
+                setState({...state, isLoading: true, hasError: false});
                 const res = await fetch(`${ingredientURL}/ingredients`);
                 const data = await res.json();
                 setState({...state, cardData: data.data, isLoading: false});
             } catch(err) {
                 console.log("Oшибка при загрузке данных", err.message)
-                setState({...state, isloading: false, hasError: true})
+                setState({...state, isLoading: false, hasError: true})
             }
         }
         getCardData();
@@ -34,15 +34,13 @@ function App () {
 
     //Состояние открытия/закрытия попапов
     const [isOrderDetailsVisible, setOrderDetailsVisible] = useState(false);
-    const [isCardDetailsVisible, setCardDetailsVisible] = useState(false);
     
     //Состояние выбора определенного ингредиента из списка
     const [currentCard, setCardIngredient] = useState(null);
 
     function closeAllModals() {
         setOrderDetailsVisible(false);
-        setCardDetailsVisible(false);
-        setCardIngredient({});
+        setCardIngredient(null);
     }
 
     function openOrderModal() {
@@ -53,9 +51,7 @@ function App () {
         if (item) {
           setCardIngredient(item);
         }
-        setCardDetailsVisible(true); //пока не понятно, как исправить
     }
-    
     
     return (
         <section className={stylesMain.page}>
@@ -64,16 +60,15 @@ function App () {
                 <BurgerIngredients data={state.cardData} handleCardElement={handleCardElement}/>
                 <BurgerConctructor data={state.cardData} openModal={openOrderModal}/>
             </main>
-            <Modal 
-                isPopupOpen={isOrderDetailsVisible} 
+            {isOrderDetailsVisible &&
+            (<Modal 
                 onClose={closeAllModals}
                 title='' 
             >
                 <OrderDetails />
-            </Modal>
+            </Modal>)}
             {currentCard && (
             <Modal 
-                isPopupOpen={isCardDetailsVisible} 
                 onClose={closeAllModals}
                 title="Детали ингредиента"
             >

@@ -6,26 +6,24 @@ import { CloseIcon } from '@ya.praktikum/react-developer-burger-ui-components';
 import ModalOverlay from '../Modal/ModalOverlay/ModalOverlay';
 import stylesModal from './Modal.module.css';
 
-export default function Modal ({ isPopupOpen, onClose, children, title }) {
+export default function Modal ({ onClose, children, title }) {
     const modalRoot = document.getElementById("react-modals");
 
     useEffect(() => {
         const handleEscClose = (evt) => {
-            if (evt.key === 'Escape' && isPopupOpen) {
+            if (evt.key === 'Escape') {
                 onClose();
             }
         }
         return () => {
             document.addEventListener('keydown', handleEscClose);  
         }
-    }, [onClose, isPopupOpen]);
+    }, [onClose]);
 
     return createPortal(
         (
             <>
-                <section className={`${stylesModal.container}
-                ${isPopupOpen && stylesModal.modal_visible}
-                `}>
+                <section className={stylesModal.container}>
                     <ModalOverlay onCloseOverlay={onClose} />
                         <div className={stylesModal.modal__container}>
                             <div className={`${stylesModal.modal__text} pt-10 pr-10 pl-10`}>
@@ -46,6 +44,5 @@ export default function Modal ({ isPopupOpen, onClose, children, title }) {
 Modal.propTypes = {
     title: PropTypes.string.isRequired,
     onClose: PropTypes.func.isRequired,
-    isPopupOpen: PropTypes.bool.isRequired,
     children: PropTypes.element.isRequired,
 };

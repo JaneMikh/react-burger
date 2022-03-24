@@ -58,7 +58,9 @@ export default function BurgerConctructor ({ data, openModal }) {
             <div className={`${stylesConstructor.price} pt-10 pr-4`}>
                 <div className={`${stylesConstructor.price__item} mr-10`}>
                     <p className="mr-2 text text_type_digits-medium">610</p>
-                    <CurrencyIcon type="primary" />
+                    <div className={stylesConstructor.price__icon}>
+                    <CurrencyIcon type='primary' />
+                    </div>
                 </div>
                 <Button onClick={openModal} type="primary" size="large">Оформить заказ</Button>    
             </div>

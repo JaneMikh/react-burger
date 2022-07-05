@@ -4,7 +4,10 @@ import { ingredientPropTypes } from '../../../utils/constants';
 import Ingredient from '../IngredientCard/IngredientCard';
 import stylesList from './IngredientList.module.css';
 
+
+
 export default function IngredientList ({ data, title, onCardClick }) {
+
   return (
     <>
       <h2 className="text text_type_main-medium mt-10 mb-6">{title}</h2>

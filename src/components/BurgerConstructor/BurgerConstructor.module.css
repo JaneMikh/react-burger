@@ -82,6 +82,7 @@
     max-width: 119.5px;
     display: flex;
     justify-content: space-between;
+    padding-right: 15px;
 }
 
 .price__icon, svg {

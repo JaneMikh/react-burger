@@ -1,31 +1,22 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import stylesIngredients from './BurgerIngredients.module.css';
-import { ingredientPropTypes } from '../../utils/constants';
 import Tabs from '../BurgerIngredients/Tabs/Tabs';
 import IngredientList from './IngredientList/IngredientList';
-
 import { useContext } from 'react';
-import { DataContext, IngredientsContext } from '../../services/productsContext';
+import { DataContext } from '../../services/productsContext';
 
 
-export default function BurgerIngredients () {
+export default function BurgerIngredients ({ handleCardElement }) {
     
   //Получить значение контекста
   const state = useContext(DataContext);
   const data = state.state.cardData;
-  const setCardIngredient = useContext(IngredientsContext);
-
-
+  
   const bun = data.filter(element => element.type === 'bun');
   const sauce = data.filter(element => element.type === 'sauce');
   const main = data.filter(element => element.type === 'main'); 
 
-  function handleCardElement (item) {
-    if (item) {
-      setCardIngredient(item);
-    }
-  }
 
   function handleIngredientCard (evt) {
     //Таргетинг на конкретного родителя
@@ -49,9 +40,7 @@ export default function BurgerIngredients () {
     </section>
   );
 }
-/*
+
 BurgerIngredients.propTypes = {
-  //data: PropTypes.arrayOf(ingredientPropTypes).isRequired,
-  //handleCardElement: PropTypes.func.isRequired,
+  handleCardElement: PropTypes.func.isRequired,
 }
-*/

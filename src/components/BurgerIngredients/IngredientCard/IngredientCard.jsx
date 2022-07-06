@@ -11,7 +11,7 @@ export default function Ingredient ({ image, price, name, onCardClick }) {
     >
       <img 
         src={image} 
-        alt="image" 
+        alt={name}
         className={`${stylesCard.image} pl-4 pr-4`} 
       />
       <div className={`${stylesCard.price} mt-1 mb-1`}>

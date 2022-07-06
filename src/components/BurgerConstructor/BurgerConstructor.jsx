@@ -1,23 +1,22 @@
-import React from 'react';
+import React, { useContext, useMemo }from 'react';
 import PropTypes from 'prop-types';
 import stylesConstructor from './BurgerConstructor.module.css';
 import { Button, DragIcon, CurrencyIcon } from '@ya.praktikum/react-developer-burger-ui-components';
 import BurgerElement from '../BurgerConstructor/BurgerElement/BurgerElement';
 import { DataContext, ConstructorContext } from '../../services/productsContext';
-import  { useContext } from 'react';
 
 export default function BurgerConctructor ({ productsId }) {
    
     const state = useContext(DataContext);
-    const data = state.state.cardData;
+    const data = state.cardData;
     const getServOrder = useContext(ConstructorContext);
     
-    const bun = data.filter(element => element.type === 'bun');
-    
+    const bun = useMemo(() => data.filter(element => element.type === 'bun'), [data]);
     const totalPrice = [];
+
     const setTotalPrice = () => {
-        return totalPrice.reduce((sum, currentValue) => sum + currentValue, 0);
-     };
+        return totalPrice.reduce((previousValue, currentValue) => previousValue + currentValue, 0);
+    };
 
      return (
         <section className={`${stylesConstructor.container} mt-25 mb-10`}>

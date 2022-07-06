@@ -1,21 +1,18 @@
-import React from 'react';
+import React, { useMemo, useContext } from 'react';
 import PropTypes from 'prop-types';
 import stylesIngredients from './BurgerIngredients.module.css';
 import Tabs from '../BurgerIngredients/Tabs/Tabs';
 import IngredientList from './IngredientList/IngredientList';
-import { useContext } from 'react';
 import { DataContext } from '../../services/productsContext';
-
 
 export default function BurgerIngredients ({ handleCardElement }) {
     
-  //Получить значение контекста
   const state = useContext(DataContext);
-  const data = state.state.cardData;
-  
-  const bun = data.filter(element => element.type === 'bun');
-  const sauce = data.filter(element => element.type === 'sauce');
-  const main = data.filter(element => element.type === 'main'); 
+  const data = state.cardData;
+
+  const bun = useMemo(() => data.filter(element => element.type === 'bun'), [data]);
+  const sauce = useMemo(() => data.filter(element => element.type === 'sauce'), [data]);
+  const main = useMemo(() => data.filter(element => element.type === 'main'), [data]); 
 
 
   function handleIngredientCard (evt) {

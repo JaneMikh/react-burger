@@ -10,18 +10,21 @@ import IngredientDetails from '../Modal/IngredientDetails/IngredientDetails';
 import  { DataContext, ConstructorContext } from '../../services/productsContext.jsx';
 import { getData, getOrderData } from '../../utils/api';
 
+import { useDispatch } from "react-redux";
+
+
 function App () {
 
-    const [cardData, setCardData] = useState([]);
-    const [isOrderDetailsVisible, setOrderDetailsVisible] = useState(false);
-    const [currentCard, setCardIngredient] = useState(null);
-    const [orderNumber, setOrderNumber] = useState({
+    //const [cardData, setCardData] = useState([]);
+   //const [isOrderDetailsVisible, setOrderDetailsVisible] = useState(false);
+   // const [currentCard, setCardIngredient] = useState(null);
+   /* const [orderNumber, setOrderNumber] = useState({
         order: null,
         isLoading: false,
         hasError: false,
     });
-
-    useEffect(() => {
+*/
+    /*useEffect(() => {
         const getCardData = async () => {
             getData()
             .then((res) => {
@@ -32,24 +35,24 @@ function App () {
             })
         }
         getCardData();
-    }, []);
+    }, []);*/
 
-    function closeAllModals() {
-        setOrderDetailsVisible(false);
+    /*function closeAllModals() {
+        //setOrderDetailsVisible(false);
         setCardIngredient(null);
     }
     
     function openOrderModal() {
-        setOrderDetailsVisible(true);
-    }
+        //setOrderDetailsVisible(true);
+    }*/
     
-    function handleCardElement (item) {
+    /*function handleCardElement (item) {
         if (item) {
           setCardIngredient(item);
         }
-    }
+    }*/
 
-    const getServOrder = () => {
+    /*const getServOrder = () => {
         getOrderNumber();
         openOrderModal();
     }
@@ -77,21 +80,21 @@ function App () {
                isLoading: false,
                hasError: true,
            })
-       });}
+       });}*/
    
     return (
         <section className={stylesMain.page}>
             <AppHeader />
             <main className={stylesMain.main}>
-                <DataContext.Provider value={{ cardData, setCardData }}>
-                    <ConstructorContext.Provider value={ getServOrder }>
-                        <BurgerIngredients handleCardElement={ handleCardElement }/>
-                        <BurgerConctructor openModal={ openOrderModal } productsId={ productsId } />
-                    </ConstructorContext.Provider>
-                </DataContext.Provider>
+                   {/* <ConstructorContext.Provider value={ getServOrder }>*/}
+                        <BurgerIngredients />
+                   {/* <DataContext.Provider value={{ cardData, setCardData }}> */}
+                        <BurgerConctructor />
+                   {/* </DataContext.Provider> */}
+                   {/* </ConstructorContext.Provider> */}
             </main>
             
-            {isOrderDetailsVisible && (
+          {/*  {isOrderDetailsVisible && (
             <Modal 
                 onClose={ closeAllModals } 
                 title=""
@@ -106,7 +109,7 @@ function App () {
                 title="Детали ингредиента"
             >
                 <IngredientDetails ingredient={ currentCard }/>
-            </Modal>)}  
+           </Modal>)}  */}
         </section>
     );
 }

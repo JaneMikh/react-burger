@@ -5,43 +5,122 @@ import { Button, DragIcon, CurrencyIcon } from '@ya.praktikum/react-developer-bu
 import BurgerElement from '../BurgerConstructor/BurgerElement/BurgerElement';
 import { DataContext, ConstructorContext } from '../../services/productsContext';
 
-export default function BurgerConctructor ({ productsId }) {
-   
-    const state = useContext(DataContext);
-    const data = state.cardData;
-    const getServOrder = useContext(ConstructorContext);
-    
-    const bun = useMemo(() => data.filter(element => element.type === 'bun'), [data]);
-    const totalPrice = [];
+import { useDispatch, useSelector } from 'react-redux';
+import Modal from '../Modal/Modal';
+import OrderDetails from '../Modal/OrderDetails/OrderDetails';
+import { getOrderNumber } from '../../services/actions/index';
 
+import { CLOSE_ALL_MODALS, OPEN_ORDER_MODAL } from '../../services/actions/index';
+
+
+export default function BurgerConctructor () {
+   
+    //const state = useContext(DataContext);
+    //const data = state.cardData;
+    // const getServOrder = useContext(ConstructorContext);
+    
+    //Пока пусть все данные с бургерами отражаются в конструкторе. Избавляемся от контекста
+    const state = useSelector((store) => store);
+    //const bun = useMemo(() => data.filter(element => element.type === 'bun'), [data]);
+
+    const burgerConstructorElements = useSelector((store) => store.ingredientReducer.burgerConstructorData);
+    const bun = state.ingredientReducer.bun;
+    const bunArray = [bun].map((item) => item._id);
+    const burgerConstructorArr = burgerConstructorElements.map((element) => element._id);
+    const productsId = [...bunArray, ...burgerConstructorArr];
+   
+   
+
+    //const totalPrice = [];
     const setTotalPrice = () => {
-        return totalPrice.reduce((previousValue, currentValue) => previousValue + currentValue, 0);
+        return  burgerConstructorElements.reduce((previousValue, currentValue) => previousValue + currentValue.price, 0 + bun.price ? bun.price * 2 : 0);
     };
+    
+
+    const dispatch = useDispatch();
+    const closeOrderModal = () => {
+        dispatch({ type: CLOSE_ALL_MODALS })
+    }
+
+   const orderOverlay = state.ingredientReducer.orderOverlay;
+
+
+   const getServOrder = () => {
+      dispatch(getOrderNumber(productsId));
+      dispatch({ type: OPEN_ORDER_MODAL });
+   }
+
+
+    /////////////////////////////////////////////////////
+    // Из App
+    /////////////////////////////////////////////////////
+
+   /* const [orderNumber, setOrderNumber] = useState({
+        order: null,
+        isLoading: false,
+        hasError: false,
+    });
+
+
+    function openOrderModal() {
+        //setOrderDetailsVisible(true);
+    }
+
+    const productsId = [];
+   
+    const getOrderNumber = async () => {
+        setOrderNumber({
+           ...orderNumber,
+           isLoading: true,
+        });
+        getOrderData(productsId)
+        .then((res) => {
+           setOrderNumber({
+               ...orderNumber,
+               order: res.order.number,
+               isLoading: false,
+           });
+       })
+        .catch((err) => {
+           console.log("Oшибка при попытке оформить заказ", err.message);
+           setOrderNumber({
+               ...orderNumber,
+               order: null,
+               isLoading: false,
+               hasError: true,
+           })
+       });}
+
+       const getServOrder = () => {
+        getOrderNumber();
+        openOrderModal();
+    }
+*/
+///////////////////////////////////////////////////////
+// Конец
+/////////////////////////////////////////////////////////////
+
+
 
      return (
         <section className={`${stylesConstructor.container} mt-25 mb-10`}>
             <ul className={`${stylesConstructor.list} ${stylesConstructor.list_locked} ${stylesConstructor.list_top} mb-4`}>
-                {bun.map((item) => {
-                  if (item._id === "60d3b41abdacab0026a733c6") {
-                    totalPrice.push(item.price);
-                    productsId.push(item._id);
-                    return (
-                        <li key={item._id} className={`${stylesConstructor.list__element} pr-6 pl-8`}>
+            {bun && (
+                        <li key={bun._id} className={`${stylesConstructor.list__element} pr-6 pl-8`}>
                             <BurgerElement
                                 type="top"
                                 isLocked={true}
-                                card={{...item, name: `${item.name} (верх)`}}
+                                card={{...bun, name: `${bun.name} (верх)`}}
                             />
                         </li>   
                     )
                   }  
-                })}
             </ul>
             <ul className={`${stylesConstructor.list} ${stylesConstructor.list_unLocked}`}>
-                {data.map(item => {
+                {burgerConstructorElements.map(item => {
                   if (item.type !== "bun") {
-                    totalPrice.push(item.price);
-                    productsId.push(item._id);
+                   {/*totalPrice.push(item.price);
+                    productsId.push(item._id);*/}
                     return (
                         <li key={item._id} className={`${stylesConstructor.list__element} pl-4 pr-4 mb-4`}>
                             <DragIcon type="primary" />
@@ -54,36 +133,38 @@ export default function BurgerConctructor ({ productsId }) {
                 })}
             </ul>
             <ul className={`${stylesConstructor.list} ${stylesConstructor.list_locked} ${stylesConstructor.list_bottom} mt-4`}>
-                {bun.map((item) => {
-                  if (item._id === "60d3b41abdacab0026a733c6") {
-                    totalPrice.push(item.price);
-                    productsId.push(item._id);
-                    return (
-                        <li key={item._id} className={`${stylesConstructor.list__element} pr-6 pl-8`}>
+                {bun && (
+                        <li key={bun._id} className={`${stylesConstructor.list__element} pr-6 pl-8`}>
                             <BurgerElement
                                 type="bottom"
                                 isLocked={true}
-                                card={{...item, name: `${item.name} (низ)`}}
+                                card={{...bun, name: `${bun.name} (низ)`}}
                             />
                         </li>   
                     )
                   }  
-                })}     
             </ul>         
             <div className={`${stylesConstructor.price} pt-10 pr-4`}>
                 <div className={`${stylesConstructor.price__item} mr-10`}>
-                    <p className="mr-2 text text_type_digits-medium">{ setTotalPrice() }</p>
+                    <p className="mr-2 text text_type_digits-medium">{setTotalPrice()}</p>
                     <div className={stylesConstructor.price__icon}>
                     <CurrencyIcon type='primary' />
                     </div>
-                   
                 </div>
-                <Button onClick={ getServOrder } type="primary" size="large">Оформить заказ</Button>    
+                <Button onClick={ getServOrder } type="primary" size="large" disabled={ bun.price && burgerConstructorElements.length ? false : true } >Оформить заказ</Button>    
             </div>
+            {orderOverlay && (
+            <Modal 
+                onClose={ closeOrderModal } 
+                title=""
+            > 
+                <OrderDetails orderNumber={ state.ingredientReducer.orderData }/>
+            </Modal>
+            )}
         </section>
     );
 }
 
 BurgerConctructor.propTypes = {
-    productsId: PropTypes.array.isRequired,
+    //productsId: PropTypes.array.isRequired,
 }

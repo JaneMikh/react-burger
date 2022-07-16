@@ -11,105 +11,19 @@ import  { DataContext, ConstructorContext } from '../../services/productsContext
 import { getData, getOrderData } from '../../utils/api';
 
 import { useDispatch } from "react-redux";
-
+import { DndProvider } from "react-dnd";
+import { HTML5Backend } from "react-dnd-html5-backend";
 
 function App () {
-
-    //const [cardData, setCardData] = useState([]);
-   //const [isOrderDetailsVisible, setOrderDetailsVisible] = useState(false);
-   // const [currentCard, setCardIngredient] = useState(null);
-   /* const [orderNumber, setOrderNumber] = useState({
-        order: null,
-        isLoading: false,
-        hasError: false,
-    });
-*/
-    /*useEffect(() => {
-        const getCardData = async () => {
-            getData()
-            .then((res) => {
-                setCardData(res.data)
-            })
-            .catch((err) => {
-                console.log("Oшибка при загрузке данных", err.message);
-            })
-        }
-        getCardData();
-    }, []);*/
-
-    /*function closeAllModals() {
-        //setOrderDetailsVisible(false);
-        setCardIngredient(null);
-    }
-    
-    function openOrderModal() {
-        //setOrderDetailsVisible(true);
-    }*/
-    
-    /*function handleCardElement (item) {
-        if (item) {
-          setCardIngredient(item);
-        }
-    }*/
-
-    /*const getServOrder = () => {
-        getOrderNumber();
-        openOrderModal();
-    }
-
-    const productsId = [];
-   
-    const getOrderNumber = async () => {
-        setOrderNumber({
-           ...orderNumber,
-           isLoading: true,
-        });
-        getOrderData(productsId)
-        .then((res) => {
-           setOrderNumber({
-               ...orderNumber,
-               order: res.order.number,
-               isLoading: false,
-           });
-       })
-        .catch((err) => {
-           console.log("Oшибка при попытке оформить заказ", err.message);
-           setOrderNumber({
-               ...orderNumber,
-               order: null,
-               isLoading: false,
-               hasError: true,
-           })
-       });}*/
-   
     return (
         <section className={stylesMain.page}>
             <AppHeader />
             <main className={stylesMain.main}>
-                   {/* <ConstructorContext.Provider value={ getServOrder }>*/}
-                        <BurgerIngredients />
-                   {/* <DataContext.Provider value={{ cardData, setCardData }}> */}
-                        <BurgerConctructor />
-                   {/* </DataContext.Provider> */}
-                   {/* </ConstructorContext.Provider> */}
+                <DndProvider backend={HTML5Backend}>
+                    <BurgerIngredients />
+                    <BurgerConctructor />
+                </DndProvider> 
             </main>
-            
-          {/*  {isOrderDetailsVisible && (
-            <Modal 
-                onClose={ closeAllModals } 
-                title=""
-            > 
-                <OrderDetails orderNumber={ orderNumber.order }/>
-            </Modal>
-            )}
-          
-            {currentCard && (
-            <Modal 
-                onClose={ closeAllModals }
-                title="Детали ингредиента"
-            >
-                <IngredientDetails ingredient={ currentCard }/>
-           </Modal>)}  */}
         </section>
     );
 }

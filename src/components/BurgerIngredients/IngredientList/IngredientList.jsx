@@ -16,9 +16,7 @@ export default function IngredientList ({ data, title, onCardClick }) {
           <Ingredient
             key={item._id}
             onCardClick={onCardClick}
-            image={item.image}
-            price={item.price}
-            name={item.name}
+            card={item}
           />
         ))
         }

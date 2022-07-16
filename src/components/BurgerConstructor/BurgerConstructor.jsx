@@ -9,8 +9,8 @@ import { useDispatch, useSelector } from 'react-redux';
 import Modal from '../Modal/Modal';
 import OrderDetails from '../Modal/OrderDetails/OrderDetails';
 import { getOrderNumber } from '../../services/actions/index';
-
-import { CLOSE_ALL_MODALS, OPEN_ORDER_MODAL } from '../../services/actions/index';
+import { useDrop } from "react-dnd";
+import { CLOSE_ALL_MODALS, OPEN_ORDER_MODAL, ADD_ITEM } from '../../services/actions/index';
 
 
 export default function BurgerConctructor () {
@@ -27,9 +27,9 @@ export default function BurgerConctructor () {
     const bun = state.ingredientReducer.bun;
     const bunArray = [bun].map((item) => item._id);
     const burgerConstructorArr = burgerConstructorElements.map((element) => element._id);
-    const productsId = [...bunArray, ...burgerConstructorArr];
+    const productsId = [...burgerConstructorArr, ...bunArray];
    
-   
+
 
     //const totalPrice = [];
     const setTotalPrice = () => {
@@ -48,8 +48,25 @@ export default function BurgerConctructor () {
    const getServOrder = () => {
       dispatch(getOrderNumber(productsId));
       dispatch({ type: OPEN_ORDER_MODAL });
+
    }
 
+   const handleDrop = (itemId) => {
+    dispatch({
+      type: ADD_ITEM,
+      item: { ...itemId },
+    });
+  };
+
+  const [{ isHover }, dropTarget] = useDrop({
+    accept: 'item',
+    drop(itemId) {
+      handleDrop(itemId);
+    },
+    collect: (monitor) => ({
+      isHover: monitor.isOver(),
+    }),
+  });
 
     /////////////////////////////////////////////////////
     // Из App
@@ -103,7 +120,7 @@ export default function BurgerConctructor () {
 
 
      return (
-        <section className={`${stylesConstructor.container} mt-25 mb-10`}>
+        <section className={`${stylesConstructor.container} mt-25 mb-10`} ref={ dropTarget }>
             <ul className={`${stylesConstructor.list} ${stylesConstructor.list_locked} ${stylesConstructor.list_top} mb-4`}>
             {bun && (
                         <li key={bun._id} className={`${stylesConstructor.list__element} pr-6 pl-8`}>
@@ -119,8 +136,6 @@ export default function BurgerConctructor () {
             <ul className={`${stylesConstructor.list} ${stylesConstructor.list_unLocked}`}>
                 {burgerConstructorElements.map(item => {
                   if (item.type !== "bun") {
-                   {/*totalPrice.push(item.price);
-                    productsId.push(item._id);*/}
                     return (
                         <li key={item._id} className={`${stylesConstructor.list__element} pl-4 pr-4 mb-4`}>
                             <DragIcon type="primary" />

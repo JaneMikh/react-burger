@@ -9,59 +9,23 @@ import {
     CLOSE_ALL_MODALS,
     OPEN_ORDER_MODAL,
     ORDER_FAIL,
+    ADD_ITEM,
+    DELETE_ITEM
 } from '../actions/index';
 
 
 //Исходное состояние для списка ингредиентов
 export const initialIngredientState = {
     ingredientsData: [],
-    burgerConstructorData: [{
-    calories: 420,
-    carbohydrates: 33,
-    fat: 244,
-    image: "https://code.s3.yandex.net/react/code/meat-02.png",
-    image_large: "https://code.s3.yandex.net/react/code/meat-02-large.png",
-    image_mobile: "https://code.s3.yandex.net/react/code/meat-02-mobile.png",
-    name: "Мясо бессмертных моллюсков Protostomia",
-    price: 1337,
-    proteins: 433,
-    type: "main",
-    __v: 0,
-    _id: "60d3b41abdacab0026a733c9"},
-    {
-    calories: 2674,
-    carbohydrates: 300,
-    fat: 800,
-    image: "https://code.s3.yandex.net/react/code/meat-04.png",
-    image_large: "https://code.s3.yandex.net/react/code/meat-04-large.png",
-    image_mobile: "https://code.s3.yandex.net/react/code/meat-04-mobile.png",
-    name: "Говяжий метеорит (отбивная)",
-    price: 3000,
-    proteins: 800,
-    type: "main",
-    __v: 0,
-    _id: "60d3b41abdacab0026a733ca",}
-],
+    burgerConstructorData: [],
     isLoading: false,
     hasError: false,
-    bun: {
-        calories: 420,
-        carbohydrates: 53,
-        fat: 24,
-        image: "https://code.s3.yandex.net/react/code/bun-02.png",
-        image_large: "https://code.s3.yandex.net/react/code/bun-02-large.png",
-        image_mobile: "https://code.s3.yandex.net/react/code/bun-02-mobile.png",
-        name: "Краторная булка N-200i",
-        price: 1255,
-        proteins: 80,
-        type: "bun",
-        __v: 0,
-        _id: "60d3b41abdacab0026a733c6",
-    },
+    bun: {},
     orderOverlay: false,
     orderData: null,
     orderRequest: false,
     orderError: false,
+    counter: {},
 }
 
 export const ingredientReducer = (state=initialIngredientState, action) => {
@@ -120,6 +84,10 @@ export const ingredientReducer = (state=initialIngredientState, action) => {
                 orderError: true,
                 orderData: null,
             }
+        }
+        case DELETE_ITEM: {
+        }
+        case ADD_ITEM: {
         }
         default: {
             return state;

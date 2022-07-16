@@ -12,6 +12,8 @@ export const ORDER_FAIL = 'ORDER_FAIL';
 export const OPEN_ORDER_MODAL = 'OPEN_ORDER_MODAL';
 export const CLOSE_ALL_MODALS = 'CLOSE_ALL_MODALS';
 
+export const ADD_ITEM = 'ADD_ITEM';
+export const DELETE_ITEM = 'DELETE_ITEM';
 
 //Загрузить список ингредиентов с сервера
 export function getIngredientsData() {

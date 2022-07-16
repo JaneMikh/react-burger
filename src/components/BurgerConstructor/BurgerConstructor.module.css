@@ -1,10 +1,12 @@
 .container {
-  max-width: 600px;
+  width: 600px;
   max-height: 912px;
   overflow: hidden;
   display: flex;
-  justify-content: center;
+  justify-content: space-between;
   flex-direction: column;
+  /*max-width: 600px;*/
+  /*justify-content: center;*/
 }
 
 .list {   

@@ -1,4 +1,5 @@
 import { getData, getOrderData } from '../../utils/api';
+import { v4 as uuid } from "uuid";
 
 export const GET_ITEMS_REQUEST = 'GET_ITEMS_REQUEST';
 export const GET_ITEMS_SUCCESS = 'GET_ITEMS_SUCCESS';
@@ -14,6 +15,15 @@ export const CLOSE_ALL_MODALS = 'CLOSE_ALL_MODALS';
 
 export const ADD_ITEM = 'ADD_ITEM';
 export const DELETE_ITEM = 'DELETE_ITEM';
+export const CHANGE_ITEM = 'CHANGE_ITEM';
+
+
+export const addIngredientCard = (item) => {
+    const uuids = uuid();
+    return {
+        payload: { ...item, key: uuids },
+    }
+}
 
 //Загрузить список ингредиентов с сервера
 export function getIngredientsData() {

@@ -1,10 +1,7 @@
-import React, { useMemo, useContext, useEffect, useState } from 'react';
-import PropTypes from 'prop-types';
+import React, { useMemo, useEffect, useState } from 'react';
 import stylesIngredients from './BurgerIngredients.module.css';
 import Tabs from '../BurgerIngredients/Tabs/Tabs';
 import IngredientList from './IngredientList/IngredientList';
-//import { DataContext } from '../../services/productsContext';
-
 import Modal from '../Modal/Modal';
 import IngredientDetails from '../Modal/IngredientDetails/IngredientDetails';
 import { useSelector } from 'react-redux';
@@ -12,18 +9,18 @@ import { useDispatch } from "react-redux";
 import { getIngredientsData } from '../../services/actions/index';
 
 
-export default function BurgerIngredients (/*{ handleCardElement }*/) {
-   
+export default function BurgerIngredients () {
+  const dispatch = useDispatch();
+
   const data = useSelector((store) => store.ingredientReducer.ingredientsData);
- 
- //const state = useContext(DataContext);
- //const data = state.cardData;
- //const [isIngredientDetailsOpen, setDetailsOpen] = useState(false);
   const [currentCard, setCardIngredient] = useState(null);
-
-
   const [current, setCurrent] = useState('bun');
   
+  const bun = useMemo(() => data.filter(element => element.type === 'bun'), [data]);
+  const sauce = useMemo(() => data.filter(element => element.type === 'sauce'), [data]);
+  const main = useMemo(() => data.filter(element => element.type === 'main'), [data]); 
+
+
   const handleTabsClick = (evt) => {
     setCurrent(evt);
   }
@@ -37,27 +34,21 @@ export default function BurgerIngredients (/*{ handleCardElement }*/) {
       : setCurrent("main");
   };
 
-
   const closeAllModals = () => {
-    //setDetailsOpen(true);
     setCardIngredient(null);
   };
 
-  const bun = useMemo(() => data.filter(element => element.type === 'bun'), [data]);
-  const sauce = useMemo(() => data.filter(element => element.type === 'sauce'), [data]);
-  const main = useMemo(() => data.filter(element => element.type === 'main'), [data]); 
-
-  const dispatch = useDispatch();
+  
   useEffect(() => {
     dispatch(getIngredientsData());
   },[dispatch]);
 
 
-  function handleCardElement (item) {
+  const handleCardElement = (item) => {
     if (item) {
       setCardIngredient(item);
     }
-}
+  }
 
   function handleIngredientCard (evt) {
     //Таргетинг на конкретного родителя
@@ -87,8 +78,4 @@ export default function BurgerIngredients (/*{ handleCardElement }*/) {
            </Modal>)}
     </section>
   );
-}
-
-BurgerIngredients.propTypes = {
-  //handleCardElement: PropTypes.func.isRequired,
 }

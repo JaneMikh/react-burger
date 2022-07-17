@@ -12,13 +12,13 @@ import { getIngredientsData } from '../../services/actions/index';
 export default function BurgerIngredients () {
   const dispatch = useDispatch();
 
-  const data = useSelector((store) => store.ingredientReducer.ingredientsData);
+  const ingredients = useSelector((store) => store.ingredient.ingredientsData);
   const [currentCard, setCardIngredient] = useState(null);
   const [current, setCurrent] = useState('bun');
   
-  const bun = useMemo(() => data.filter(element => element.type === 'bun'), [data]);
-  const sauce = useMemo(() => data.filter(element => element.type === 'sauce'), [data]);
-  const main = useMemo(() => data.filter(element => element.type === 'main'), [data]); 
+  const bun = useMemo(() => ingredients.filter(element => element.type === 'bun'), [ingredients]);
+  const sauce = useMemo(() => ingredients.filter(element => element.type === 'sauce'), [ingredients]);
+  const main = useMemo(() => ingredients.filter(element => element.type === 'main'), [ingredients]); 
 
 
   const handleTabsClick = (evt) => {
@@ -56,7 +56,7 @@ export default function BurgerIngredients () {
     function getCardItem (arr, element) {
       return arr.find((item) => item.name === element);
     }
-    const card = getCardItem(data, cardElement);
+    const card = getCardItem(ingredients, cardElement);
     handleCardElement(card);
   }
 

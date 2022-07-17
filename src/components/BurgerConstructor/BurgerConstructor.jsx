@@ -15,17 +15,16 @@ import { addIngredientCard } from '../../services/actions/index';
 export default function BurgerConctructor () {
     
     const dispatch = useDispatch();
-    const state = useSelector((store) => store);
-
-    const burgerConstructorElements = useSelector((store) => store.ingredientReducer.burgerConstructorData);
+    const burgerConstructorElements = useSelector((store) => store.ingredient.burgerConstructorData);
     const burgerConstructorArr = burgerConstructorElements.map((element) => element._id);
 
-    const bun = state.ingredientReducer.bun;
+    const bun = useSelector((store) => store.ingredient.bun);
     const bunArray = [bun].map((item) => item._id);
     
     const productsId = [...burgerConstructorArr, ...bunArray];
    
-    const orderOverlay = state.ingredientReducer.orderOverlay;
+    const orderOverlay = useSelector((store) => store.order.orderOverlay)
+    const orderData = useSelector((store) => store.order.orderData)
 
     const setTotalPrice = () => {
         return  burgerConstructorElements.reduce((previousValue, currentValue) => 
@@ -41,7 +40,7 @@ export default function BurgerConctructor () {
         dispatch({ type: OPEN_ORDER_MODAL });
     }
 
-     // Реализация D&D //
+    // Реализация D&D //
 
     const handleDrop = (itemId) => {
         dispatch({
@@ -115,7 +114,7 @@ export default function BurgerConctructor () {
                 onClose={ closeOrderModal } 
                 title=""
             > 
-                <OrderDetails orderNumber={ state.ingredientReducer.orderData }/>
+                <OrderDetails orderNumber={ orderData }/>
             </Modal>
             )}
         </section>

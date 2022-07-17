@@ -1,0 +1,25 @@
+.popup__container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.popup__aligner {
+    text-align: center;
+}
+
+.popup__text {
+    text-align: center;
+    text-transform: lowercase;
+}
+
+.popup__image {
+    width: 120px;
+    height: 120px;
+    align-self: center;
+}
+
+.popup__aligner {
+    text-align: center;
+}

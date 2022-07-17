@@ -1,4 +1,4 @@
-import { ingredientURL } from '../utils/constants';
+import { ingredientURL } from './constants';
 
 export function checkResponse(res) {
     if (res.ok) {

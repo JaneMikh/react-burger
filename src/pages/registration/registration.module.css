@@ -1,0 +1,33 @@
+.page {
+    margin: 0 auto;
+    max-width: 1920px;
+    padding-bottom: 314px;
+    padding-top: 180px;
+}
+
+.content {
+    margin: 0 auto;
+    max-width: 480px;
+    border: 1px solid blue;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 24px;
+}
+
+.content>div>div {
+    width: 480px;
+}
+
+.links {
+    border: 1px solid blue;
+    max-width: 480px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto;
+}
+
+.link {
+    text-decoration: none;
+}

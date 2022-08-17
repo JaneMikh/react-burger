@@ -1,7 +1,7 @@
 import React from 'react';
 import { Button, EmailInput, PasswordInput } from "@ya.praktikum/react-developer-burger-ui-components";
 import mainStyles from '../registration/registration.module.css';
-import logStyles from './login.module.css';
+
 
 export default function Login () {
 

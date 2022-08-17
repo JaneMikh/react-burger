@@ -1,15 +1,23 @@
 import React from "react";
 import { Button, Input } from "@ya.praktikum/react-developer-burger-ui-components";
 import mainStyles from '../registration/registration.module.css';
-
-
+import { forgotPassword } from '../../services/actions/route';
+import { useDispatch } from "react-redux";
 
 export default function ForgotPassword () {
+    const dispatch = useDispatch();
+
     const [valueEmail, setValueEmail] = React.useState("");
     
+    const handleFormSubmit = (evt) => {
+        evt.preventDefault();
+        setValueEmail(valueEmail);
+        dispatch(forgotPassword(valueEmail));
+    }
+
     return (
         <section className={mainStyles.page}>
-            <form className={`${mainStyles.content} pb-20`}>
+            <form onSubmit={ handleFormSubmit } className={`${mainStyles.content} pb-20`}>
                 <h2 className="text text_type_main-medium">Восстановление пароля</h2>
                 <Input
                     type="email"

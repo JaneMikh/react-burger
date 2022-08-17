@@ -1,23 +1,32 @@
 import React from "react";
 import { Input, Button, PasswordInput } from "@ya.praktikum/react-developer-burger-ui-components";
 import mainStyles from '../registration/registration.module.css';
+import { resetPassword } from '../../services/actions/route';
+import { useDispatch } from "react-redux";
 
-export default function ResetPassward () {
-    const [valuePassward, setValuePassward] = React.useState("")
-    const onChangePassward = e => {
-        setValuePassward(e.target.value)};
+export default function ResetPassword () {
+    const dispatch = useDispatch();
+
+    const [valuePassword, setValuePassword] = React.useState("")
+    const onChangePassword = e => {
+        setValuePassword(e.target.value)};
 
     const [valueToken, setValueToken] = React.useState("");   
 
+    const handleTokenSubmit = (evt) => {
+        evt.preventDefault();
+        setValueToken(valueToken);
+        dispatch(resetPassword(valueToken, valuePassword));
+    }
 
     return (
         <section className={mainStyles.page}>
-            <form className={`${mainStyles.content} pb-20`}>
+            <form onSubmit={ handleTokenSubmit } className={`${mainStyles.content} pb-20`}>
                 <h2 className="text text_type_main-medium">Восстановление пароля</h2>
                 <PasswordInput
                     name={"password"}
-                    value={valuePassward}
-                    onChange={onChangePassward}
+                    value={valuePassword}
+                    onChange={onChangePassword}
                 />
                 <Input
                     value={valueToken}

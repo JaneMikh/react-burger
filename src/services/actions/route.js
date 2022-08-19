@@ -7,6 +7,7 @@ import {
     updateToken,
     updateUserData,
     logoutRequest,
+    getUserInfo,
 } from '../../utils/api';
 
 import { setCookie, deleteCookie } from '../../utils/cookie';
@@ -39,13 +40,16 @@ export const TOKEN_REQUEST = 'TOKEN_REQUEST';
 export const TOKEN_SUCCESS = 'TOKEN_SUCCESS';
 export const TOKEN_ERROR = 'TOKEN_ERROR';
 
-//ПРОВЕРЕНО
+
+
+
 //Регистрация пользователя
 export function registerAction (userEmail, userPassword, userName) {
     return function(dispatch) {
         dispatch({ type: REGISTER_REQUEST });
         getUserRegistration(userEmail, userPassword, userName)
         .then((data) => {
+           // console.log(data);
             dispatch({
                 type: REGISTER_SUCCESS,
                 data,
@@ -106,23 +110,27 @@ export function authrizeUser (userEmail, userPassword) {
         dispatch({ type: LOGIN_REQUEST });
         getAuthorization(userEmail, userPassword)
         .then((data) => {
+           // console.log(data);
             let authToken;
             if (data.accessToken && data.accessToken.indexOf('Bearer') === 0) {
                 // Отделяем схему авторизации от "полезной нагрузки токена"
                 authToken = data.accessToken.split('Bearer ')[1];
             }
             if (authToken) {
+                //console.log(data.refreshToken);
                 // Сохраняем токен в куку token
                 setCookie('token', authToken, 0);
                 localStorage.setItem('refreshToken', `${data.refreshToken}`);
             }
             if (data.success) {
+                //console.log(data);
                 dispatch({
                     type: LOGIN_SUCCESS,
                     payload: { userEmail, userPassword, ...data.user },
 
                 });
                 localStorage.setItem('password', `${userPassword}`);
+                //console.log(localStorage);
             }
         })
         .catch((err) => {
@@ -166,6 +174,7 @@ export function updateUserProfile (userEmail, userPassword, userName) {
         dispatch({ type: USER_UPDATE_REQUEST });
         updateUserData(userEmail, userPassword, userName)
         .then((data) => {
+            //console.log(data);
             if (data && data.success) {
                 dispatch({
                     type: USER_UPDATE_SUCCESS,
@@ -204,5 +213,26 @@ export function getNewToken () {
             console.log(err);
         });
     }
-  };
-  
+};
+
+//Получение данных о пользователе с сервера
+export function getUserData () {
+    return function(dispatch) {
+        dispatch({ type: LOGIN_REQUEST });
+        getUserInfo()
+        .then((data) => {
+            console.log(data)
+                dispatch({ 
+                    type: LOGIN_SUCCESS,
+                   payload: { password: localStorage.getItem('password'), ...data.user }
+                   // payload: { ...data.user }
+                })
+        })
+        .catch((err) => {
+            dispatch({ type: LOGIN_ERROR });
+            console.log(err);
+            
+        })
+    }
+}
+

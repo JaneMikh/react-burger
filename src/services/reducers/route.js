@@ -20,6 +20,7 @@ import {
     TOKEN_REQUEST,
     TOKEN_SUCCESS,
     TOKEN_ERROR,
+
 } from '../actions/route';
 
 export const routeState = {
@@ -111,6 +112,7 @@ export const routeReducer = (state = routeState, action) => {
         }
         case LOGIN_SUCCESS: {
             const { name, email, password } = action.payload;
+            console.log(action.payload);
             return {
                 ...state,
                 authRequest: false,

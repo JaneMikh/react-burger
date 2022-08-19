@@ -27,6 +27,11 @@
 .nav__item {
     line-height: 64px;
     border: 1px solid white;
+    cursor: pointer;
+}
+
+.nav__item:hover {
+    text-shadow: #4C4CFF 0 0 15px;
 }
 
 .content {
@@ -40,4 +45,18 @@
 
 .content>div>div {
     width: 480px;
+}
+
+.button {
+    width: 860px;
+    display: flex; 
+    justify-content: flex-end;
+    margin: 0 auto;
+}
+
+.button__element {
+    width: 480px;
+    border: 1px solid blue;
+    display: flex;
+    justify-content: space-between;
 }

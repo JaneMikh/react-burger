@@ -1,7 +1,7 @@
 import React from 'react';
 import { EmailInput, Input, PasswordInput, Button } from "@ya.praktikum/react-developer-burger-ui-components";
 import mainStyles from './registration.module.css';
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { registerAction } from '../../services/actions/route';
 
 export default function Registration () {
@@ -10,20 +10,25 @@ export default function Registration () {
 
     const [valueName, setValueName] = React.useState("");
     const [valueEmail, setValueEmail] = React.useState("");
-    const onChangeEmail = e => { setValueEmail (e.target.value) };
+    const onChangeEmail = e => { setValueEmail(e.target.value) };
 
-    const [valuePassword, setValuePassward] = React.useState("")
+    const [valuePassword, setValuePassword] = React.useState("")
     const onChangePassword = e => {
-        setValuePassward(e.target.value)};
+        setValuePassword(e.target.value)};
 
-    const handleSubmit = (evt) => {
+    const handleRegSubmit = (evt) => {
         evt.preventDefault();
         dispatch(registerAction(valueEmail, valuePassword, valueName))
     };
 
+    /*const userData = useSelector((store) => {
+        return store.route.authProfile;
+    });    
+    console.log(userData);*/
+
     return (
         <section className={mainStyles.page}>
-            <form onSubmit={ handleSubmit } className={`${mainStyles.content} pb-20`}>
+            <form onSubmit={ handleRegSubmit } className={`${mainStyles.content} pb-20`}>
                 <h2 className="text text_type_main-medium">Регистрация</h2>
                 <Input
                     onChange={e => setValueName(e.target.value)}

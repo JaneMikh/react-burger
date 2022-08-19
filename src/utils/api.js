@@ -9,8 +9,8 @@ export function checkResponse(res) {
     return Promise.reject(`Ошибка: ${res.status}`);
 }
 
-export const getData = () => {
-    return fetch(`${ingredientURL}/ingredients`, {
+export const getData = async() => {
+    return await fetch(`${ingredientURL}/ingredients`, {
         method: "GET",
     })
     .then((res) => {
@@ -18,8 +18,8 @@ export const getData = () => {
     });
 }
 
-export const getOrderData = (productsId) => {
-    return fetch(`${ingredientURL}/orders`, {
+export const getOrderData = async(productsId) => {
+    return await fetch(`${ingredientURL}/orders`, {
         method: "POST",
         headers: {
             "Content-type": "application/json;charset=utf-8",
@@ -34,8 +34,8 @@ export const getOrderData = (productsId) => {
 }
 
 //Page /forgot-password
-export const getForgotPassword = (userEmail) => {
-    return fetch(`${ingredientURL}/password-reset`,{
+export const getForgotPassword = async(userEmail) => {
+    return await fetch(`${ingredientURL}/password-reset`,{
         method: "POST",
         headers: {
             "Content-type": "application/json;charset=utf-8",
@@ -51,8 +51,8 @@ export const getForgotPassword = (userEmail) => {
 
 
 //Page /reset-password
-export const getResetPassword = (newPassword, newToken) => {
-    return fetch(`${ingredientURL}/password-reset/reset`, {
+export const getResetPassword = async(newPassword, newToken) => {
+    return await fetch(`${ingredientURL}/password-reset/reset`, {
         method: "POST",
         headers: {
             "Content-type": "application/json;charset=utf-8",
@@ -68,8 +68,8 @@ export const getResetPassword = (newPassword, newToken) => {
 }
 
 //Page /registration
-export const getUserRegistration = (userEmail, userPassword, userName) => {
-    return fetch(`${ingredientURL}/auth/register`, {
+export const getUserRegistration = async(userEmail, userPassword, userName) => {
+    return await fetch(`${ingredientURL}/auth/register`, {
         method: "POST",
         headers: {
             "Content-type": "application/json;charset=utf-8",
@@ -86,8 +86,8 @@ export const getUserRegistration = (userEmail, userPassword, userName) => {
 }
 
 //Запрос авторизации
-export const getAuthorization = (userEmail, userPassword) => {
-    return fetch(`${ingredientURL}/auth/login`, {
+export const getAuthorization = async(userEmail, userPassword) => {
+    return await fetch(`${ingredientURL}/auth/login`, {
         method: 'POST',
         mode: 'cors',
         cache: 'no-cache',
@@ -108,8 +108,8 @@ export const getAuthorization = (userEmail, userPassword) => {
 }
 
 //Обновление токена
-export const updateToken = () => {
-   return fetch(`${ingredientURL}/auth/token`, {
+export const updateToken = async() => {
+   return await fetch(`${ingredientURL}/auth/token`, {
         method: 'POST',
         mode: 'cors',
         cache: 'no-cache',
@@ -127,8 +127,8 @@ export const updateToken = () => {
 }
 
 //Обновление данных о пользователе
-export const updateUserData = (userEmail, userPassword, userName) => {
-    return fetch(`${ingredientURL}/auth/user`, {
+export const updateUserData = async(userEmail, userPassword, userName) => {
+    return await fetch(`${ingredientURL}/auth/user`, {
         method: 'PATCH',
         mode: 'cors',
         cache: 'no-cache',
@@ -151,8 +151,8 @@ export const updateUserData = (userEmail, userPassword, userName) => {
 }
 
 //Выход из системы
-export const logoutRequest = (userToken) => {
-    return fetch(`${ingredientURL}/auth/logout`, {
+export const logoutRequest = async(userToken) => {
+    return await fetch(`${ingredientURL}/auth/logout`, {
         method: 'POST',
         mode: 'cors',
         cache: 'no-cache',
@@ -169,4 +169,23 @@ export const logoutRequest = (userToken) => {
     .then((res) => {
         return checkResponse(res);
     });
+}
+
+//Получить данные о пользователе
+export const getUserInfo = async() => {
+    return await fetch(`${ingredientURL}/auth/user`, {
+        method: 'GET',
+        mode: 'cors',
+        cache: 'no-cache',
+        credentials: 'same-origin',
+        headers: {
+            'Content-Type': 'application/json',
+            Authorization: 'Bearer ' + getCookie('token')
+        },
+        redirect: 'follow',
+        referrerPolicy: 'no-referrer',
+    })
+    .then((res) => {
+        return checkResponse(res);
+    }); 
 }

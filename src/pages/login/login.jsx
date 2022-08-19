@@ -1,21 +1,29 @@
-import React from 'react';
+import React, { useCallback } from 'react';
 import { Button, EmailInput, PasswordInput } from "@ya.praktikum/react-developer-burger-ui-components";
 import mainStyles from '../registration/registration.module.css';
-
+import { useAuth } from '../../services/auth';
 
 export default function Login () {
-
+   
+    const auth = useAuth();
     const [valueEmail, setValueEmail] = React.useState("");
-    const onChangeEmail = e => { setValueEmail (e.target.value) };
+    const onChangeEmail = (evt) => { setValueEmail (evt.target.value) };
 
-    const [valuePassward, setValuePassward] = React.useState("")
-    const onChangePassward = e => {
-        setValuePassward(e.target.value)}
-
+    const [valuePassword, setValuePassword] = React.useState("")
+    const onChangePassword = (evt) => {
+        setValuePassword(evt.target.value)}
+    
+    const handleLoginSubmit = useCallback((evt) => {
+        evt.preventDefault();
+        auth.signIn(valueEmail, valuePassword);
+        
+        }, [auth, valuePassword, valueEmail]
+    );
+      
         //у основной страницы padding-top: 362px; нужно поменять стили на уникальный
     return (
         <section className={mainStyles.page}>
-            <form className={`${mainStyles.content} pb-20`}>
+            <form onSubmit={ handleLoginSubmit } className={`${mainStyles.content} pb-20`}>
                 <h2 className="text text_type_main-medium">Вход</h2>
                 <EmailInput
                     name={"email"}
@@ -24,8 +32,8 @@ export default function Login () {
                 />
                 <PasswordInput
                     name={"password"}
-                    value={valuePassward}
-                    onChange={onChangePassward}
+                    value={valuePassword}
+                    onChange={onChangePassword}
                 />
                 <Button type="primary" size="medium">
                     Войти

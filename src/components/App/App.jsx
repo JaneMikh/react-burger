@@ -10,17 +10,25 @@ import Profile from '../../pages/profile/profile';
 import PageIsNotFound from '../../pages/page404/page404';
 import MainPage from '../../pages/main';
 
+import { ProvideAuth } from '../../services/auth';
+import { useAuth } from '../../services/auth';
+import { useDispatch, useSelector } from "react-redux";
+import  { getUserData } from '../../services/actions/route';
 
 function App () {
 
+    const userAuth = useSelector((store) => store.route.registrationSuccess);
+    const auth = useAuth();
 
 
     return (
+        <ProvideAuth>
         <section className={stylesMain.page}>
             <AppHeader />
-            <ResetPassword />
+            <Profile />
             {/*<MainPage />*/}
         </section>
+        </ProvideAuth>
     );
 }
 

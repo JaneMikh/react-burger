@@ -9,6 +9,8 @@ import ResetPassword from '../../pages/reset-passward/reset-passward';
 import Profile from '../../pages/profile/profile';
 import PageIsNotFound from '../../pages/page404/page404';
 import MainPage from '../../pages/main';
+import IngredientDetails from '../Modal/IngredientDetails/IngredientDetails';
+
 
 import { ProvideAuth } from '../../services/auth';
 import { useAuth } from '../../services/auth';
@@ -17,16 +19,45 @@ import  { getUserData } from '../../services/actions/route';
 
 function App () {
 
-    const userAuth = useSelector((store) => store.route.registrationSuccess);
-    const auth = useAuth();
-
+    const history = useHistory();
+  //  const location = useLocation();
+   // const background = location.state?.background;
+   // console.log(location.state);
+  // console.log(background);
+ //location={background || location}
 
     return (
         <ProvideAuth>
         <section className={stylesMain.page}>
             <AppHeader />
-            <Profile />
-            {/*<MainPage />*/}
+            <Router>
+            <Switch>
+                <Route path="/register" exact={true}>
+                    <Registration />
+                </Route>
+                <Route path="/login" exact={true}>
+                    <Login />
+                </Route>
+                <Route path="/forgot-password" exact={true}>
+                    <ForgotPassword />
+                </Route>
+                <Route path="/reset-password" exact={true}>
+                    <ResetPassword />
+                </Route>
+                <Route path="/profile" exact={true}>
+                    <Profile />
+                </Route>
+                <Route path="/" exact={true}>
+                    <MainPage />
+                </Route>
+                <Route path="/ingredients/:id" exact={true}>
+                    <IngredientDetails />
+                </Route>
+                <Route>
+                    <PageIsNotFound />
+                </Route>
+            </Switch>
+            </Router>
         </section>
         </ProvideAuth>
     );

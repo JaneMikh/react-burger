@@ -23,7 +23,7 @@ export default function Profile () {
     const userProfileData = state.route.authProfile;
    
     useEffect(() => {
-        dispatch(getUserData());
+        dispatch(getUserData(userProfileData));
     }, [dispatch]);
     
     useEffect(() => {
@@ -45,6 +45,12 @@ export default function Profile () {
         dispatch(updateUserProfile(valueEmail, valuePassword, valueName));
     }
 
+    const cancelChangesHandler = () => {
+        setValueName(userProfileData.name);
+        setValueEmail(userProfileData.email);
+        setValuePassword(userProfileData.password);
+    }
+
     return (
         <section className={profStyles.page}>
             <div className={profStyles.main}>
@@ -62,7 +68,7 @@ export default function Profile () {
                     <Input
                         onChange={ onChangeName }
                         value={valueName}
-                        name={"email"}
+                        name={"имя"}
                         type={"text"}
                         placeholder={"Имя"}
                         icon={"EditIcon"}
@@ -85,7 +91,7 @@ export default function Profile () {
             <div className={profStyles.button}>
                 <div className={`${profStyles.button__element} pt-20`}>
                     <Button onClick={ saveProfileData } type="primary" size="medium">Сохранить</Button>
-                    <Button type="primary" size="medium">Отмена</Button>
+                    <Button onClick ={ cancelChangesHandler } type="primary" size="medium">Отмена</Button>
                 </div>
             </div>
         </section>

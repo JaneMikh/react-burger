@@ -49,7 +49,7 @@ export function registerAction (userEmail, userPassword, userName) {
         dispatch({ type: REGISTER_REQUEST });
         getUserRegistration(userEmail, userPassword, userName)
         .then((data) => {
-           // console.log(data);
+            console.log(data);
             dispatch({
                 type: REGISTER_SUCCESS,
                 data,
@@ -174,7 +174,7 @@ export function updateUserProfile (userEmail, userPassword, userName) {
         dispatch({ type: USER_UPDATE_REQUEST });
         updateUserData(userEmail, userPassword, userName)
         .then((data) => {
-            //console.log(data);
+           // console.log(data);
             if (data && data.success) {
                 dispatch({
                     type: USER_UPDATE_SUCCESS,
@@ -216,23 +216,44 @@ export function getNewToken () {
 };
 
 //Получение данных о пользователе с сервера
-export function getUserData () {
+export function getUserData (user) {
     return function(dispatch) {
         dispatch({ type: LOGIN_REQUEST });
         getUserInfo()
         .then((data) => {
-            console.log(data)
+            //console.log(data);
+            if (data.success) {
                 dispatch({ 
                     type: LOGIN_SUCCESS,
-                   payload: { password: localStorage.getItem('password'), ...data.user }
-                   // payload: { ...data.user }
+                    payload: { password: localStorage.getItem('password'), ...data.user }
+                    //payload: { ...data.user }
                 })
+            }
+            return data.success;
+                
         })
-        .catch((err) => {
-            dispatch({ type: LOGIN_ERROR });
-            console.log(err);
-            
-        })
+        .catch(e => {
+            if (user.name) {
+                updateToken()
+                    .then(data => {
+                        let authToken;
+                        if (data.accessToken && data.accessToken.indexOf('Bearer') === 0) {
+                            authToken = data.accessToken.split('Bearer ')[1];
+                        }
+                        if (authToken) {
+                            setCookie('token', authToken, 0);
+                            localStorage.setItem('refreshToken', `${data.refreshToken}`);
+                            console.log('Token обновлен')
+                        }
+                    })
+                    .catch(e => {
+                        dispatch({ type: LOGIN_ERROR });
+                        console.log(e.type);
+                    })
+                }
+                console.log(e.type);
+            })
+       
     }
 }
 

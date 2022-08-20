@@ -112,7 +112,7 @@ export const routeReducer = (state = routeState, action) => {
         }
         case LOGIN_SUCCESS: {
             const { name, email, password } = action.payload;
-            console.log(action.payload);
+           // console.log(action.payload);
             return {
                 ...state,
                 authRequest: false,

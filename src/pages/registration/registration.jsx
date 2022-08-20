@@ -3,6 +3,8 @@ import { EmailInput, Input, PasswordInput, Button } from "@ya.praktikum/react-de
 import mainStyles from './registration.module.css';
 import { useDispatch, useSelector } from "react-redux";
 import { registerAction } from '../../services/actions/route';
+import { Link } from "react-router-dom";
+
 
 export default function Registration () {
     
@@ -21,11 +23,7 @@ export default function Registration () {
         dispatch(registerAction(valueEmail, valuePassword, valueName))
     };
 
-    /*const userData = useSelector((store) => {
-        return store.route.authProfile;
-    });    
-    console.log(userData);*/
-
+   
     return (
         <section className={mainStyles.page}>
             <form onSubmit={ handleRegSubmit } className={`${mainStyles.content} pb-20`}>
@@ -54,7 +52,7 @@ export default function Registration () {
                     <p className="text text_type_main-default text_color_inactive">
                     Уже зарегистрированы?&nbsp;
                     </p>
-                    <a href='' className={`${mainStyles.link} text text_type_main-default text_color_accent`}>Войти</a>
+                    <Link to="/login" className={`${mainStyles.link} text text_type_main-default text_color_accent`}>Войти</Link>
             </div>    
         </section>
     )

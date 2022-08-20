@@ -1,15 +1,16 @@
-import React, { useCallback } from 'react';
+import React, { useCallback, useState } from 'react';
 import { Button, EmailInput, PasswordInput } from "@ya.praktikum/react-developer-burger-ui-components";
 import mainStyles from '../registration/registration.module.css';
 import { useAuth } from '../../services/auth';
+import { Link } from "react-router-dom";
 
 export default function Login () {
    
     const auth = useAuth();
-    const [valueEmail, setValueEmail] = React.useState("");
+    const [valueEmail, setValueEmail] = useState("");
     const onChangeEmail = (evt) => { setValueEmail (evt.target.value) };
 
-    const [valuePassword, setValuePassword] = React.useState("")
+    const [valuePassword, setValuePassword] = useState("");
     const onChangePassword = (evt) => {
         setValuePassword(evt.target.value)}
     
@@ -43,13 +44,13 @@ export default function Login () {
                 <p className="text text_type_main-default text_color_inactive">
                     Вы - новый пользователь?&nbsp;
                 </p>
-                <a href="" className={`${mainStyles.link} text text_type_main-default text_color_accent`}>Зарегистрироваться</a> {/*change into Link component <Link to="/register"*/}
+                <Link to="/register" className={`${mainStyles.link} text text_type_main-default text_color_accent`}>Зарегистрироваться</Link>
             </div>
             <div className={mainStyles.links}>
                 <p className="text text_type_main-default text_color_inactive">
                     Забыли пароль?&nbsp;
                 </p>
-                <a href="" className={`${mainStyles.link} text text_type_main-default text_color_accent`}>Восстановить пароль</a> {/*change into Link component <Link to="/forgot-password"*/}
+                <Link to="/forgot-password" className={`${mainStyles.link} text text_type_main-default text_color_accent`}>Восстановить пароль</Link>
             </div>  
         </section>
     )

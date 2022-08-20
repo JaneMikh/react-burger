@@ -3,6 +3,7 @@ import { Button, Input } from "@ya.praktikum/react-developer-burger-ui-component
 import mainStyles from '../registration/registration.module.css';
 import { forgotPassword } from '../../services/actions/route';
 import { useDispatch } from "react-redux";
+import { Link } from "react-router-dom";
 
 export default function ForgotPassword () {
     const dispatch = useDispatch();
@@ -33,7 +34,7 @@ export default function ForgotPassword () {
                 <p className="text text_type_main-default text_color_inactive">
                     Вспомнили пароль?&nbsp;
                 </p>
-                <a href="" className={`${mainStyles.link} text text_type_main-default text_color_accent`}>Войти</a> {/*change into Link component <Link to="/login"*/}
+                <Link to="/login" className={`${mainStyles.link} text text_type_main-default text_color_accent`}>Войти</Link>
             </div>
         </section>
 

@@ -7,7 +7,7 @@ import IngredientDetails from '../Modal/IngredientDetails/IngredientDetails';
 import { useSelector } from 'react-redux';
 import { useDispatch } from "react-redux";
 import { getIngredientsData } from '../../services/actions/index';
-
+import { useParams } from "react-router-dom";
 
 export default function BurgerIngredients () {
   const dispatch = useDispatch();
@@ -65,6 +65,8 @@ export default function BurgerIngredients () {
       setCardIngredient(item);
     }
   }
+
+
 
   function handleIngredientCard (evt) {
     //Таргетинг на конкретного родителя

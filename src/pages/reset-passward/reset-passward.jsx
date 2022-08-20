@@ -3,6 +3,7 @@ import { Input, Button, PasswordInput } from "@ya.praktikum/react-developer-burg
 import mainStyles from '../registration/registration.module.css';
 import { resetPassword } from '../../services/actions/route';
 import { useDispatch } from "react-redux";
+import { Link } from "react-router-dom";
 
 export default function ResetPassword () {
     const dispatch = useDispatch();
@@ -41,7 +42,7 @@ export default function ResetPassword () {
                 <p className="text text_type_main-default text_color_inactive">
                     Вспомнили пароль?&nbsp;
                 </p>
-                <a href="" className={`${mainStyles.link} text text_type_main-default text_color_accent`}>Войти</a> {/*change into Link component <Link to="/login"*/}
+                <Link to="/login" className={`${mainStyles.link} text text_type_main-default text_color_accent`}>Войти</Link>
             </div>
 
         </section>

@@ -8,7 +8,6 @@
 .content {
     margin: 0 auto;
     max-width: 480px;
-    border: 1px solid blue;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -20,7 +19,6 @@
 }
 
 .links {
-    border: 1px solid blue;
     max-width: 480px;
     display: flex;
     align-items: center;
@@ -30,4 +28,8 @@
 
 .link {
     text-decoration: none;
+}
+
+.link:hover {
+    text-shadow: #4C4CFF 0 0 15px;
 }

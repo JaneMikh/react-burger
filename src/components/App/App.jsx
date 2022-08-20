@@ -1,5 +1,6 @@
 import React from 'react';
-import { BrowserRouter as Router, Route, Switch, useHistory, useLocation} from "react-router-dom";
+import { BrowserRouter as Router, Route, Switch, useHistory } from "react-router-dom";
+import { useLocation } from "react-router-dom";
 import stylesMain from './App.module.css';
 import AppHeader from '../AppHeader/AppHeader';
 import Registration from '../../pages/registration/registration';
@@ -20,11 +21,9 @@ import  { getUserData } from '../../services/actions/route';
 function App () {
 
     const history = useHistory();
-  //  const location = useLocation();
-   // const background = location.state?.background;
-   // console.log(location.state);
-  // console.log(background);
- //location={background || location}
+    const location = useLocation();
+    //console.log(history);
+    const background = location.state?.background;
 
     return (
         <ProvideAuth>

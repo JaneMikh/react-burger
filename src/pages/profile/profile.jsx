@@ -5,6 +5,8 @@ import { useAuth } from '../../services/auth';
 import { useDispatch, useSelector } from "react-redux";
 import { updateUserProfile } from '../../services/actions/route';
 import { getUserData } from '../../services/actions/route';
+import { NavLink, useLocation, useHistory } from 'react-router-dom';
+
 
 export default function Profile () {
     //Name
@@ -30,15 +32,13 @@ export default function Profile () {
         setValueName(userProfileData.name);
         setValueEmail(userProfileData.email);
         setValuePassword(userProfileData.password);
-        //console.log(userProfileData);
     }, [userProfileData]);
 
 
     const handleLogout = useCallback((evt) => {
         evt.preventDefault();
         auth.signOutUser(localStorage.getItem("refreshToken"));
-    }, [auth]
-    );
+    }, [auth]);
    
     const saveProfileData = (evt) => {
         evt.preventDefault();
@@ -56,13 +56,38 @@ export default function Profile () {
             <div className={profStyles.main}>
                 <nav className={profStyles.nav}>
                     <ul className={profStyles.nav__menu}>
-                        <li className={`${profStyles.nav__item} text text_type_main-medium`}>Профиль</li>
-                        <li className={`${profStyles.nav__item} text text_type_main-medium text_color_inactive`}>История заказов</li>
-                        <li onClick={ handleLogout } className={`${profStyles.nav__item} text text_type_main-medium text_color_inactive`}>Выход</li>
+                        <li className={profStyles.nav__item}>
+                        <NavLink 
+                            className={`${profStyles.nav__link} text text_type_main-medium text_color_primary`}
+                            to="/profile"
+                            exact={true}
+                        >
+                            Профиль
+                        </NavLink>
+                        </li>
+                        <li className={profStyles.nav__item}>
+                        <NavLink 
+                            className={`${profStyles.nav__link} text text_type_main-medium text_color_inactive`}
+                            to="/profile/orders"
+                            exact={true}
+                        >
+                            История заказов
+                        </NavLink>
+                        </li>
+                        <li className={profStyles.nav__item}>
+                        <NavLink 
+                            onClick={ handleLogout } 
+                            className={`${profStyles.nav__link} text text_type_main-medium text_color_inactive`}
+                            to="/logout"
+                            exact={true}
+                        >
+                            Выход
+                        </NavLink>
+                        </li>
                     </ul>
-                    <p className="text text_type_main-default text_color_inactive pt-20">
+                    <span className="text text_type_main-default text_color_inactive pt-20">
                         В этом разделе вы можете изменить&nbsp;свои персональные данные
-                    </p>
+                    </span>
                 </nav>
                 <form className={`${profStyles.content} pb-20`}>
                     <Input
@@ -89,7 +114,7 @@ export default function Profile () {
                 </form>
             </div>
             <div className={profStyles.button}>
-                <div className={`${profStyles.button__element} pt-20`}>
+                <div className={profStyles.button__element}>
                     <Button onClick={ saveProfileData } type="primary" size="medium">Сохранить</Button>
                     <Button onClick ={ cancelChangesHandler } type="primary" size="medium">Отмена</Button>
                 </div>

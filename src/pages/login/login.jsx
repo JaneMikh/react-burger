@@ -2,11 +2,13 @@ import React, { useCallback, useState } from 'react';
 import { Button, EmailInput, PasswordInput } from "@ya.praktikum/react-developer-burger-ui-components";
 import mainStyles from '../registration/registration.module.css';
 import { useAuth } from '../../services/auth';
-import { Link } from "react-router-dom";
+import { Link, Redirect, useLocation } from "react-router-dom";
 
 export default function Login () {
    
-    const auth = useAuth();
+    let auth = useAuth();
+    const location = useLocation();
+
     const [valueEmail, setValueEmail] = useState("");
     const onChangeEmail = (evt) => { setValueEmail (evt.target.value) };
 
@@ -21,6 +23,11 @@ export default function Login () {
         }, [auth, valuePassword, valueEmail]
     );
       
+    if (auth.user.name) {
+        return <Redirect to={location?.state?.from || "/"}/>;
+
+    }
+
         //у основной страницы padding-top: 362px; нужно поменять стили на уникальный
     return (
         <section className={mainStyles.page}>

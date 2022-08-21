@@ -25,6 +25,14 @@
   align-items: center;
 }
 
+.link:hover {
+  text-shadow: #4C4CFF 0 0 15px;
+}
+
+.link_active {
+  color: #f2f2f3;
+}
+
 .list {
   display: flex;
   align-items: center;

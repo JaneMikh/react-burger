@@ -5,10 +5,11 @@ import { useAuth } from '../../services/auth';
 import { useDispatch, useSelector } from "react-redux";
 import { updateUserProfile } from '../../services/actions/route';
 import { getUserData } from '../../services/actions/route';
-import { NavLink, useLocation, useHistory } from 'react-router-dom';
+import { NavLink, useLocation } from 'react-router-dom';
 
 
 export default function Profile () {
+
     //Name
     const [valueName, setValueName] = useState("");
     const onChangeName = (evt) => { setValueName(evt.target.value) }
@@ -19,21 +20,23 @@ export default function Profile () {
     const [valuePassword, setValuePassword] = useState("");
     const onChangePassword = (evt) => { setValuePassword(evt.target.value) };
 
-    const auth = useAuth();
+    let auth = useAuth();
     const dispatch = useDispatch();
-    const state = useSelector((store) => store);
-    const userProfileData = state.route.authProfile;
+    const routeState = useSelector((store) => store.route);
+    const userProfileData = routeState.authProfile;
    
     useEffect(() => {
-        dispatch(getUserData(userProfileData));
-    }, [dispatch]);
+        if (!useAuth) {
+            document.title = "react burger";  
+            dispatch(getUserData(auth.user));
+        }
+    }, [dispatch, useAuth]);
     
     useEffect(() => {
         setValueName(userProfileData.name);
         setValueEmail(userProfileData.email);
         setValuePassword(userProfileData.password);
     }, [userProfileData]);
-
 
     const handleLogout = useCallback((evt) => {
         evt.preventDefault();
@@ -51,43 +54,45 @@ export default function Profile () {
         setValuePassword(userProfileData.password);
     }
 
+    const { pathname } = useLocation();
+
+
     return (
         <section className={profStyles.page}>
             <div className={profStyles.main}>
                 <nav className={profStyles.nav}>
                     <ul className={profStyles.nav__menu}>
                         <li className={profStyles.nav__item}>
-                        <NavLink 
-                            className={`${profStyles.nav__link} text text_type_main-medium text_color_primary`}
-                            to="/profile"
-                            exact={true}
-                        >
-                            Профиль
-                        </NavLink>
+                            <NavLink 
+                                className={`${profStyles.nav__link} text text_type_main-medium text_color_primary`}
+                                to="/profile"
+                            >
+                                Профиль
+                            </NavLink>
                         </li>
                         <li className={profStyles.nav__item}>
-                        <NavLink 
-                            className={`${profStyles.nav__link} text text_type_main-medium text_color_inactive`}
-                            to="/profile/orders"
-                            exact={true}
-                        >
-                            История заказов
-                        </NavLink>
+                            <NavLink 
+                                className={`${profStyles.nav__link} text text_type_main-medium text_color_inactive`}
+                                to="/profile/orders"
+                            >
+                                История заказов
+                            </NavLink>
                         </li>
                         <li className={profStyles.nav__item}>
-                        <NavLink 
-                            onClick={ handleLogout } 
-                            className={`${profStyles.nav__link} text text_type_main-medium text_color_inactive`}
-                            to="/logout"
-                            exact={true}
-                        >
-                            Выход
-                        </NavLink>
+                            <NavLink 
+                                onClick={handleLogout}
+                                className={`${profStyles.nav__link} text text_type_main-medium text_color_inactive`}
+                                to="/logout"
+                            >
+                                Выход
+                            </NavLink>
                         </li>
                     </ul>
-                    <span className="text text_type_main-default text_color_inactive pt-20">
+                    {pathname === "/profile" && (
+                   <p className="text text_type_main-default text_color_inactive pt-20">
                         В этом разделе вы можете изменить&nbsp;свои персональные данные
-                    </span>
+                    </p>
+                    )}
                 </nav>
                 <form className={`${profStyles.content} pb-20`}>
                     <Input

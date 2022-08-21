@@ -24,23 +24,19 @@ export function useProvideAuth() {
     const dispatch = useDispatch();
     
     //Получим данные о пользователе из хранилища
-
-   const userData = useSelector((store) => {
+   const user = useSelector((store) => {
         return store.route.authProfile;
     });
 
-    //console.log(userData);
-
     const signIn = (userEmail, userPassword) => dispatch(authrizeUser(userEmail, userPassword));
     const signOutUser = (userToken) => dispatch(signOut(userToken));
-    const getUser = () => dispatch(getUserData());
-
+    const getUser = () => dispatch(getUserData(user));
 
     return {
-        userData,
+        user,
         signIn,
+        getUser,
         signOutUser,
-        //getUser,
     }
 }
 

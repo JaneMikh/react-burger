@@ -1,19 +1,41 @@
-import React from "react";
+import React, { useState } from "react";
 import { Button, Input } from "@ya.praktikum/react-developer-burger-ui-components";
 import mainStyles from '../registration/registration.module.css';
 import { forgotPassword } from '../../services/actions/route';
-import { useDispatch } from "react-redux";
 import { Link } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
+import { Redirect } from "react-router-dom";
+
 
 export default function ForgotPassword () {
     const dispatch = useDispatch();
-
-    const [valueEmail, setValueEmail] = React.useState("");
+    const routeState = useSelector((store) => store.route);
+    const [valueEmail, setValueEmail] = useState("");
     
     const handleFormSubmit = (evt) => {
         evt.preventDefault();
         setValueEmail(valueEmail);
         dispatch(forgotPassword(valueEmail));
+    }
+
+    if (routeState.loginSuccess) {
+        return (
+            <Redirect
+              to={{
+                pathname: "/",
+              }}
+            />
+        );
+    }
+
+    if (routeState.forgotPasswordSuccess) {
+        return (
+            <Redirect
+              to={{
+                pathname: "/reset-password",
+              }}
+            />
+        );
     }
 
     return (

@@ -1,23 +1,46 @@
-import React from "react";
+import React, { useState } from "react";
 import { Input, Button, PasswordInput } from "@ya.praktikum/react-developer-burger-ui-components";
 import mainStyles from '../registration/registration.module.css';
 import { resetPassword } from '../../services/actions/route';
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
+import { Redirect } from "react-router-dom";
 
 export default function ResetPassword () {
     const dispatch = useDispatch();
+    const routeState = useSelector((store) => store.route);
 
-    const [valuePassword, setValuePassword] = React.useState("")
-    const onChangePassword = e => {
-        setValuePassword(e.target.value)};
-
-    const [valueToken, setValueToken] = React.useState("");   
+    //Password
+    const [valuePassword, setValuePassword] = useState("")
+    const onChangePassword = (evt)=> { setValuePassword(evt.target.value) };
+    //Token
+    const [valueToken, setValueToken] = useState("");   
+    const onChangeToken = (evt) => { setValueToken(evt.target.value) }
 
     const handleTokenSubmit = (evt) => {
         evt.preventDefault();
         setValueToken(valueToken);
         dispatch(resetPassword(valueToken, valuePassword));
+    }
+
+    if (routeState.authSuccess) {
+        return (
+          <Redirect
+            to={{
+              pathname: "/",
+            }}
+          />
+        );
+    }
+
+    if (!routeState.forgotPasswordSuccess) {
+        return (
+          <Redirect
+            to={{
+              pathname: "/forgot-password",
+            }}
+          />
+        );
     }
 
     return (
@@ -31,7 +54,7 @@ export default function ResetPassword () {
                 />
                 <Input
                     value={valueToken}
-                    onChange={(e) => setValueToken(e.target.value)}
+                    onChange={onChangeToken}
                     placeholder="Введите код из письма"
                 />
                 <Button type="primary" size="medium">
@@ -42,10 +65,13 @@ export default function ResetPassword () {
                 <p className="text text_type_main-default text_color_inactive">
                     Вспомнили пароль?&nbsp;
                 </p>
-                <Link to="/login" className={`${mainStyles.link} text text_type_main-default text_color_accent`}>Войти</Link>
+                <Link 
+                    to="/login" 
+                    className={`${mainStyles.link} text text_type_main-default text_color_accent`}
+                >
+                    Войти
+                </Link>
             </div>
-
         </section>
-
     )
 }

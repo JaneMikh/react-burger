@@ -56,6 +56,7 @@ export default function BurgerIngredients () {
   };
 
   useEffect(() => {
+    document.title = "react burger";
     dispatch(getIngredientsData());
   },[dispatch]);
 

@@ -1,6 +1,5 @@
 import React from 'react';
-import { BrowserRouter as Router, Route, Switch, useHistory } from "react-router-dom";
-import { useLocation } from "react-router-dom";
+import { Route, Switch, useHistory, useLocation } from "react-router-dom";
 import stylesMain from './App.module.css';
 import AppHeader from '../AppHeader/AppHeader';
 import Registration from '../../pages/registration/registration';
@@ -9,28 +8,25 @@ import ForgotPassword from '../../pages/forgot-passward/forgot-passward';
 import ResetPassword from '../../pages/reset-passward/reset-passward';
 import Profile from '../../pages/profile/profile';
 import PageIsNotFound from '../../pages/page404/page404';
-import MainPage from '../../pages/main';
+import MainPage from '../../pages/main/main';
 import IngredientDetails from '../Modal/IngredientDetails/IngredientDetails';
 
-
-import { ProvideAuth } from '../../services/auth';
+import { ProtectedRoute } from '../ProtectedRoute/ProtectedRoute';
 import { useAuth } from '../../services/auth';
 import { useDispatch, useSelector } from "react-redux";
 import  { getUserData } from '../../services/actions/route';
 
 function App () {
 
-    const history = useHistory();
     const location = useLocation();
-    //console.log(history);
+    const history = useHistory();
     const background = location.state?.background;
-
+    //console.log(location);
+    //console.log(background);
     return (
-        <ProvideAuth>
         <section className={stylesMain.page}>
-            <AppHeader />
-            <Router>
-            <Switch>
+            <AppHeader/>
+            <Switch location={background || location} >
                 <Route path="/register" exact={true}>
                     <Registration />
                 </Route>
@@ -43,22 +39,20 @@ function App () {
                 <Route path="/reset-password" exact={true}>
                     <ResetPassword />
                 </Route>
-                <Route path="/profile" exact={true}>
+                <ProtectedRoute path="/profile" exact={true}>
                     <Profile />
-                </Route>
+                </ProtectedRoute>
                 <Route path="/" exact={true}>
                     <MainPage />
                 </Route>
-                <Route path="/ingredients/:id" exact={true}>
+                {/*<Route path="/ingredients/:id" exact={true}>
                     <IngredientDetails />
-                </Route>
+    </Route>*/}
                 <Route>
                     <PageIsNotFound />
                 </Route>
             </Switch>
-            </Router>
         </section>
-        </ProvideAuth>
     );
 }
 

@@ -67,8 +67,6 @@ export default function BurgerIngredients () {
     }
   }
 
-
-
   function handleIngredientCard (evt) {
     //Таргетинг на конкретного родителя
     const cardElement = evt.currentTarget.querySelector(".text_type_main-default").textContent;
@@ -90,11 +88,11 @@ export default function BurgerIngredients () {
       </div>
       {currentCard && (
             <Modal 
-                onClose={ closeAllModals }
-                title="Детали ингредиента"
+              onClose={ closeAllModals }
+              title="Детали ингредиента"
             >
-                <IngredientDetails ingredient={ currentCard }/>
-           </Modal>)}
+              <IngredientDetails ingredient={ currentCard }/>
+            </Modal>)}
     </section>
   );
 }

@@ -151,7 +151,7 @@ export const updateUserData = async(userEmail, userPassword, userName) => {
 }
 
 //Выход из системы
-export const logoutRequest = async(userToken) => {
+export const logoutRequest = async() => {
     return await fetch(`${ingredientURL}/auth/logout`, {
         method: 'POST',
         mode: 'cors',
@@ -162,9 +162,7 @@ export const logoutRequest = async(userToken) => {
         },
         redirect: 'follow',
         referrerPolicy: 'no-referrer',
-        body: JSON.stringify({ 
-            'token': userToken,
-        })
+        body: JSON.stringify({ token: localStorage.refreshToken })
     })
     .then((res) => {
         return checkResponse(res);

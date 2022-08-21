@@ -1,14 +1,30 @@
-import React, { useEffect, useState, useCallback } from "react";
+import React, { useEffect, useState, useRef, useCallback } from "react";
 import { Input, PasswordInput, Button } from "@ya.praktikum/react-developer-burger-ui-components";
 import profStyles from './profile.module.css';
 import { useAuth } from '../../services/auth';
 import { useDispatch, useSelector } from "react-redux";
 import { updateUserProfile } from '../../services/actions/route';
 import { getUserData } from '../../services/actions/route';
-import { NavLink, useLocation } from 'react-router-dom';
+import { NavLink, useLocation, useHistory } from 'react-router-dom';
 
 
 export default function Profile () {
+    const { pathname } = useLocation();
+    const history = useHistory();
+    let auth = useAuth();
+    const dispatch = useDispatch();
+    const routeState = useSelector((store) => store.route);
+    const userProfileData = routeState.authProfile;
+
+    const nameRef = useRef(null);
+    const loginRef = useRef(null);
+    
+    const onIconClickName = () => {
+        setTimeout(() => nameRef.current.focus(), 0);
+    };
+    const onIconClickEmail = () => {
+        setTimeout(() => loginRef.current.focus(), 0);
+    };
 
     //Name
     const [valueName, setValueName] = useState("");
@@ -20,11 +36,6 @@ export default function Profile () {
     const [valuePassword, setValuePassword] = useState("");
     const onChangePassword = (evt) => { setValuePassword(evt.target.value) };
 
-    let auth = useAuth();
-    const dispatch = useDispatch();
-    const routeState = useSelector((store) => store.route);
-    const userProfileData = routeState.authProfile;
-   
     useEffect(() => {
         if (!useAuth) {
             document.title = "react burger";  
@@ -38,11 +49,21 @@ export default function Profile () {
         setValuePassword(userProfileData.password);
     }, [userProfileData]);
 
-    const handleLogout = useCallback((evt) => {
+   /* const handleLogout = useCallback((evt) => {
         evt.preventDefault();
         auth.signOutUser(localStorage.getItem("refreshToken"));
     }, [auth]);
-   
+   */
+    
+    const goLogin = () => {
+      history.push('/login');
+    }
+
+    const handleLogout = (evt) => {
+        evt.preventDefault();
+        auth.signOutUser(goLogin);
+    }
+
     const saveProfileData = (evt) => {
         evt.preventDefault();
         dispatch(updateUserProfile(valueEmail, valuePassword, valueName));
@@ -54,9 +75,6 @@ export default function Profile () {
         setValuePassword(userProfileData.password);
     }
 
-    const { pathname } = useLocation();
-
-
     return (
         <section className={profStyles.page}>
             <div className={profStyles.main}>
@@ -64,7 +82,10 @@ export default function Profile () {
                     <ul className={profStyles.nav__menu}>
                         <li className={profStyles.nav__item}>
                             <NavLink 
-                                className={`${profStyles.nav__link} text text_type_main-medium text_color_primary`}
+                                activeClassName={"text_color_primary"}
+                                className={pathname === "/profile" 
+                                ? `${profStyles.nav__link} text text_type_main-medium` 
+                                : `${profStyles.nav__link} text text_type_main-medium text_color_inactive`}
                                 to="/profile"
                             >
                                 Профиль
@@ -72,7 +93,10 @@ export default function Profile () {
                         </li>
                         <li className={profStyles.nav__item}>
                             <NavLink 
-                                className={`${profStyles.nav__link} text text_type_main-medium text_color_inactive`}
+                                activeClassName={"text_color_primary"}
+                                className={pathname === "/profile/orders" 
+                                ? `${profStyles.nav__link} text text_type_main-medium` 
+                                :`${profStyles.nav__link} text text_type_main-medium text_color_inactive`}
                                 to="/profile/orders"
                             >
                                 История заказов
@@ -97,23 +121,27 @@ export default function Profile () {
                 <form className={`${profStyles.content} pb-20`}>
                     <Input
                         onChange={ onChangeName }
-                        value={valueName}
+                        value={valueName ? valueName : ""}
                         name={"имя"}
                         type={"text"}
                         placeholder={"Имя"}
                         icon={"EditIcon"}
+                        ref={nameRef}
+                        onIconClick={onIconClickName}
                     />
                     <Input
                         onChange={ onChangeEmail }
-                        value={valueEmail}
+                        value={valueEmail ? valueEmail : ""}
                         name={"email"}
                         type={"email"}
                         placeholder={"Логин"}
                         icon={"EditIcon"}
+                        ref={loginRef}
+                        onIconClick={onIconClickEmail}
                     />
                     <PasswordInput
                         name={"password"}
-                        value={valuePassword}
+                        value={valuePassword ? valuePassword : ""}
                         onChange={ onChangePassword }
                     />
                 </form>

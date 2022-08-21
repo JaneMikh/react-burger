@@ -144,14 +144,17 @@ export function authrizeUser (userEmail, userPassword) {
 
 
 //Выход из личного кабинета
-export function signOut(userToken) {
+export function signOut(goLogin) {
     return function(dispatch) {
         dispatch({ type: LOGOUT_REQUEST });
         // Отправляем запрос на сервер
-        logoutRequest(userToken)
+        logoutRequest()
         .then((data)=> {
             if (data && data.success) {
+                //console.log(data);
                 dispatch({ type: LOGOUT_SUCCESS });
+                goLogin();
+                //console.log('В экшене сработало');
             } else {
                 dispatch({ type: LOGOUT_ERROR });
             }

@@ -21,8 +21,7 @@ function App () {
     const location = useLocation();
     const history = useHistory();
     const background = location.state?.background;
-    //console.log(location);
-    //console.log(background);
+
     return (
         <section className={stylesMain.page}>
             <AppHeader/>
@@ -45,13 +44,18 @@ function App () {
                 <Route path="/" exact={true}>
                     <MainPage />
                 </Route>
-                {/*<Route path="/ingredients/:id" exact={true}>
+                <Route path="/ingredients/:id" exact={true}>
                     <IngredientDetails />
-    </Route>*/}
+                </Route>
                 <Route>
                     <PageIsNotFound />
                 </Route>
             </Switch>
+            {background && (
+                <Route path="/ingredients/:id" exact={true}>
+                    <IngredientDetails />
+                </Route>
+            )}
         </section>
     );
 }

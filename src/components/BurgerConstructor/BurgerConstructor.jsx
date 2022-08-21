@@ -10,11 +10,14 @@ import { getOrderNumber } from '../../services/actions/index';
 import { useDrop } from "react-dnd";
 import { CLOSE_ALL_MODALS, OPEN_ORDER_MODAL, ADD_ITEM } from '../../services/actions/index';
 import { addIngredientCard } from '../../services/actions/index';
-
+import { useHistory } from "react-router-dom";
 
 export default function BurgerConctructor () {
     
     const dispatch = useDispatch();
+    const refreshToken = localStorage.refreshToken;
+    const history = useHistory();
+    
     const burgerConstructorElements = useSelector((store) => store.ingredient.burgerConstructorData);
     const burgerConstructorArr = burgerConstructorElements.map((element) => element._id);
 
@@ -25,7 +28,7 @@ export default function BurgerConctructor () {
    
     const orderOverlay = useSelector((store) => store.order.orderOverlay)
     const orderData = useSelector((store) => store.order.orderData)
-
+  
     const setTotalPrice = () => {
         return  burgerConstructorElements.reduce((previousValue, currentValue) => 
         previousValue + currentValue.price, 0 + bun.price ? bun.price * 2 : 0);
@@ -36,18 +39,21 @@ export default function BurgerConctructor () {
     }
 
     const getServOrder = () => {
-        dispatch(getOrderNumber(productsId));
-        dispatch({ type: OPEN_ORDER_MODAL });
+        if(refreshToken) {
+            dispatch(getOrderNumber(productsId));
+            dispatch({ type: OPEN_ORDER_MODAL });
+        } else {
+            history.replace("/login");
+        }
     }
-
+   
     // Реализация D&D //
-
     const handleDrop = (itemId) => {
         dispatch({
             type: ADD_ITEM,
             item: { ...itemId },
         });
-    };
+    }
 
     const [{ isHover }, dropTarget] = useDrop({
         accept: 'item',

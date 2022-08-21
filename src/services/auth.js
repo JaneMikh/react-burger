@@ -29,7 +29,7 @@ export function useProvideAuth() {
     });
 
     const signIn = (userEmail, userPassword) => dispatch(authrizeUser(userEmail, userPassword));
-    const signOutUser = (userToken) => dispatch(signOut(userToken));
+    const signOutUser = (goLogin) => dispatch(signOut(goLogin));
     const getUser = () => dispatch(getUserData(user));
 
     return {

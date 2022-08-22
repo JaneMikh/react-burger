@@ -10,18 +10,29 @@ import Profile from '../../pages/profile/profile';
 import PageIsNotFound from '../../pages/page404/page404';
 import MainPage from '../../pages/main/main';
 import IngredientDetails from '../Modal/IngredientDetails/IngredientDetails';
+import Modal from '../Modal/Modal';
 
 import { ProtectedRoute } from '../ProtectedRoute/ProtectedRoute';
 import { useAuth } from '../../services/auth';
 import { useDispatch, useSelector } from "react-redux";
 import  { getUserData } from '../../services/actions/route';
+import { getIngredientsData } from '../../services/actions';
 
 function App () {
-
+    const dispatch = useDispatch();
     const location = useLocation();
     const history = useHistory();
     const background = location.state?.background;
 
+    function closeAllModals() {
+        history.push("/");
+    }
+
+   React.useEffect(() => {
+        document.title = "react burger";
+        dispatch(getIngredientsData());
+    },[dispatch]);
+    
     return (
         <section className={stylesMain.page}>
             <AppHeader/>
@@ -53,7 +64,9 @@ function App () {
             </Switch>
             {background && (
                 <Route path="/ingredients/:id" exact={true}>
-                    <IngredientDetails />
+                    <Modal onClose={ closeAllModals } title="Детали ингредиента">
+                        <IngredientDetails />
+                    </Modal>
                 </Route>
             )}
         </section>

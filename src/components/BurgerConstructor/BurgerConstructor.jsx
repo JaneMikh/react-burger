@@ -11,6 +11,8 @@ import { useDrop } from "react-dnd";
 import { CLOSE_ALL_MODALS, OPEN_ORDER_MODAL, ADD_ITEM } from '../../services/actions/index';
 import { addIngredientCard } from '../../services/actions/index';
 import { useHistory } from "react-router-dom";
+import { CLEAN_CONSTRUCTOR } from '../../services/actions/index';
+
 
 export default function BurgerConctructor () {
     
@@ -42,6 +44,7 @@ export default function BurgerConctructor () {
         if(refreshToken) {
             dispatch(getOrderNumber(productsId));
             dispatch({ type: OPEN_ORDER_MODAL });
+            dispatch({ type: CLEAN_CONSTRUCTOR });
         } else {
             history.replace("/login");
         }

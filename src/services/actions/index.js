@@ -15,7 +15,7 @@ export const CLOSE_ALL_MODALS = 'CLOSE_ALL_MODALS';
 export const ADD_ITEM = 'ADD_ITEM';
 export const DELETE_ITEM = 'DELETE_ITEM';
 export const CHANGE_ITEM = 'CHANGE_ITEM';
-
+export const CLEAN_CONSTRUCTOR = 'CLEAN_CONSTRUCTOR';
 
 export const addIngredientCard = (item) => {
     const uuids = uuid();

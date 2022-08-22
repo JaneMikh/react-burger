@@ -256,7 +256,6 @@ export function getUserData (user) {
                 }
                 console.log(e.type);
             })
-       
     }
 }
 

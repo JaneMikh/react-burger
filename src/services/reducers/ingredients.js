@@ -4,8 +4,10 @@ import {
     GET_ITEMS_ERROR,
     ADD_ITEM,
     DELETE_ITEM,
-    CHANGE_ITEM
+    CHANGE_ITEM,
+    CLEAN_CONSTRUCTOR,
 } from '../actions/index';
+
 
 
 export const initialIngredientState = {
@@ -39,7 +41,16 @@ export const ingredientsReducer = (state=initialIngredientState, action) => {
                 hasError: true,
             }
         }
-        
+        case CLEAN_CONSTRUCTOR: {
+            return {
+                ...state,
+                burgerConstructorData: [],
+                bun: {},
+                ingredientsData: [...state.ingredientsData].map((item) => {
+                    return {...item, count: 0}
+                })
+            }
+        }
         case DELETE_ITEM:  {
             const deleteItem = state.burgerConstructorData.find(item => 
                 item.key === action.item.key

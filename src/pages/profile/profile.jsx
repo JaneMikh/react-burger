@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useRef, useCallback } from "react";
+import React, { useEffect, useState, useRef } from "react";
 import { Input, PasswordInput, Button } from "@ya.praktikum/react-developer-burger-ui-components";
 import profStyles from './profile.module.css';
 import { useAuth } from '../../services/auth';
@@ -21,10 +21,10 @@ export default function Profile () {
     
     const onIconClickName = () => {
         setTimeout(() => nameRef.current.focus(), 0);
-    };
+    }
     const onIconClickEmail = () => {
         setTimeout(() => loginRef.current.focus(), 0);
-    };
+    }
 
     //Name
     const [valueName, setValueName] = useState("");
@@ -49,12 +49,6 @@ export default function Profile () {
         setValuePassword(userProfileData.password);
     }, [userProfileData]);
 
-   /* const handleLogout = useCallback((evt) => {
-        evt.preventDefault();
-        auth.signOutUser(localStorage.getItem("refreshToken"));
-    }, [auth]);
-   */
-    
     const goLogin = () => {
       history.push('/login');
     }

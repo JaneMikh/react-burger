@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { Route, Switch, useHistory, useLocation } from "react-router-dom";
 import stylesMain from './App.module.css';
 import AppHeader from '../AppHeader/AppHeader';
@@ -11,11 +11,8 @@ import PageIsNotFound from '../../pages/page404/page404';
 import MainPage from '../../pages/main/main';
 import IngredientDetails from '../Modal/IngredientDetails/IngredientDetails';
 import Modal from '../Modal/Modal';
-
 import { ProtectedRoute } from '../ProtectedRoute/ProtectedRoute';
-import { useAuth } from '../../services/auth';
-import { useDispatch, useSelector } from "react-redux";
-import  { getUserData } from '../../services/actions/route';
+import { useDispatch } from "react-redux";
 import { getIngredientsData } from '../../services/actions';
 
 function App () {
@@ -28,7 +25,7 @@ function App () {
         history.push("/");
     }
 
-   React.useEffect(() => {
+    useEffect(() => {
         document.title = "react burger";
         dispatch(getIngredientsData());
     },[dispatch]);
@@ -56,7 +53,7 @@ function App () {
                     <MainPage />
                 </Route>
                 <Route path="/ingredients/:id" exact={true}>
-                    <IngredientDetails />
+                        <IngredientDetails title="Детали ингредиента"/>
                 </Route>
                 <Route>
                     <PageIsNotFound />

@@ -1,18 +1,13 @@
-import React, { useMemo, useEffect, useState, useRef } from 'react';
+import React, { useMemo, useState, useRef } from 'react';
 import stylesIngredients from './BurgerIngredients.module.css';
 import Tabs from '../BurgerIngredients/Tabs/Tabs';
 import IngredientList from './IngredientList/IngredientList';
-import Modal from '../Modal/Modal';
-import IngredientDetails from '../Modal/IngredientDetails/IngredientDetails';
-import { useDispatch } from "react-redux";
-import { getIngredientsData } from '../../services/actions/index';
 import { useSelector } from 'react-redux';
 
 export default function BurgerIngredients () {
-  //const dispatch = useDispatch();
+
   const ingredients = useSelector((store) => store.ingredient.ingredientsData);
   
-  //const [currentCard, setCardIngredient] = useState(null);
   const [currentTab, setCurrentTab] = useState('bun');
   
   const bun = useMemo(() => ingredients.filter(element => element.type === 'bun'), [ingredients]);
@@ -50,43 +45,15 @@ export default function BurgerIngredients () {
     setCurrentTab(element);
   };
 
-  /*const closeAllModals = () => {
-    setCardIngredient(null);
-  };*/
-
-
- /* const handleCardElement = (item) => {
-    if (item) {
-      setCardIngredient(item);
-    }
-  }*/
-
-  function handleIngredientCard (evt) {
-    //Таргетинг на конкретного родителя
-    const cardElement = evt.currentTarget.querySelector(".text_type_main-default").textContent;
-    function getCardItem (arr, element) {
-      return arr.find((item) => item.name === element);
-    }
-    const card = getCardItem(ingredients, cardElement);
-    //handleCardElement(card);
-  }
-
   return (
     <section className={`${stylesIngredients.container} mb-10`}>
       <h1 className="text text_type_main-large mt-10 mb-5">Соберите бургер</h1>
       <Tabs current={currentTab} onChange={handleTabElement}/>
       <div className={stylesIngredients.menu} onScroll={handleScroll}>
-        <IngredientList ref={ingredientGroups.bun} onCardClick={handleIngredientCard} title="Булки" data={bun}/>
-        <IngredientList ref={ingredientGroups.sauce} onCardClick={handleIngredientCard} title="Соусы" data={sauce}/>
-        <IngredientList ref={ingredientGroups.main} onCardClick={handleIngredientCard} title="Начинки" data={main}/>
+        <IngredientList ref={ingredientGroups.bun} title="Булки" data={bun}/>
+        <IngredientList ref={ingredientGroups.sauce} title="Соусы" data={sauce}/>
+        <IngredientList ref={ingredientGroups.main} title="Начинки" data={main}/>
       </div>
-      {/*{currentCard && (
-            <Modal 
-              onClose={ closeAllModals }
-              title="Детали ингредиента"
-            >
-              <IngredientDetails ingredient={ currentCard }/>
-      </Modal>)}*/}
     </section>
   );
 }

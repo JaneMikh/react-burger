@@ -2,6 +2,7 @@
   background-color: #000;
   margin: auto;
   box-sizing: border-box;
+  height: 100vh;
 }
 
 .main {

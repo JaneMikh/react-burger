@@ -33,7 +33,7 @@ export const getOrderData = async(productsId) => {
     });
 }
 
-//Page /forgot-password
+//Забыть пароль
 export const getForgotPassword = async(userEmail) => {
     return await fetch(`${ingredientURL}/password-reset`,{
         method: "POST",
@@ -49,8 +49,7 @@ export const getForgotPassword = async(userEmail) => {
     })
 }
 
-
-//Page /reset-password
+//Обновить пароль
 export const getResetPassword = async(newPassword, newToken) => {
     return await fetch(`${ingredientURL}/password-reset/reset`, {
         method: "POST",
@@ -67,7 +66,7 @@ export const getResetPassword = async(newPassword, newToken) => {
     })
 }
 
-//Page /registration
+//Регистрация пользователя
 export const getUserRegistration = async(userEmail, userPassword, userName) => {
     return await fetch(`${ingredientURL}/auth/register`, {
         method: "POST",

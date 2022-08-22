@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { Button, Input } from "@ya.praktikum/react-developer-burger-ui-components";
-import mainStyles from '../registration/registration.module.css';
+import mainStyles from '../page.module.css';
 import { forgotPassword } from '../../services/actions/route';
 import { Link } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
@@ -8,6 +8,7 @@ import { Redirect } from "react-router-dom";
 
 
 export default function ForgotPassword () {
+   
     const dispatch = useDispatch();
     const routeState = useSelector((store) => store.route);
     const [valueEmail, setValueEmail] = useState("");

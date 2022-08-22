@@ -37,7 +37,7 @@ export default function BurgerConctructor () {
     };
     
     const closeOrderModal = () => {
-        dispatch({ type: CLOSE_ALL_MODALS })
+        dispatch({ type: CLOSE_ALL_MODALS });
     }
 
     const getServOrder = () => {

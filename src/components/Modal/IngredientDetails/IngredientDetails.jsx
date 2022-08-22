@@ -1,10 +1,10 @@
 import React from 'react';
 import stylesCardInfo from './IngredientDetails.module.css';
-import PropTypes from 'prop-types';
 import { useParams } from "react-router-dom";
 import { useSelector } from 'react-redux';
+import PropTypes from 'prop-types';
 
-export default function IngredientDetails () {
+export default function IngredientDetails ({ title }) {
     
   const { id } = useParams();
   const ingredients = useSelector((store) => store.ingredient.ingredientsData);
@@ -13,6 +13,10 @@ export default function IngredientDetails () {
     return (
         <>
         {ingredientModal && (
+         <section className={title ? stylesCardInfo.section : ""}> 
+            {title && (
+                <h1 className="text text_type_main-large">{title}</h1>
+            )}
         <div className={`${stylesCardInfo.popup__container} pr-25 pb-15 pl-25`}>
             <img src={ingredientModal.image_large} alt={ingredientModal.name} className={stylesCardInfo.popup__image}/>
             <p className={`${stylesCardInfo.popup__aligner} text text_type_main-medium mt-4 mb-8`}>
@@ -53,12 +57,12 @@ export default function IngredientDetails () {
                 </li>
             </ul>
         </div>
+        </section>  
         )}
         </>
     );
 }
 
 IngredientDetails.propTypes = {
-    //ingredient: PropTypes.object.isRequired
-   // ingredient: PropTypes.object,
-};
+    title: PropTypes.string,
+}

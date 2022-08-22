@@ -1,6 +1,6 @@
 import React, { useCallback, useState } from 'react';
 import { Button, EmailInput, PasswordInput } from "@ya.praktikum/react-developer-burger-ui-components";
-import mainStyles from '../registration/registration.module.css';
+import mainStyles from '../page.module.css';
 import { useAuth } from '../../services/auth';
 import { Link, Redirect, useLocation } from "react-router-dom";
 
@@ -28,7 +28,6 @@ export default function Login () {
 
     }
 
-        //у основной страницы padding-top: 362px; нужно поменять стили на уникальный
     return (
         <section className={mainStyles.page}>
             <form onSubmit={ handleLoginSubmit } className={`${mainStyles.content} pb-20`}>

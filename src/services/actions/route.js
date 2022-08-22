@@ -110,27 +110,21 @@ export function authrizeUser (userEmail, userPassword) {
         dispatch({ type: LOGIN_REQUEST });
         getAuthorization(userEmail, userPassword)
         .then((data) => {
-           // console.log(data);
             let authToken;
             if (data.accessToken && data.accessToken.indexOf('Bearer') === 0) {
-                // Отделяем схему авторизации от "полезной нагрузки токена"
                 authToken = data.accessToken.split('Bearer ')[1];
             }
             if (authToken) {
-                //console.log(data.refreshToken);
-                // Сохраняем токен в куку token
                 setCookie('token', authToken, 0);
                 localStorage.setItem('refreshToken', `${data.refreshToken}`);
             }
             if (data.success) {
-                //console.log(data);
                 dispatch({
                     type: LOGIN_SUCCESS,
                     payload: { userEmail, userPassword, ...data.user },
 
                 });
                 localStorage.setItem('password', `${userPassword}`);
-                //console.log(localStorage);
             }
         })
         .catch((err) => {
@@ -147,14 +141,11 @@ export function authrizeUser (userEmail, userPassword) {
 export function signOut(goLogin) {
     return function(dispatch) {
         dispatch({ type: LOGOUT_REQUEST });
-        // Отправляем запрос на сервер
         logoutRequest()
         .then((data)=> {
             if (data && data.success) {
-                //console.log(data);
                 dispatch({ type: LOGOUT_SUCCESS });
                 goLogin();
-                //console.log('В экшене сработало');
             } else {
                 dispatch({ type: LOGOUT_ERROR });
             }
@@ -163,9 +154,7 @@ export function signOut(goLogin) {
             console.log(err);
             dispatch({ type: LOGOUT_ERROR });
         })
-         // Удаляем куку token
         deleteCookie('token');
-        //удаляем данные из локального хранилища
         localStorage.removeItem('password');
         localStorage.removeItem('refreshToken');
     }
@@ -177,7 +166,6 @@ export function updateUserProfile (userEmail, userPassword, userName) {
         dispatch({ type: USER_UPDATE_REQUEST });
         updateUserData(userEmail, userPassword, userName)
         .then((data) => {
-           // console.log(data);
             if (data && data.success) {
                 dispatch({
                     type: USER_UPDATE_SUCCESS,
@@ -224,12 +212,10 @@ export function getUserData (user) {
         dispatch({ type: LOGIN_REQUEST });
         getUserInfo()
         .then((data) => {
-            //console.log(data);
             if (data.success) {
                 dispatch({ 
                     type: LOGIN_SUCCESS,
                     payload: { password: localStorage.getItem('password'), ...data.user }
-                    //payload: { ...data.user }
                 })
             }
             return data.success;

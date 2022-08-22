@@ -1,6 +1,6 @@
 import React from "react";
 import { Button } from "@ya.praktikum/react-developer-burger-ui-components";
-import mainStyles from '../registration/registration.module.css';
+import mainStyles from '../page.module.css';
 import { Link } from "react-router-dom";
 
 export default function PageIsNotFound () {

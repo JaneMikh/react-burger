@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { EmailInput, Input, PasswordInput, Button } from "@ya.praktikum/react-developer-burger-ui-components";
-import mainStyles from './registration.module.css';
+import mainStyles from '../page.module.css';
 import { useDispatch, useSelector } from "react-redux";
 import { registerAction } from '../../services/actions/route';
 import { Redirect } from "react-router-dom";

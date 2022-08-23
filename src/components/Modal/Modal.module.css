@@ -1,0 +1,53 @@
+.container {
+    animation-name: animatemodal;
+    animation-duration: 0.3s
+}
+
+@keyframes animatemodal {
+    from {opacity: 0}
+    to {opacity: 1}
+}
+
+.modal__text {
+    max-width: 640px;
+    height: 64px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.modal__container {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    max-width: 720px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    border-radius: 32px;
+    box-sizing: border-box;
+    background-color: #1C1C21;
+    z-index: 3;
+}
+
+.modal__button {
+    width: 24px;
+    height: 24px;
+    border: none;
+    padding: 0;
+    opacity: 1;
+    transition: opacity 0.3s ease-in;
+    cursor: pointer;
+    background: none;
+}
+
+.modal__button:hover {
+    opacity: .6;
+}
+
+.modal__image {
+    width: 480px;
+    height: 240px;
+    align-self: center;
+}

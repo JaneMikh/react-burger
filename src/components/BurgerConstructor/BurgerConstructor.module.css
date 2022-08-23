@@ -1,0 +1,93 @@
+.container {
+  width: 600px;
+  max-height: 912px;
+  overflow: hidden;
+  display: flex;
+  justify-content: space-between;
+  flex-direction: column;
+  /*max-width: 600px;*/
+  /*justify-content: center;*/
+}
+
+.list {   
+   display: flex;
+   flex-direction: column;
+   align-items: center;
+   list-style-type: none;
+   padding: 0;
+}
+
+.list_locked {
+    width: 100%;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.list_bottom {
+    margin-bottom: 0;
+}
+
+.list_top {
+    margin-top: 0;
+}
+
+.list_unLocked {
+    max-height: 464px;
+    overflow: auto; 
+    position: relative;
+    margin-top: 0;
+    margin-bottom: 0;
+}
+
+/*цвет дорожки scrollbar*/
+.list_unLocked::-webkit-scrollbar-track {
+    background-color: #2F2F37;
+}
+
+/*ползунок скроллбара*/
+.list_unLocked::-webkit-scrollbar-thumb {
+    background-color: #8585AD;  
+}
+
+/*для красоты \^o^ /*/
+.list_unLocked::-webkit-scrollbar-thumb:hover {
+    background: linear-gradient(#801AB2, #4C4CFF);;
+}
+
+/*ширина scrollbar*/
+.list_unLocked::-webkit-scrollbar {
+    width: 8px;
+    background-color: #F9F9FD;  
+}
+
+.list__element {
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    width: 100%;
+    box-sizing: border-box;
+}
+
+.list__element:last-child {
+    margin-bottom: 0;
+}
+
+.price {
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    box-sizing: border-box;
+    padding-bottom: 52px;
+}
+
+.price__item {
+    max-width: 119.5px;
+    display: flex;
+    justify-content: space-between;
+    padding-right: 15px;
+}
+
+.price__icon, svg {
+    width: 33px;
+    height: 33px;
+}

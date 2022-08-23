@@ -4,7 +4,7 @@ import { useAuth } from '../../services/auth';
 
 export function ProtectedRoute({ children, ...rest }) {
 
-  let { getUser, ...auth } = useAuth();
+  const { getUser, ...auth } = useAuth();
   const [isUserLoaded, setUserLoaded] = useState(false);
 
   const init = async () => {

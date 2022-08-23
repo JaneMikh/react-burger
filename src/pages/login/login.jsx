@@ -6,7 +6,7 @@ import { Link, Redirect, useLocation } from "react-router-dom";
 
 export default function Login () {
    
-    let auth = useAuth();
+    const auth = useAuth();
     const location = useLocation();
 
     const [valueEmail, setValueEmail] = useState("");

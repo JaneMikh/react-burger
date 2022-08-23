@@ -14,10 +14,11 @@ export default function Modal ({ onClose, children, title }) {
             if (evt.key === 'Escape') {
                 onClose();
             }
-        }
+        };
+        document.addEventListener("keydown", handleEscClose);
         return () => {
-            document.addEventListener('keydown', handleEscClose);  
-        }
+            document.removeEventListener('keydown', handleEscClose);  
+        };
     }, [onClose]);
 
     return createPortal(

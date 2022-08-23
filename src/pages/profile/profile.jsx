@@ -11,7 +11,7 @@ import { NavLink, useLocation, useHistory } from 'react-router-dom';
 export default function Profile () {
     const { pathname } = useLocation();
     const history = useHistory();
-    let auth = useAuth();
+    const auth = useAuth();
     const dispatch = useDispatch();
     const routeState = useSelector((store) => store.route);
     const userProfileData = routeState.authProfile;

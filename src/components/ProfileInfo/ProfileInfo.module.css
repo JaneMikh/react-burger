@@ -1,0 +1,24 @@
+.form {
+    max-width: 480px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 24px;
+}
+
+.form>div>div {
+    width: 480px;
+}
+
+.button {
+    width: 860px;
+    display: flex; 
+    justify-content: flex-end;
+    margin: 0 auto;
+}
+
+.button__element {
+    width: 480px;
+    display: flex;
+    justify-content: space-between;
+}

@@ -10,6 +10,8 @@ import Profile from '../../pages/profile/profile';
 import PageIsNotFound from '../../pages/page404/page404';
 import MainPage from '../../pages/main/main';
 import Orders from '../../pages/orders/orders';
+import {FeedPage} from '../Feed/Feed';
+import { FeedForModal } from '../Feed/Feed';
 import IngredientDetails from '../Modal/IngredientDetails/IngredientDetails';
 import Modal from '../Modal/Modal';
 import { ProtectedRoute } from '../ProtectedRoute/ProtectedRoute';
@@ -61,16 +63,34 @@ function App () {
                 <Route path="/feed" exact={true}>
                     <Orders />
                 </Route>
+                <Route path="/feed/:id" exact={true}>
+                    <FeedPage />
+                </Route>
+                <ProtectedRoute path="/profile/order/:id" exact={true}>
+                    <FeedPage />
+                </ProtectedRoute>
                 <Route>
                     <PageIsNotFound />
                 </Route>
             </Switch>
             {background && (
+                <>
                 <Route path="/ingredients/:id" exact={true}>
                     <Modal onClose={ closeAllModals } title="Детали ингредиента">
                         <IngredientDetails />
                     </Modal>
                 </Route>
+                <Route path="/profile/order/:id" exact={true}>
+                    <Modal onClose={ closeAllModals } title="Детали заказа" >
+                        <FeedForModal />
+                    </Modal>
+                </Route>
+                <Route path="/feed/:id" exact={true}>
+                    <Modal onClose={ closeAllModals } title="Детали заказа" >
+                        <FeedForModal />
+                    </Modal>
+                </Route>
+              </>
             )}
         </section>
     );

@@ -29,7 +29,7 @@
     flex-direction: row-reverse;
 }
 
-.image__element {
+.image {
     width: 64px;
     height: 64px;
     margin-right: -20px;
@@ -39,11 +39,11 @@
     z-index: 2;
 }
 
-.image__element:first-child {
+.image:first-child {
     margin-right: 0;
 }
 
-.image {
+.image__element {
     width: 64px;
     height: 64px;
     object-fit: cover;

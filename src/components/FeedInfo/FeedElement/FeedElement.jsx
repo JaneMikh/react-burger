@@ -22,25 +22,25 @@ export default function FeedElement ({ item }) {
                             <div className={feedStyles.cover__box}>
                                 <p className={`${feedStyles.cover__text} text text_type_main-default`}>+3</p>
                             </div>
-                            <div className={feedStyles.image__element}>
-                                <img src={ item.image } alt={ item.name } className={`${feedStyles.image}`} />
+                            <div className={feedStyles.image}>
+                                <img src={ item.image } alt={ item.name } className={`${feedStyles.image__element}`} />
                             </div>
                         </div>
-                        <div className={feedStyles.image__element}>
-                            <img src={ item.image } alt={ item.name } className={`${feedStyles.image}`} />
+                        <div className={feedStyles.image}>
+                            <img src={ item.image } alt={ item.name } className={`${feedStyles.image__element}`} />
                         </div>
-                        <div className={feedStyles.image__element}>
-                            <img src={ item.image } alt={ item.name } className={`${feedStyles.image}`} />
+                        <div className={feedStyles.image}>
+                            <img src={ item.image } alt={ item.name } className={`${feedStyles.image__element}`} />
                         </div>
-                        <div className={feedStyles.image__element}>
-                            <img src={ item.image } alt={ item.name } className={`${feedStyles.image}`} />
+                        <div className={feedStyles.image}>
+                            <img src={ item.image } alt={ item.name } className={`${feedStyles.image__element}`} />
                         </div>
-                        <div className={feedStyles.image__element}>
-                            <img src={ item.image } alt={ item.name } className={`${feedStyles.image}`} />
+                        <div className={feedStyles.image}>
+                            <img src={ item.image } alt={ item.name } className={`${feedStyles.image__element}`} />
                         </div>
-                        <div className={feedStyles.image__element}>
-                            <img src={ item.image } alt={ item.name } className={`${feedStyles.image}`} />
-                        </div>  
+                        <div className={feedStyles.image}>
+                            <img src={ item.image } alt={ item.name } className={`${feedStyles.image__element}`} />
+                        </div>     
                     </div>
                     <div className={feedStyles.price}>
                         <p className="text text_type_digits-default mr-2">1234</p>

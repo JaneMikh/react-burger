@@ -8,7 +8,7 @@ export default function FeedElement ({ item }) {
     //console.log(item.name);
     return (
         
-        <li className={`${feedStyles.list__element} pt-6 pb-6 pl-6 pr-6`}>
+        <li className={`${feedStyles.list__element} pt-6 pb-6 pl-6 pr-6 mr-2`}>
             <div className={feedStyles.wrap}>
                 <div className={`${feedStyles.info} mb-6`}>
                     <p className="text text_type_digits-default">#123456</p>
@@ -44,9 +44,7 @@ export default function FeedElement ({ item }) {
                     </div>
                     <div className={feedStyles.price}>
                         <p className="text text_type_digits-default mr-2">1234</p>
-                        <div className={feedStyles.price__icon}>
-                            <CurrencyIcon />
-                        </div>
+                        <CurrencyIcon type="primary" />
                     </div>
                 </div>
             </div>

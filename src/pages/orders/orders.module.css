@@ -1,44 +1,40 @@
 .page {
     margin: 0 auto;
     max-width: 1920px;
-}
-
-.main {
-    max-width: 1243px;
-    margin: 0 auto;
     display: flex;
+    flex-direction: row;
     justify-content: center;
 }
 
 .container {
-  width: 863px;
-  max-height: 868px;
-  overflow: hidden;
+    width: 600px;
+    max-height: 870px;
+    overflow: hidden;
 }
-
+  
 .content {
-  max-height: 868px;
-  overflow: auto; 
-  position: relative;
+    max-height: 870px;
+    overflow: auto; 
+    position: relative;
 }  
-
-/*цвет дорожки scrollbar*/
+  
+  /*цвет дорожки scrollbar*/
 .content::-webkit-scrollbar-track {
     background-color: #2F2F37;
-  }
-  
-  /*ползунок скроллбара*/
+}
+    
+    /*ползунок скроллбара*/
 .content::-webkit-scrollbar-thumb {
     background-color: #8585AD;
 }
-  /*для красоты*/
+    /*для красоты*/
 .content::-webkit-scrollbar-thumb:hover {
-  background: linear-gradient(#801AB2, #4C4CFF);;
+    background: linear-gradient(#801AB2, #4C4CFF);;
 }
-  
-  /*ширина scrollbar*/
+    
+    /*ширина scrollbar*/
 .content::-webkit-scrollbar {
     width: 8px;
     background-color: #F9F9FD;  
 }
-  
+    

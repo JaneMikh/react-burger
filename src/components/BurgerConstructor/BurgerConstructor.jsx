@@ -113,7 +113,7 @@ export default function BurgerConctructor () {
                 <div className={`${stylesConstructor.price__item} mr-10`}>
                     <p className="mr-2 text text_type_digits-medium">{setTotalPrice()}</p>
                     <div className={stylesConstructor.price__icon}>
-                    <CurrencyIcon type='primary' />
+                    <CurrencyIcon type='primary'/>
                     </div>
                 </div>
                 <Button onClick={ getServOrder } type="primary" size="large" disabled={ bun.price && burgerConstructorElements.length ? false : true } >Оформить заказ</Button>    

@@ -9,11 +9,14 @@ import ResetPassword from '../../pages/reset-passward/reset-passward';
 import Profile from '../../pages/profile/profile';
 import PageIsNotFound from '../../pages/page404/page404';
 import MainPage from '../../pages/main/main';
+import Orders from '../../pages/orders/orders';
 import IngredientDetails from '../Modal/IngredientDetails/IngredientDetails';
 import Modal from '../Modal/Modal';
 import { ProtectedRoute } from '../ProtectedRoute/ProtectedRoute';
 import { useDispatch } from "react-redux";
 import { getIngredientsData } from '../../services/actions';
+
+
 
 function App () {
     const dispatch = useDispatch();
@@ -54,6 +57,9 @@ function App () {
                 </Route>
                 <Route path="/ingredients/:id" exact={true}>
                         <IngredientDetails title="Детали ингредиента"/>
+                </Route>
+                <Route path="/feed" exact={true}>
+                    <Orders />
                 </Route>
                 <Route>
                     <PageIsNotFound />

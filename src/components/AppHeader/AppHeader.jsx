@@ -25,7 +25,7 @@ export default function AppHeader() {
                         </li>
                         <li className={`${stylesHeader.list__element} pl-5 pr-5 pb-4 pt-4`}>
                             <NavLink 
-                                to="/feeds"
+                                to="/feed"
                                 className={stylesHeader.link}
                                 activeClassName={stylesHeader.link_active}
                              >
@@ -40,8 +40,8 @@ export default function AppHeader() {
                 </NavLink>
                 <div className={`${stylesHeader.list_element} text text_type_main-default pl-5 pr-5 pb-4 pt-4`}>
                     <NavLink 
-                    to="/profile" 
-                    className={stylesHeader.link}
+                        to="/profile" 
+                        className={stylesHeader.link}
                     >
                         <ProfileIcon type={pathname === "/profile" ? "primary" : "secondary"}  />
                         <p className={pathname === "/profile" ? "text text_type_main-default ml-2" : "text text_type_main-default text_color_inactive ml-2"}>Личный кабинет</p>

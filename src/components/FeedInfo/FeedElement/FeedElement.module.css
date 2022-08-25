@@ -82,7 +82,8 @@
     align-items: center;
 }
 
-.price__icon, svg {
-    width: 22px;
+/*.price__icon>svg {
+    width: 24px;
     height: 22px;
 }
+*/

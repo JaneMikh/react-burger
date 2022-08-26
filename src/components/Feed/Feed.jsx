@@ -1,25 +1,28 @@
 import React from "react";
 import feedIdStyle from "./Feed.module.css";
 import { CurrencyIcon } from "@ya.praktikum/react-developer-burger-ui-components";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+import { useParams } from "react-router-dom";
+import { WS_CONNECTION_START, WS_CONNECTION_CLOSED } from "../../services/action-types/wsActionTypes";
+
+
 
 
 export default function Feed () {
 
-    const data = useSelector((store) => store.ingredient.ingredientsData);
-    console.log(data[0].name);
+    const ingredientsData = useSelector((store) => store.ingredient.ingredientsData);
 
     return (
         <>
             <div className={feedIdStyle.main}>
                 <h2 className={`${feedIdStyle.number} text text_type_digits-default mb-10`}>#123456</h2>
-                <p className="text text_type_main-medium mb-3">{ data[0].name }</p>
+                <p className="text text_type_main-medium mb-3"></p>
                 <p className="text text_type_main-default mb-15">Выполнен</p>
                 <p className="text text_type_main-medium mb-6">Состав:</p>
                 <div className={`${feedIdStyle.container}`}>
                     <div className={feedIdStyle.content}>
                         <ul className={feedIdStyle.list}>
-                            {data.map((item) => {
+                            {ingredientsData.map((item) => {
                                 return (
                                     <li className={feedIdStyle.list__element}
                                         key={item._id}
@@ -47,7 +50,7 @@ export default function Feed () {
                 <div className={`${feedIdStyle.totalPrice} mt-10`}>
                     <p className="text text_type_main-default text_color_inactive">Вчера, 13:50 i-GMT+3</p>
                     <div className={feedIdStyle.price}>
-                        <p className="text text_type_digits-default mr-2">{data[0].price}</p>{" "}
+                        <p className="text text_type_digits-default mr-2"></p>{" "}
                         <CurrencyIcon type="primary" />
                     </div>
                 </div>

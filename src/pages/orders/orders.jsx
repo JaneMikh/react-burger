@@ -1,10 +1,24 @@
-import React from "react";
+import React, { useEffect } from "react";
 import FeedInfo from "../../components/FeedInfo/FeedInfo";
 import OrderInfo from "../../components/OrderInfo/OrderInfo";
 import orderStyles from "./orders.module.css";
+import { useSelector, useDispatch } from "react-redux";
+import { WS_CONNECTION_START, WS_CONNECTION_CLOSED} from "../../services/action-types/wsActionTypes";
 
 
 export default function Orders () {
+
+    const dispatch = useDispatch();
+
+    useEffect(() => {
+        //Открытие
+        dispatch({ type: WS_CONNECTION_START, payload: "/all" });
+        //Закрытие
+        return () => {
+            dispatch({ type: WS_CONNECTION_CLOSED, payload: "" });
+        };
+    }, []);
+
     return (
         <section className={orderStyles.page}>
             <div className={`mr-15`}>
@@ -16,9 +30,6 @@ export default function Orders () {
                 </div>
             </div>
             <OrderInfo />
-
-
         </section>
-
     )
 }

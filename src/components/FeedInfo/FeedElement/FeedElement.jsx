@@ -1,54 +1,130 @@
 import React from "react";
 import feedStyles from "./FeedElement.module.css";
 import { CurrencyIcon } from "@ya.praktikum/react-developer-burger-ui-components";
-
+import { useLocation, Link } from "react-router-dom";
+import { useSelector } from "react-redux";
+import FeedImage from "./FeedImage/FeedImage";
 
 export default function FeedElement ({ item }) {
+    //console.log(item);
+    const location = useLocation();
+    const ingredientsData = useSelector((store) => store.ingredient.ingredientsData);
 
-    //console.log(item.name);
+    //Найдем из кажого заказа список ингредиентов в виде массива данных
+    const ingredientsIdArr = item.ingredients;
+  
+    //console.log(ingredientsIdArr);
+   
+    const feedElementInfo = {
+        ingredientsArr: [],
+        id: item._id,
+        date: item.createdAt,
+        url: "",
+        day: "",
+        array: [],
+        price: 0,
+        imageCount: 0,
+    }
+    
+   // let array = [];
+   // let price = 0;
+    //let imageCount = 0;
+
+    //Информация о дате. Выбрать нужные элементы из строки "2022-08-25T17:15:22.906Z"
+    const day = new Date();
+    const today = day.getDate();
+    
+    const findIndexT = feedElementInfo.date.indexOf("T"); //10
+    const findTime = feedElementInfo.date.slice(findIndexT + 1, findIndexT + 6);
+    const findDay = feedElementInfo.date.slice(findIndexT - 2, findIndexT);
+   
+    
+    //const findIndexT = item.createdAt.indexOf("T"); 
+    //const findDay = item.createdAt.slice(findIndexT - 2, findIndexT);
+    //const findTime = item.createdAt.slice(findIndexT + 1, findIndexT + 6);
+   
+    //Переключение на разные страницы
+    if (feedElementInfo.url === "true") {
+        feedElementInfo.url = `/profile/order/${feedElementInfo.id}`
+    } else { 
+        feedElementInfo.url = `/feed/${feedElementInfo.id}`
+    }
+     
+    //Переключатель состояния заказа
+    today.toString() === findDay
+        ? (feedElementInfo.day = "Сегодня")
+        : (today - Number(findDay) === 1)
+        ? (feedElementInfo.day = "Вчера")
+        : (today - Number(findDay) === 2)
+        ? (feedElementInfo.day = "2 дня назад")
+        : (feedElementInfo.day = "Архивный заказ");
+
+    //Обращаемся в хранилище с данными об ингредиентах
+    //Сравниваем элементы из массива с результатами заказа с id ингредиента
+    //Рассчитываем сумму всех элементов в массиве
+    ingredientsData.map((element) => {
+        const data = ingredientsIdArr.find((item) => element._id === item);
+        feedElementInfo.array = ingredientsIdArr.reduce(function (sum, data) {
+          //console.log(sum[data]);
+          sum[data] = (sum[data] || 0) + 1;
+          //console.log(sum);
+          return sum;
+        }, []);
+       // console.log(array);
+        if (data) {
+            feedElementInfo.ingredientsArr.push(element);
+            //console.log(feedElementInfo.ingredientsArr);
+        }
+    });
+    
+    
     return (
-        
+        <Link
+            to={{
+                pathname: feedElementInfo.url,
+                state: { background: location },
+            }}
+            className={feedStyles.link}
+            key={feedElementInfo.id}
+        >
         <li className={`${feedStyles.list__element} pt-6 pb-6 pl-6 pr-6 mr-2`}>
             <div className={feedStyles.wrap}>
                 <div className={`${feedStyles.info} mb-6`}>
-                    <p className="text text_type_digits-default">#123456</p>
-                    <p className="text text_type_main-small text_color_inactive">Сегодня, 16:20 i-GMT+3</p>
+                    <p className="text text_type_digits-default">#{ item.number }</p>
+                    <p className="text text_type_main-small text_color_inactive">
+                        {feedElementInfo.day}&nbsp;{findTime}&nbsp;i-GMT+3
+                    </p>
                 </div>
-                <p className="text text_type_main-medium mb-2">{item.name}</p>
-                <p className="text text_type_main-small mb-6">Готовится</p>
+                <p className="text text_type_main-medium mb-6">{ item.name }</p>
+
+               {/* <p className="text text_type_main-small mb-6">Готовится</p>*/}
                 <div className={feedStyles.content}>
                     <div className={feedStyles.images}>
-                        <div className={`${feedStyles.cover}`}>
-                            <div className={feedStyles.cover__box}>
-                                <p className={`${feedStyles.cover__text} text text_type_main-default`}>+3</p>
-                            </div>
-                            <div className={feedStyles.image}>
-                                <img src={ item.image } alt={ item.name } className={`${feedStyles.image__element}`} />
-                            </div>
-                        </div>
-                        <div className={feedStyles.image}>
-                            <img src={ item.image } alt={ item.name } className={`${feedStyles.image__element}`} />
-                        </div>
-                        <div className={feedStyles.image}>
-                            <img src={ item.image } alt={ item.name } className={`${feedStyles.image__element}`} />
-                        </div>
-                        <div className={feedStyles.image}>
-                            <img src={ item.image } alt={ item.name } className={`${feedStyles.image__element}`} />
-                        </div>
-                        <div className={feedStyles.image}>
-                            <img src={ item.image } alt={ item.name } className={`${feedStyles.image__element}`} />
-                        </div>
-                        <div className={feedStyles.image}>
-                            <img src={ item.image } alt={ item.name } className={`${feedStyles.image__element}`} />
-                        </div>     
+                    {feedElementInfo.ingredientsArr.reverse().map((item) => {
+                
+                        feedElementInfo.price += feedElementInfo.array[item._id] * item.price;
+
+                        if (feedElementInfo.ingredientsArr.length <= 6) {
+                            return (<FeedImage data={item} key={item._id} />);
+                        } else {
+                             return (
+                                <FeedImage
+                                    data={item}
+                                    key={item._id}
+                                    arrLength={feedElementInfo.ingredientsArr.length}
+                                    imageNumber={(feedElementInfo.imageCount += 1)}
+                                />
+                            );
+                            }
+                        })}
                     </div>
                     <div className={feedStyles.price}>
-                        <p className="text text_type_digits-default mr-2">1234</p>
+                        <p className="text text_type_digits-default mr-2">{ feedElementInfo.price }</p>
                         <CurrencyIcon type="primary" />
                     </div>
                 </div>
             </div>
         </li>
-        
+    </Link> 
     )
 }

@@ -18,6 +18,7 @@ export const socketMiddleware = (wsUrl, wsActions) => {
 
             if (socket) {
                 socket.onopen = event => {
+                console.log('открылся');
                 dispatch({ type: onOpen, payload: event });
             };
   
@@ -25,21 +26,22 @@ export const socketMiddleware = (wsUrl, wsActions) => {
                 dispatch({ type: onError, payload: event });
             };
   
-            socket.onmessage = event => {
+           /* socket.onmessage = event => {
                 const { data } = event;
                 const parsedData = JSON.parse(data);
                 const { success, ...restParsedData } = parsedData;
                 
                 dispatch({ type: onMessage, payload: restParsedData });
-            };
+            };*/
 
-            /*socket.onmessage = event => {
-                    const { data } = event;
-                    dispatch({ type: onMessage, payload: JSON.parse(data) });
-                };
-            */
+            socket.onmessage = event => {
+                const { data } = event;
+                dispatch({ type: onMessage, payload: JSON.parse(data) });
+            };
+            
   
             socket.onclose = event => {
+                console.log("закрылся");
                 dispatch({ type: onClose, payload: event });
             };
   

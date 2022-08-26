@@ -25,50 +25,8 @@
 
 .images {
     display: flex;
-    width: 310px;
+   /* width: 310px;*/
     flex-direction: row-reverse;
-}
-
-.image {
-    width: 64px;
-    height: 64px;
-    margin-right: -20px;
-    border-radius: 100px;
-    border: 2px solid #801AB2;
-    background: #131316;
-    z-index: 2;
-}
-
-.image:first-child {
-    margin-right: 0;
-}
-
-.image__element {
-    width: 64px;
-    height: 64px;
-    object-fit: cover;
-}
-
-.cover {
-    width: 64px;
-    height: 64px;
-    opacity: 0.6;
-    z-index: 1;
-   background: #1C1C21;
-   position: relative;
-}
-
-.cover__box {
-    width: 64px;
-    height: 64px;
-    z-index: 0;
-    position: absolute;
-    left: 0;
-}
-
-.cover__text {
-    margin-left: 35%;
-    margin-top: 35%;
 }
 
 .content {
@@ -80,6 +38,11 @@
 .price {
     display: flex;
     align-items: center;
+}
+
+.link {
+    text-decoration: none;
+    color: inherit;
 }
 
 /*.price__icon>svg {

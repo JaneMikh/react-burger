@@ -1,0 +1,48 @@
+.image {
+    width: 64px;
+    height: 64px;
+    margin-right: -20px;
+    border-radius: 100px;
+    border: 2px solid #801AB2;
+    background: #131316;
+    z-index: 3;
+    position: relative;
+}
+
+.image:first-child {
+    margin-right: 0;
+}
+
+.image__element {
+    width: 64px;
+    height: 64px;
+    object-fit: cover;
+}
+
+.cover {
+    width: 66px;
+    height: 68px;
+    opacity: 0.6;
+    z-index: 1;
+    background: #1C1C21;
+    position: relative;
+    position: absolute;
+    top: -2px;
+}
+
+.cover__box {
+    width: 64px;
+    height: 64px;
+    z-index: 0;
+    position: absolute;
+    left: 0;
+}
+
+.image_inactive {
+    display: none;
+}
+
+.cover__text {
+    margin-left: 35%;
+    margin-top: 35%;
+}

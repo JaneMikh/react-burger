@@ -12,6 +12,8 @@ import {
 
 import { setCookie, deleteCookie } from '../../utils/cookie';
 
+import { checkResponse } from '../../utils/api';
+
 export const REGISTER_REQUEST = 'REGISTER_REQUEST';
 export const REGISTER_SUCCESS ='REGISTER_SUCCESS';
 export const REGISTER_ERROR = 'REGISTER_ERROR';
@@ -109,6 +111,7 @@ export function authrizeUser (userEmail, userPassword) {
     return function(dispatch) {
         dispatch({ type: LOGIN_REQUEST });
         getAuthorization(userEmail, userPassword)
+        .then(checkResponse)
         .then((data) => {
             let authToken;
             if (data.accessToken && data.accessToken.indexOf('Bearer') === 0) {
@@ -129,9 +132,9 @@ export function authrizeUser (userEmail, userPassword) {
         })
         .catch((err) => {
             console.log(err);
-            dispatch({
+           /* dispatch({
                 type: LOGIN_ERROR,
-            });
+            });*/
         })  
     }
 }
@@ -209,7 +212,7 @@ export function getNewToken () {
 //Получение данных о пользователе с сервера
 export function getUserData (user) {
     return function(dispatch) {
-        dispatch({ type: LOGIN_REQUEST });
+       // dispatch({ type: LOGIN_REQUEST });
         getUserInfo()
         .then((data) => {
             if (data.success) {
@@ -223,7 +226,7 @@ export function getUserData (user) {
         })
         .catch(e => {
             if (user.name) {
-                updateToken()
+                const data = updateToken()
                     .then(data => {
                         let authToken;
                         if (data.accessToken && data.accessToken.indexOf('Bearer') === 0) {

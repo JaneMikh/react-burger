@@ -11,13 +11,14 @@ import PageIsNotFound from '../../pages/page404/page404';
 import MainPage from '../../pages/main/main';
 import Orders from '../../pages/orders/orders';
 import {FeedPage} from '../Feed/Feed';
-import { FeedForModal } from '../Feed/Feed';
+import FeedForModal from '../FeedForModal/FeedForModal';
 import IngredientDetails from '../Modal/IngredientDetails/IngredientDetails';
 import Modal from '../Modal/Modal';
 import { ProtectedRoute } from '../ProtectedRoute/ProtectedRoute';
 import { useDispatch } from "react-redux";
 import { getIngredientsData } from '../../services/actions';
-
+import { useAuth } from '../../services/auth';
+import { getUserData } from '../../services/actions/route';
 
 
 function App () {
@@ -26,8 +27,18 @@ function App () {
     const history = useHistory();
     const background = location.state?.background;
 
+   //const auth = useAuth();
+
+   /* useEffect(() => {
+        if (!useAuth) {
+            document.title = "react burger";  
+            dispatch(getUserData(auth.user));
+        }
+    }, [dispatch, useAuth]);*/
+
+
     function closeAllModals() {
-        history.push("/");
+        history.goBack();
     }
 
     useEffect(() => {
@@ -35,6 +46,8 @@ function App () {
         dispatch(getIngredientsData());
     },[dispatch]);
     
+
+
     return (
         <section className={stylesMain.page}>
             <AppHeader/>
@@ -52,6 +65,9 @@ function App () {
                     <ResetPassword />
                 </Route>
                 <ProtectedRoute path="/profile" exact={true}>
+                    <Profile />
+                </ProtectedRoute>
+                <ProtectedRoute path="/profile/orders" exact={true}>
                     <Profile />
                 </ProtectedRoute>
                 <Route path="/" exact={true}>

@@ -1,10 +1,14 @@
 import React, { useEffect, useState } from 'react';
 import { Redirect, Route } from 'react-router-dom';
 import { useAuth } from '../../services/auth';
+import { useLocation } from 'react-router-dom';
 
 export function ProtectedRoute({ children, ...rest }) {
 
-  const { getUser, ...auth } = useAuth();
+
+  const location = useLocation();
+
+  let { getUser, ...auth } = useAuth();
   const [isUserLoaded, setUserLoaded] = useState(false);
 
   const init = async () => {
@@ -23,14 +27,14 @@ export function ProtectedRoute({ children, ...rest }) {
   return (
     <Route
       {...rest}
-      render={({ location }) =>
+      render={() =>
         auth.user.name ? (
           children
         ) : (
           <Redirect
             to={{
-              pathname: "/login",
-              state: { from: location },
+              pathname: "/login", //куда прийти
+              state: { from: location }, //куда пойдем
             }}
           />
         )

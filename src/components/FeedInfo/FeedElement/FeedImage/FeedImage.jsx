@@ -1,11 +1,22 @@
 import React from "react";
 import feedStyles from "./FeedImage.module.css";
+import PropTypes from "prop-types"
 
-export default function FeedImage({ data, arrLength, imageNumber }) {
+export default function FeedImage({ data, imageNumber, arrLength  }) {
+   
     let count = arrLength - imageNumber;
 
     return (
         <>
+            {!imageNumber && (
+                <div className={feedStyles.image}>
+                    <img 
+                        src={ data.image } 
+                        alt={ data.name } 
+                        className={`${feedStyles.image__element}`} 
+                    />
+                </div>
+            )}
             {imageNumber && (
                 <>
                     <div className={count <= 5 ? feedStyles.image : feedStyles.image_inactive}>
@@ -25,17 +36,12 @@ export default function FeedImage({ data, arrLength, imageNumber }) {
                     </div>
                 </>
             )}
-            {!imageNumber && (
-                <div className={feedStyles.image}>
-                    <img 
-                        src={ data.image } 
-                        alt={ data.name } 
-                        className={`${feedStyles.image__element}`} 
-                    />
-                </div>
-            )}
-        </>
-        
-    )
+        </>   
+    );
+}
 
+FeedImage.propTypes = {
+    data: PropTypes.object.isRequired,
+    imageNumber: PropTypes.number,
+    arrLength: PropTypes.number,
 }

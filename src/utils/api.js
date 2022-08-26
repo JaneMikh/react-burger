@@ -23,6 +23,7 @@ export const getOrderData = async(productsId) => {
         method: "POST",
         headers: {
             "Content-type": "application/json;charset=utf-8",
+            Authorization: 'Bearer ' + getCookie('token')
         },
         body: JSON.stringify({ 
             ingredients: productsId,
@@ -101,9 +102,9 @@ export const getAuthorization = async(userEmail, userPassword) => {
             password: userPassword,
         })
     })
-    .then((res) => {
+   /* .then((res) => {
         return checkResponse(res);
-    })
+    })*/
 }
 
 //Обновление токена

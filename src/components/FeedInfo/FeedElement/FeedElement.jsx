@@ -4,8 +4,10 @@ import { CurrencyIcon } from "@ya.praktikum/react-developer-burger-ui-components
 import { useLocation, Link } from "react-router-dom";
 import { useSelector } from "react-redux";
 import FeedImage from "./FeedImage/FeedImage";
+import PropTypes from "prop-types";
 
-export default function FeedElement ({ item }) {
+
+export default function FeedElement ({ item, profile}) {
     //console.log(item);
     const location = useLocation();
     const ingredientsData = useSelector((store) => store.ingredient.ingredientsData);
@@ -19,7 +21,7 @@ export default function FeedElement ({ item }) {
         ingredientsArr: [],
         id: item._id,
         date: item.createdAt,
-        url: "",
+        url: profile,
         day: "",
         array: [],
         price: 0,
@@ -38,16 +40,12 @@ export default function FeedElement ({ item }) {
     const findTime = feedElementInfo.date.slice(findIndexT + 1, findIndexT + 6);
     const findDay = feedElementInfo.date.slice(findIndexT - 2, findIndexT);
    
-    
-    //const findIndexT = item.createdAt.indexOf("T"); 
-    //const findDay = item.createdAt.slice(findIndexT - 2, findIndexT);
-    //const findTime = item.createdAt.slice(findIndexT + 1, findIndexT + 6);
    
-    //Переключение на разные страницы
+    //Переключение на разные страницы, если повторно использовать компонент???
     if (feedElementInfo.url === "true") {
         feedElementInfo.url = `/profile/order/${feedElementInfo.id}`
     } else { 
-        feedElementInfo.url = `/feed/${feedElementInfo.id}`
+        feedElementInfo.url = `/feed/${feedElementInfo.id}` //пока выходит это
     }
      
     //Переключатель состояния заказа
@@ -59,29 +57,38 @@ export default function FeedElement ({ item }) {
         ? (feedElementInfo.day = "2 дня назад")
         : (feedElementInfo.day = "Архивный заказ");
 
+
+    feedElementInfo.array = ingredientsIdArr.reduce(function (sum, data) {
+        //console.log(sum[data]);
+        sum[data] = (sum[data] || 0) + 1;
+         //console.log(sum);
+        return sum;
+    }, []);
+         //console.log(feedElementInfo.array);
+
+
     //Обращаемся в хранилище с данными об ингредиентах
     //Сравниваем элементы из массива с результатами заказа с id ингредиента
     //Рассчитываем сумму всех элементов в массиве
     ingredientsData.map((element) => {
         const data = ingredientsIdArr.find((item) => element._id === item);
-        feedElementInfo.array = ingredientsIdArr.reduce(function (sum, data) {
-          //console.log(sum[data]);
-          sum[data] = (sum[data] || 0) + 1;
-          //console.log(sum);
-          return sum;
-        }, []);
-       // console.log(array);
+        
         if (data) {
             feedElementInfo.ingredientsArr.push(element);
             //console.log(feedElementInfo.ingredientsArr);
         }
     });
     
+    feedElementInfo.ingredientsArr.map((item) => {
+        feedElementInfo.price += feedElementInfo.array[item._id] * item.price;
+    });
     
+
     return (
         <Link
             to={{
                 pathname: feedElementInfo.url,
+                //pathname: `/feed/${feedElementInfo.id}`,
                 state: { background: location },
             }}
             className={feedStyles.link}
@@ -105,17 +112,16 @@ export default function FeedElement ({ item }) {
                         feedElementInfo.price += feedElementInfo.array[item._id] * item.price;
 
                         if (feedElementInfo.ingredientsArr.length <= 6) {
-                            return (<FeedImage data={item} key={item._id} />);
-                        } else {
+                            return (<FeedImage data={item} key={item._id} />
+                            )} else {
                              return (
                                 <FeedImage
+                                    imageNumber={feedElementInfo.imageCount += 1}
+                                    arrLength={feedElementInfo.ingredientsArr.length}
                                     data={item}
                                     key={item._id}
-                                    arrLength={feedElementInfo.ingredientsArr.length}
-                                    imageNumber={(feedElementInfo.imageCount += 1)}
                                 />
-                            );
-                            }
+                            )}
                         })}
                     </div>
                     <div className={feedStyles.price}>
@@ -126,5 +132,9 @@ export default function FeedElement ({ item }) {
             </div>
         </li>
     </Link> 
-    )
+    );
 }
+
+FeedElement.propTypes = {
+    item: PropTypes.object.isRequired,
+};

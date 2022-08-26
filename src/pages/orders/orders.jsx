@@ -3,7 +3,7 @@ import FeedInfo from "../../components/FeedInfo/FeedInfo";
 import OrderInfo from "../../components/OrderInfo/OrderInfo";
 import orderStyles from "./orders.module.css";
 import { useSelector, useDispatch } from "react-redux";
-import { WS_CONNECTION_START, WS_CONNECTION_CLOSED} from "../../services/action-types/wsActionTypes";
+import { WS_CONNECTION_START, WS_CONNECTION_CLOSED } from "../../services/action-types/wsActionTypes";
 
 
 export default function Orders () {

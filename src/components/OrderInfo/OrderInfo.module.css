@@ -3,18 +3,49 @@
     
 }
 
-.content {
+.orderInfo {
     max-width: 580px;
     display: flex;
     justify-content: space-between;
     
 }
 
+.container {
+    width: 272px;
+    max-height: 153px;
+    overflow: hidden;
+}
+  
+.content {
+    max-height: 153px;
+    overflow: auto; 
+    position: relative;
+}  
+  
+  /*цвет дорожки scrollbar*/
+.content::-webkit-scrollbar-track {
+    background-color: #2F2F37;
+}
+   
+    /*ползунок скроллбара*/
+.content::-webkit-scrollbar-thumb {
+    background-color: #8585AD;
+}
+    /*для красоты*/
+.content::-webkit-scrollbar-thumb:hover {
+    background: linear-gradient(#801AB2, #4C4CFF);;
+    
+}
+    /*ширина scrollbar*/
+.content::-webkit-scrollbar {
+    width: 8px;
+    background-color: #F9F9FD;  
+}
 
 .orders {
     width: 272px;
    /* max-height: 172px;*/
-   max-height: 205px;
+    height: 205px;
     overflow: hidden;
 }
 
@@ -28,6 +59,9 @@
     padding: 0;
     margin-top: 0;
     margin-bottom: 0;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
 }
 
 .orders__text_done {

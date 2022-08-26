@@ -1,29 +1,17 @@
 import React, { useEffect } from "react";
-import feedIdStyle from "./Feed.module.css";
+import feedIdStyle from "./FeedForModal.module.css";
 import { CurrencyIcon } from "@ya.praktikum/react-developer-burger-ui-components";
 import { useDispatch, useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
 import { WS_CONNECTION_START, WS_CONNECTION_CLOSED } from "../../services/action-types/wsActionTypes";
 
 
-export default function Feed () {
+export default function FeedForModal () {
 
     const ingredientsData = useSelector((store) => store.ingredient.ingredientsData);
     const orderData = useSelector((store) => store.ws.messages);
 
-    const dispatch = useDispatch();
     const { id } = useParams();
-
-    useEffect(() => {
-        if (ingredientsData) {
-            dispatch({ type: WS_CONNECTION_START, payload: "/all" });
-        } else {
-            //Закрытие
-            return () => {
-                dispatch({ type: WS_CONNECTION_CLOSED, payload: "" });
-            }
-        }
-    }, [ingredientsData]);
 
     const feedInfo = {
         data: null,
@@ -157,22 +145,4 @@ export default function Feed () {
             </div>
         </>
     );
-}
-
-
-
-export function FeedPage () {
-    return (
-        <section className={feedIdStyle.page}>
-            <Feed />
-        </section>
-    )
-}
-
-export function FeedForModal () {
-    return (
-        <section className={`${feedIdStyle.modal} pl-10 pr-10 pb-10`}>
-            <Feed />
-        </section>
-    )
 }

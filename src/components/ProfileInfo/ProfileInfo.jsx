@@ -12,6 +12,7 @@ export default function ProfileInfo () {
     const routeState = useSelector((store) => store.route);
     const userProfileData = routeState.authProfile;
 
+   // console.log(auth);
     const nameRef = useRef(null);
     const loginRef = useRef(null);
     
@@ -32,12 +33,14 @@ export default function ProfileInfo () {
     const [valuePassword, setValuePassword] = useState("");
     const onChangePassword = (evt) => { setValuePassword(evt.target.value) };
 
-    useEffect(() => {
+
+   useEffect(() => {
         if (!useAuth) {
             document.title = "react burger";  
             dispatch(getUserData(auth.user));
         }
     }, [dispatch, useAuth]);
+    
     
     useEffect(() => {
         setValueName(userProfileData.name);
@@ -57,9 +60,9 @@ export default function ProfileInfo () {
         setValuePassword(userProfileData.password);
     }
 
-    return (
+    return ( 
         <section className={`${profStyles.content} mt-30`}>
-            <form className={`${profStyles.form} pb-20`}>
+            <form className={`${profStyles.form} pb-20`} onSubmit={ saveProfileData }>
                 <Input
                     onChange={ onChangeName }
                     value={valueName ? valueName : ""}
@@ -85,11 +88,12 @@ export default function ProfileInfo () {
                     value={valuePassword ? valuePassword : ""}
                     onChange={ onChangePassword }
                 />
-            </form>
-            <div className={profStyles.button__element}>
-                <Button onClick={ saveProfileData } type="primary" size="medium">Сохранить</Button>
+                <div className={profStyles.button__element}>
+                <Button type="primary" size="medium">Сохранить</Button>
                 <Button onClick ={ cancelChangesHandler } type="primary" size="medium">Отмена</Button>
-            </div>
+                </div>
+            </form>
+            
         </section>
     )
 }

@@ -6,11 +6,9 @@ export const socketMiddleware = (wsUrl, wsActions) => {
             const { dispatch } = store;
             const { type, payload } = action;
             const { wsInit, wsSendMessage, onOpen, onClose, onError, onMessage } = wsActions;
-            //const { user } = getState().user;
-
             if (type === wsInit) {
                 socket = new WebSocket(`${wsUrl}${payload}`);
-                console.log(socket);
+                //console.log(socket);
             }
 
             if (socket && type === onClose) {
@@ -26,14 +24,6 @@ export const socketMiddleware = (wsUrl, wsActions) => {
             socket.onerror = event => {
                 dispatch({ type: onError, payload: event });
             };
-  
-           /* socket.onmessage = event => {
-                const { data } = event;
-                const parsedData = JSON.parse(data);
-                const { success, ...restParsedData } = parsedData;
-                
-                dispatch({ type: onMessage, payload: restParsedData });
-            };*/
 
             socket.onmessage = event => {
                 const { data } = event;
@@ -47,7 +37,6 @@ export const socketMiddleware = (wsUrl, wsActions) => {
             };
   
             if (type === wsSendMessage) {
-                //const message = { ...payload, token: user.token };
                 const message = payload;
                 socket.send(JSON.stringify(message));
             }

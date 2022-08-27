@@ -60,8 +60,7 @@ export default function ForgotPassword () {
                 <Link to="/login" className={`${mainStyles.link} text text_type_main-default text_color_accent`}>Войти</Link>
             </div>
         </section>
-
-    )
+    );
 }
 
 

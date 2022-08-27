@@ -5,20 +5,18 @@ import { useDispatch, useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
 import { WS_CONNECTION_START, WS_CONNECTION_CLOSED } from "../../services/action-types/wsActionTypes";
 
-
-export default function Feed () {
+export function Feed () {
 
     const ingredientsData = useSelector((store) => store.ingredient.ingredientsData);
     const orderData = useSelector((store) => store.ws.messages);
-
     const dispatch = useDispatch();
     const { id } = useParams();
 
+    //Открытие и закрытие WS
     useEffect(() => {
         if (ingredientsData) {
             dispatch({ type: WS_CONNECTION_START, payload: "/all" });
         } else {
-            //Закрытие
             return () => {
                 dispatch({ type: WS_CONNECTION_CLOSED, payload: "" });
             }
@@ -35,21 +33,16 @@ export default function Feed () {
         orderNumber: 0,
         burgerName: "",
         ingredientsArr: [],
-        ingrArray: [], //тутхранятся карточки с burgerdata после сравнения их id с данными заказа
+        ingrArray: [], //тут хранятся карточки с burgerdata после сравнения их id с данными заказа
         statusData: {
             color: "",
             text: "",
         }
     }
 
-    //Получаем массив данных с заказами с сервера и передаем их в поля объекта feedInfo
     if (orderData.length > 0) {
         const arr = orderData.length - 1;
         feedInfo.data = orderData[arr].orders;
-        //console.log(feedInfo.data);
-
-
-        //Найдем карточку с заказом и вытащим из него дату и статус заказа
         feedInfo.orderArr = feedInfo.data.find((element) => {
            return element._id === id
         });
@@ -59,21 +52,8 @@ export default function Feed () {
         feedInfo.date = feedInfo.orderArr.createdAt;
         feedInfo.orderNumber = feedInfo.orderArr.number;
         feedInfo.ingredientsArr = feedInfo.orderArr.ingredients;
-        // console.log(feedInfo.ingredientsArr); //Приходит массив из id трех ингредиентов
     }
 
-   if (feedInfo.status === "done") {
-        feedInfo.statusData.text = "Выполнен";
-        feedInfo.statusData.color = "#00CCCC";
-    } else if (feedInfo.status === "pending") {
-        feedInfo.statusData.text = "Отменен";
-        feedInfo.statusData.color = "#B22222";
-    } else {
-        feedInfo.statusData.text = "Готовится";
-        feedInfo.statusData.color = "#F2F2F3";
-    }
-
-    //Информация о дате. Выбрать нужные элементы из строки "2022-08-25T17:15:22.906Z"
     const day = new Date();
     const today = day.getDate();
     
@@ -89,35 +69,45 @@ export default function Feed () {
         ? (feedInfo.day = "2 дня назад")
         : (feedInfo.day = "Архивный заказ");
 
-    const sumOfIngredients = feedInfo.ingredientsArr.reduce(function (sum, data) {
-        sum[data] = (sum[data] || 0) + 1;
-            return sum;
-    }, []);
-  
-    ingredientsData.map((element) => {
-        //тут сравнение между id элемента с заказа с id элемента ингредиента из burgerData
-        //чтобы знать, что отрисовывать
-        const data = feedInfo.ingredientsArr.find(item => element._id === item);
-       // console.log(data);
+   if (feedInfo.status === "done") {
+        feedInfo.statusData.text = "Выполнен";
+        feedInfo.statusData.color = "#00CCCC";
+    } else if (feedInfo.status === "pending") {
+        feedInfo.statusData.text = "Отменен";
+        feedInfo.statusData.color = "#B22222";
+    } else {
+        feedInfo.statusData.text = "Готовится";
+        feedInfo.statusData.color = "#F2F2F3";
+    }
 
-        //Если все ОК, то помесить этот элемент в отдельный массив
+    let sum = 0;
+    sum = feedInfo.ingredientsArr.reduce((acc, item) => {
+        acc[item] = (acc[item] || 0) + 1;
+        return acc;
+    }, []);
+    
+    ingredientsData.map((element) => {
+        const data = feedInfo.ingredientsArr.find(item => element._id === item);
        if (data) {
             feedInfo.ingrArray.push(element);
         }
-       //console.log(feedInfo.ingrArray);
     });
-
     
     feedInfo.ingrArray.map((item) => {
-        feedInfo.price += sumOfIngredients[item._id] * item.price;
+        if (item.type === "bun") {
+            const doubleBun = sum[item._id] * 2;
+            feedInfo.price += doubleBun * item.price;
+        } else {
+            feedInfo.price += sum[item._id] * item.price;
+        }
     });
 
     return (
         <>
             <div className={feedIdStyle.main}>
-                <h2 className={`${feedIdStyle.number} text text_type_digits-default mb-10`}>#{feedInfo.orderNumber}</h2>
+                <h2 className={`${feedIdStyle.number} text text_type_digits-default mb-10`}>#{ feedInfo.orderNumber }</h2>
                 <p className="text text_type_main-medium mb-3">{ feedInfo.burgerName }</p>
-                <p className="text text_type_main-default mb-15" style={{color: feedInfo.statusData.color}}>{feedInfo.statusData.text}</p>
+                <p className="text text_type_main-default mb-15" style={{ color: feedInfo.statusData.color }}>{ feedInfo.statusData.text }</p>
                 <p className="text text_type_main-medium mb-6">Состав:</p>
                 <div className={`${feedIdStyle.container}`}>
                     <div className={feedIdStyle.content}>
@@ -132,13 +122,18 @@ export default function Feed () {
                                         <img 
                                             src={ item.image } 
                                             alt={ item.name } 
-                                            className={`${feedIdStyle.image__element}`} 
+                                            className={feedIdStyle.image__element} 
                                         />
                                     </div>
                                     <p className="text text_type_main-default pl-4 ">{ item.name }</p>
                                     </div>
                                     <div className={feedIdStyle.price}>
-                                        <p className="text text_type_digits-default mr-2">{sumOfIngredients[item._id]}&nbsp;x&nbsp;{item.price}</p>
+                                    <p className="text text_type_digits-default mr-2">{
+                                            item.type === "bun" && sum[item._id] !== 2
+                                        ? `${sum[item._id]*2}`
+                                        : sum[item._id]
+                                        }
+                                        &nbsp;x&nbsp;{ item.price }</p>
                                         <CurrencyIcon type="primary" />
                                     </div>
                                 </li>
@@ -159,19 +154,9 @@ export default function Feed () {
     );
 }
 
-
-
-export function FeedPage () {
+export default function FeedPage () {
     return (
         <section className={feedIdStyle.page}>
-            <Feed />
-        </section>
-    )
-}
-
-export function FeedForModal () {
-    return (
-        <section className={`${feedIdStyle.modal} pl-10 pr-10 pb-10`}>
             <Feed />
         </section>
     )

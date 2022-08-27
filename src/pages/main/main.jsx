@@ -13,5 +13,5 @@ export default function MainPage () {
                 <BurgerConctructor />
             </DndProvider> 
         </main> 
-    )
+    );
 }

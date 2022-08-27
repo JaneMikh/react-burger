@@ -18,8 +18,6 @@ export default function PageIsNotFound () {
                     </Link>
                 </div>
             </div>
-
         </section>
-    )
-
+    );
 }

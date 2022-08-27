@@ -13,7 +13,7 @@ export default function FeedImage({ data, imageNumber, arrLength  }) {
                     <img 
                         src={ data.image } 
                         alt={ data.name } 
-                        className={`${feedStyles.image__element}`} 
+                        className={feedStyles.image__element} 
                     />
                 </div>
             )}

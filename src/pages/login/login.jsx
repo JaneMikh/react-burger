@@ -25,7 +25,6 @@ export default function Login () {
       
     if (auth.user.name) {
         return <Redirect to={location?.state?.from || "/"}/>;
-
     }
 
     return (
@@ -59,5 +58,5 @@ export default function Login () {
                 <Link to="/forgot-password" className={`${mainStyles.link} text text_type_main-default text_color_accent`}>Восстановить пароль</Link>
             </div>  
         </section>
-    )
+    );
 }

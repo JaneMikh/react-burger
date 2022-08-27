@@ -12,7 +12,7 @@ import { CLOSE_ALL_MODALS, OPEN_ORDER_MODAL, ADD_ITEM } from '../../services/act
 import { addIngredientCard } from '../../services/actions/index';
 import { useHistory } from "react-router-dom";
 import { CLEAN_CONSTRUCTOR } from '../../services/actions/index';
-
+import LoadingStatus from '../Modal/LoadingStatus/LoadingStatus';
 
 export default function BurgerConctructor () {
     
@@ -21,6 +21,11 @@ export default function BurgerConctructor () {
     const history = useHistory();
     
     const burgerConstructorElements = useSelector((store) => store.ingredient.burgerConstructorData);
+    
+    const orderStatusRequest = useSelector((store) => store.order.orderRequest);
+    const orderStatusError = useSelector((store) => store.order.orderError);
+    
+
     const burgerConstructorArr = burgerConstructorElements.map((element) => element._id);
 
     const bun = useSelector((store) => store.ingredient.bun);
@@ -45,6 +50,7 @@ export default function BurgerConctructor () {
             dispatch(getOrderNumber(productsId));
             dispatch({ type: OPEN_ORDER_MODAL });
             dispatch({ type: CLEAN_CONSTRUCTOR });
+            console.log(orderData);
         } else {
             history.replace("/login");
         }
@@ -119,11 +125,20 @@ export default function BurgerConctructor () {
                 <Button onClick={ getServOrder } type="primary" size="large" disabled={ bun.price && burgerConstructorElements.length ? false : true } >Оформить заказ</Button>    
             </div>
             {orderOverlay && (
+                
             <Modal 
                 onClose={ closeOrderModal } 
                 title=""
             > 
-                <OrderDetails orderNumber={ orderData }/>
+                {orderStatusRequest && (
+                    <LoadingStatus download={true}/>
+                )}
+                {orderStatusError && (
+                    <LoadingStatus error={true} />
+                )}
+                {!orderStatusRequest && !orderStatusError && (
+                    <OrderDetails orderNumber={ orderData }/>
+                    )}
             </Modal>
             )}
         </section>

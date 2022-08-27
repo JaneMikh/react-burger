@@ -1,9 +1,8 @@
 .list__element {
-    border-radius: 40px;
     box-sizing: border-box;
+    border-radius: 40px;
     cursor: pointer;
     position: relative;
-    flex-wrap: nowrap;
     background: #1C1C21;
     box-shadow:
     0px 4px 8px rgba(0, 0, 0, 0.04), 
@@ -14,7 +13,6 @@
 .wrap {
     display: flex;
     flex-direction: column;
-    
 }
 
 .info {
@@ -25,7 +23,6 @@
 
 .images {
     display: flex;
-   /* width: 310px;*/
     flex-direction: row-reverse;
 }
 
@@ -44,9 +41,3 @@
     text-decoration: none;
     color: inherit;
 }
-
-/*.price__icon>svg {
-    width: 24px;
-    height: 22px;
-}
-*/

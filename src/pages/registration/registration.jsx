@@ -59,15 +59,15 @@ export default function Registration () {
                 </Button>
             </form>
             <div className={mainStyles.links}>
-                    <p className="text text_type_main-default text_color_inactive">
+                <p className="text text_type_main-default text_color_inactive">
                     Уже зарегистрированы?&nbsp;
-                    </p>
-                    <Link 
-                        to="/login"
-                        className={`${mainStyles.link} text text_type_main-default text_color_accent`}
-                    >
-                        Войти
-                    </Link>
+                </p>
+                <Link 
+                    to="/login"
+                    className={`${mainStyles.link} text text_type_main-default text_color_accent`}
+                >
+                    Войти
+                </Link>
             </div>    
         </section>
     )

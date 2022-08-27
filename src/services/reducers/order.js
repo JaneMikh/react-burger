@@ -34,8 +34,8 @@ export const orderReducer = (state=initialOrderState, action) => {
         case GET_ORDER_ERROR: {
             return {
                 ...state,
-                isLoading: false,
                 orderError: true,
+                orderRequest: false,
                 orderData: null,
             }
         }

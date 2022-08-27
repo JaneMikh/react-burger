@@ -29,8 +29,8 @@ export default function AppHeader() {
                                 className={stylesHeader.link}
                                 activeClassName={stylesHeader.link_active}
                              >
-                                <ListIcon type={pathname === "/feeds" ? "primary" : "secondary"} />
-                                <p className={pathname === "/feeds" ? "text text_type_main-default ml-2" : "text text_type_main-default text_color_inactive ml-2"}>Лента заказов</p> 
+                                <ListIcon type={pathname === "/feed" ? "primary" : "secondary"} />
+                                <p className={pathname === "/feed" ? "text text_type_main-default ml-2" : "text text_type_main-default text_color_inactive ml-2"}>Лента заказов</p> 
                             </NavLink>
                         </li>
                     </ul> 

@@ -11,8 +11,6 @@ export default function ProfileInfo () {
     const dispatch = useDispatch();
     const routeState = useSelector((store) => store.route);
     const userProfileData = routeState.authProfile;
-
-   // console.log(auth);
     const nameRef = useRef(null);
     const loginRef = useRef(null);
     
@@ -92,8 +90,7 @@ export default function ProfileInfo () {
                 <Button type="primary" size="medium">Сохранить</Button>
                 <Button onClick ={ cancelChangesHandler } type="primary" size="medium">Отмена</Button>
                 </div>
-            </form>
-            
+            </form>   
         </section>
-    )
+    );
 }

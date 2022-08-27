@@ -1,0 +1,22 @@
+.nav {
+    max-width: 320px;
+}
+
+.nav__menu {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.nav__item {
+    line-height: 64px;
+    cursor: pointer;
+}
+
+.nav__item:hover {
+    text-shadow: #4C4CFF 0 0 15px;
+}
+
+.nav__link {
+    text-decoration: none;
+}
